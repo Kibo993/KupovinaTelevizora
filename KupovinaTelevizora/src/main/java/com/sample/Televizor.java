@@ -10,7 +10,7 @@ public class Televizor {
 	
 	private enum Internet{
 		WiFi,
-		BezWiFijaTEST,
+		BezWiFija,
 		Ne
 	};
 	
