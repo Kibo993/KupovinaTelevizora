@@ -18,7 +18,7 @@ public class DroolsTest {
 //  -Wi-fi
 //  -Broj portova
 //  -Odnos kontrasta (contrast ratio) (pozicioniranje televizora)
-//  -dodatne funkcionalnosti (dvd, 3D, usb (ako æe da gleda samo filmove i slike), ...)
+//  -dodatne funkcionalnosti (dvd, 3D, usb (ako æe da gleda samo filmove i slike), ...) TEST
 // 
 	// Ekspert je proseèan èovek koji veæ poseduje televizor koji se pokvario ili želi da ga zameni novijim i koji se donekle razume.
 	// blizina tv to utièe na velièinu ekrana a može posredno i na rezoluciju (šta æe nam mali tv sa velikom rezolucijom)
