@@ -30,7 +30,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 			public void run() {
 				try {
 					FrmKupovinaTelevizora frame = new FrmKupovinaTelevizora();
-					frame.setVisible(true);
+					frame.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -44,15 +44,8 @@ public class FrmKupovinaTelevizora extends JFrame{
         this.setTitle("Kupovina televizora");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-    }
-
-	/**
-	 * Create the frame.
-	 */
-	public FrmKupovinaTelevizora() {
-		new FrmKupovinaTelevizora(tv).setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,8 +81,16 @@ public class FrmKupovinaTelevizora extends JFrame{
         questionsPanel.add(card1, BUTTONPANEL);
         questionsPanel.add(card2, TEXTPANEL);
 		
-        //pane.add(comboBoxPane, BorderLayout.PAGE_START);
-        //pane.add(questionsPanel, BorderLayout.CENTER);
+		
+		
+    }
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmKupovinaTelevizora() {
+		new FrmKupovinaTelevizora(tv).setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 }
