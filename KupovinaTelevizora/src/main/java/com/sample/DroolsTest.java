@@ -54,6 +54,7 @@ public class DroolsTest {
 
         	Televizor tv = new Televizor();
         	
+        	FrmKupovinaTelevizora form = new FrmKupovinaTelevizora(tv);
         	
             // go !
             Message message = new Message();
