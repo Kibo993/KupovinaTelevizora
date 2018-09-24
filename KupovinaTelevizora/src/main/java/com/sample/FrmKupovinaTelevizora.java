@@ -91,31 +91,31 @@ public class FrmKupovinaTelevizora extends JFrame{
         
         JLabel lblIspisCene = new JLabel("100000");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
-        JSlider slider = new JSlider(10000,200000,100000);
-        slider.setMajorTickSpacing(10000);
-        slider.setMinorTickSpacing(5000);
-        slider.setPaintTicks(true);
+        JSlider cena = new JSlider(10000,200000,100000);
+        cena.setMajorTickSpacing(10000);
+        cena.setMinorTickSpacing(5000);
+        cena.setPaintTicks(true);
         
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-        labelTable.put(new Integer( 10000 ),new JLabel("10000") );
-        labelTable.put(new Integer( 50000 ),new JLabel("50000") );
-        labelTable.put(new Integer( 100000 ),new JLabel("100000") );
-        labelTable.put(new Integer( 150000 ),new JLabel("150000") );
-        labelTable.put(new Integer( 200000 ),new JLabel("200000") );
-        slider.setLabelTable(labelTable);
-        slider.setPaintLabels(true);
-        slider.setSnapToTicks(true);
+        Hashtable<Integer, JLabel> ispisCena = new Hashtable<Integer, JLabel>();
+        ispisCena.put(new Integer( 10000 ),new JLabel("10000") );
+        ispisCena.put(new Integer( 50000 ),new JLabel("50000") );
+        ispisCena.put(new Integer( 100000 ),new JLabel("100000") );
+        ispisCena.put(new Integer( 150000 ),new JLabel("150000") );
+        ispisCena.put(new Integer( 200000 ),new JLabel("200000") );
+        cena.setLabelTable(ispisCena);
+        cena.setPaintLabels(true);
+        cena.setSnapToTicks(true);
         
-        slider.addChangeListener(new ChangeListener() {
+        cena.addChangeListener(new ChangeListener() {
         	public void stateChanged(ChangeEvent arg0) {
-        		lblIspisCene.setText(String.valueOf(slider.getValue()));
-            	String value = String.valueOf(slider.getValue());
+        		lblIspisCene.setText(String.valueOf(cena.getValue()));
+            	String value = String.valueOf(cena.getValue());
         		maxCena = Integer.parseInt(value);
         		System.out.println(maxCena);
         	}
         });
-        slider.setBounds(58, 37, 307, 45);
-        card1.add(slider);
+        cena.setBounds(58, 37, 307, 45);
+        card1.add(cena);
         
         JLabel lblOdaberiteNajviuCenu = new JLabel("Odaberite najvi\u0161u cenu koju ste spremni da platite:");
         lblOdaberiteNajviuCenu.setBounds(58, 11, 330, 14);
