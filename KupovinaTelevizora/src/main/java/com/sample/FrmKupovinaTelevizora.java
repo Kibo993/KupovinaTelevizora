@@ -12,6 +12,15 @@ import javax.swing.JComboBox;
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Dictionary;
+import java.util.Hashtable;
+
+import javax.swing.JSlider;
+import javax.swing.JLabel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -19,8 +28,10 @@ public class FrmKupovinaTelevizora extends JFrame{
 	private static Televizor tv;
 	private JPanel questionsPanel;
 	
-	final static String BUTTONPANEL = "Card with JButtons";
+	final static String CENATELEVIZORA = "Cena televizora";
     final static String TEXTPANEL = "Card with JTextField";
+    
+    private int maxCena;
 
 	/**
 	 * Launch the application.
@@ -52,33 +63,76 @@ public class FrmKupovinaTelevizora extends JFrame{
 		contentPane.setLayout(null);
 		
 		questionsPanel = new JPanel();
-		questionsPanel.setBounds(54, 38, 327, 198);
+		questionsPanel.setBounds(10, 38, 414, 198);
 		contentPane.add(questionsPanel);
 		questionsPanel.setLayout(new CardLayout(0, 0));
 		
 		//Container pane = new Container(frame.getContentPane());
 		
-		String comboBoxItems[] = { BUTTONPANEL, TEXTPANEL };
-		
+		String comboBoxItems[] = { CENATELEVIZORA, TEXTPANEL };
+		CardLayout cl = (CardLayout)(questionsPanel.getLayout());
 		JComboBox comboBox = new JComboBox(comboBoxItems);
 		comboBox.setBounds(141, 7, 161, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CardLayout cl = (CardLayout)(questionsPanel.getLayout());
+				//CardLayout cl = (CardLayout)(questionsPanel.getLayout());
 		        cl.show(questionsPanel, (String)comboBox.getSelectedItem());
 			}
 		});
 		contentPane.add(comboBox);
 		
 		JPanel card1 = new JPanel();
-        card1.add(new JButton("Button 1"));
-        card1.add(new JButton("Button 2"));
-        card1.add(new JButton("Button 3"));
         
         JPanel card2 = new JPanel();
         card2.add(new JTextField("TextField", 20));
 		
-        questionsPanel.add(card1, BUTTONPANEL);
+        questionsPanel.add(card1, CENATELEVIZORA);
+        card1.setLayout(null);
+        
+        JLabel lblIspisCene = new JLabel("100000");
+        lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
+        JSlider slider = new JSlider(10000,200000,100000);
+        slider.setMajorTickSpacing(10000);
+        slider.setMinorTickSpacing(5000);
+        slider.setPaintTicks(true);
+        
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        labelTable.put(new Integer( 10000 ),new JLabel("10000") );
+        labelTable.put(new Integer( 50000 ),new JLabel("50000") );
+        labelTable.put(new Integer( 100000 ),new JLabel("100000") );
+        labelTable.put(new Integer( 150000 ),new JLabel("150000") );
+        labelTable.put(new Integer( 200000 ),new JLabel("200000") );
+        slider.setLabelTable(labelTable);
+        slider.setPaintLabels(true);
+        slider.setSnapToTicks(true);
+        
+        slider.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent arg0) {
+        		lblIspisCene.setText(String.valueOf(slider.getValue()));
+            	String value = String.valueOf(slider.getValue());
+        		maxCena = Integer.parseInt(value);
+        		System.out.println(maxCena);
+        	}
+        });
+        slider.setBounds(58, 37, 307, 45);
+        card1.add(slider);
+        
+        JLabel lblOdaberiteNajviuCenu = new JLabel("Odaberite najvi\u0161u cenu koju ste spremni da platite:");
+        lblOdaberiteNajviuCenu.setBounds(58, 11, 330, 14);
+        card1.add(lblOdaberiteNajviuCenu);
+        
+        //JLabel lblIspisCene = new JLabel("New label");
+        lblIspisCene.setBounds(182, 93, 46, 14);
+        card1.add(lblIspisCene);
+        
+        JButton btnDalje = new JButton("Dalje");
+        btnDalje.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		cl.next(questionsPanel);
+        	}
+        });
+        btnDalje.setBounds(299, 149, 89, 23);
+        card1.add(btnDalje);
         questionsPanel.add(card2, TEXTPANEL);
 		
 		
@@ -92,5 +146,4 @@ public class FrmKupovinaTelevizora extends JFrame{
 		new FrmKupovinaTelevizora(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
 }
