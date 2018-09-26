@@ -1,34 +1,50 @@
 package com.sample;
 
-public class Televizor {
+enum NacinPrijema{
+	KABLOVSKA,
+	SATELITSKA,
+	ZEMALJSKA,
+	NEPRATIKLASICAN
+};
 
-	private enum TipEkrana{
-		LED,
-		OLED,
-		QLED
-	};
+enum Tuner{
+	DVB_C,
+	DVB_T2,
+	DVB_S2
+};
+
+enum TipEkrana{
+	LED,
+	OLED,
+	QLED
+};
+
+enum Internet{
+	WIFI,
+	BEZWIFIJA,
+	NE
+};
+
+public class Televizor {
 	
-	private enum Internet{
-		WiFi,
-		BezWiFija,
-		Ne
-	};
 	
-	private String tuner;
+	private int cena;
+	private NacinPrijema nacinPrijema;
+	private Internet internet;
+	
+	private Tuner tuner;
 	private Double dijagonala;
 	private TipEkrana tipEkrana;
-	private Double cena;
 	private Boolean smart;
-	private Internet internet;
 	private int brojPortova;
 	private String dodatneFunkcionalnosti;
 	
 	public Televizor() {
 		super();
 	}
-
-	public Televizor(String tuner, Double dijagonala, TipEkrana tipEkrana,
-			Double cena, Boolean smart, Internet internet, int brojPortova,
+	//NAMESTI KONSTRUKTOR DA IMA SVA POLJA
+	public Televizor(Tuner tuner, Double dijagonala, TipEkrana tipEkrana,
+			int cena, Boolean smart, Internet internet, int brojPortova,
 			String dodatneFunkcionalnosti) {
 		super();
 		this.tuner = tuner;
@@ -41,11 +57,11 @@ public class Televizor {
 		this.dodatneFunkcionalnosti = dodatneFunkcionalnosti;
 	}
 
-	public String getTuner() {
+	public Tuner getTuner() {
 		return tuner;
 	}
 
-	public void setTuner(String tuner) {
+	public void setTuner(Tuner tuner) {
 		this.tuner = tuner;
 	}
 
@@ -65,11 +81,11 @@ public class Televizor {
 		this.tipEkrana = tipEkrana;
 	}
 
-	public Double getCena() {
+	public int getCena() {
 		return cena;
 	}
 
-	public void setCena(Double cena) {
+	public void setCena(int cena) {
 		this.cena = cena;
 	}
 
@@ -112,6 +128,14 @@ public class Televizor {
 				+ smart + ", internet=" + internet + ", brojPortova="
 				+ brojPortova + ", dodatneFunkcionalnosti="
 				+ dodatneFunkcionalnosti + "]";
+	}
+
+	public NacinPrijema getNacinPrijema() {
+		return nacinPrijema;
+	}
+
+	public void setNacinPrijema(NacinPrijema nacinPrijema) {
+		this.nacinPrijema = nacinPrijema;
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.sample;
 
 import java.awt.EventQueue;
+import com.sample.Televizor;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +15,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Dictionary;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.swing.JSlider;
@@ -21,6 +24,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JRadioButton;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -31,7 +36,14 @@ public class FrmKupovinaTelevizora extends JFrame{
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String TEXTPANEL = "Card with JTextField";
     
-    private int maxCena;
+    private int maxCena = 100000;
+    private JTextField textField;
+    private JTextField textField_1;
+    
+    private JRadioButton rdbtnKablovska;
+    private JRadioButton rdbtnSatelitska;
+    private JRadioButton rdbtnZemaljska;
+    private JRadioButton rdbtnNeKlasican;
 
 	/**
 	 * Launch the application.
@@ -84,7 +96,6 @@ public class FrmKupovinaTelevizora extends JFrame{
 		JPanel card1 = new JPanel();
         
         JPanel card2 = new JPanel();
-        card2.add(new JTextField("TextField", 20));
 		
         questionsPanel.add(card1, CENATELEVIZORA);
         card1.setLayout(null);
@@ -111,7 +122,6 @@ public class FrmKupovinaTelevizora extends JFrame{
         		lblIspisCene.setText(String.valueOf(cena.getValue()));
             	String value = String.valueOf(cena.getValue());
         		maxCena = Integer.parseInt(value);
-        		System.out.println(maxCena);
         	}
         });
         cena.setBounds(58, 37, 307, 45);
@@ -128,17 +138,108 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnDalje = new JButton("Dalje");
         btnDalje.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
+        		tv.setCena(maxCena);
         		cl.next(questionsPanel);
         	}
         });
         btnDalje.setBounds(299, 149, 89, 23);
         card1.add(btnDalje);
         questionsPanel.add(card2, TEXTPANEL);
+        card2.setLayout(null);
+        
+        JLabel lblNacin = new JLabel("Na koji na\u010Din primarno primate televizijski program?");
+        lblNacin.setBounds(67, 11, 311, 14);
+        card2.add(lblNacin);
+        
+        rdbtnKablovska = new JRadioButton("Kablovska");
+        rdbtnKablovska.setBounds(77, 32, 200, 23);
+        card2.add(rdbtnKablovska);
+        
+        rdbtnSatelitska = new JRadioButton("Satelitska");
+        rdbtnSatelitska.setBounds(77, 60, 200, 23);
+        card2.add(rdbtnSatelitska);
+        
+        rdbtnZemaljska = new JRadioButton("Zemaljska (antenska)");
+        rdbtnZemaljska.setBounds(77, 86, 200, 23);
+        card2.add(rdbtnZemaljska);
+        
+        rdbtnNeKlasican = new JRadioButton("Ne pratim klasi\u010Dan tv program");
+        rdbtnNeKlasican.setBounds(77, 112, 200, 23);
+        card2.add(rdbtnNeKlasican);
+        
+        ButtonGroup nacinPrijema = new ButtonGroup();
+        nacinPrijema.add(rdbtnKablovska);
+        nacinPrijema.add(rdbtnSatelitska);
+        nacinPrijema.add(rdbtnZemaljska);
+        nacinPrijema.add(rdbtnNeKlasican);
+        
+        
+        
+        JButton btnDalje_1 = new JButton("Dalje");
+        btnDalje_1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setNacinPrijema(nacinPrijemaSelected());
+        		//System.out.println(tv.getCena());
+        		//System.out.println(tv.getNacinPrijema());
+        	}
+        });
+        btnDalje_1.setBounds(273, 150, 89, 23);
+        card2.add(btnDalje_1);
+        
+        JButton btnNazad = new JButton("Nazad");
+        btnNazad.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		cl.previous(questionsPanel);
+        	}
+        });
+        btnNazad.setBounds(36, 150, 89, 23);
+        card2.add(btnNazad);
+        
+        
+        JPanel panel = new JPanel();
+        questionsPanel.add(panel, "name_677571976094");
+        
+        textField = new JTextField("TextField", 20);
+        panel.add(textField);
+        
+        JPanel panel_1 = new JPanel();
+        questionsPanel.add(panel_1, "name_697106602720");
+        
+        textField_1 = new JTextField("TextField", 20);
+        panel_1.add(textField_1);
 		
 		
 		
     }
+	
+	private NacinPrijema nacinPrijemaSelected(){
+		if(rdbtnKablovska.isSelected()){
+			return NacinPrijema.KABLOVSKA;
+		}
+		if(rdbtnSatelitska.isSelected()){
+			return NacinPrijema.SATELITSKA;
+		}
+		if(rdbtnZemaljska.isSelected()){
+			return NacinPrijema.ZEMALJSKA;
+		}
+		if(rdbtnNeKlasican.isSelected()){
+			return NacinPrijema.NEPRATIKLASICAN;
+		}
+		return null;
+	}
+	/*
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<JRadioButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+        	JRadioButton button = buttons.nextElement();
 
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+
+        return null;
+    }
+*/
 	/**
 	 * Create the frame.
 	 */
