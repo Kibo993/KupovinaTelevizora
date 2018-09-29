@@ -7,6 +7,12 @@ enum NacinPrijema{
 	NEPRATIKLASICAN
 };
 
+enum NacinPrijemaKablovska{
+	ANALOGNA,
+	SETTOPBOX,
+	CAMMODUL
+};
+
 enum Tuner{
 	DVB_C,
 	DVB_T2,
@@ -30,6 +36,9 @@ public class Televizor {
 	
 	private int cena;
 	private NacinPrijema nacinPrijema;
+	private NacinPrijemaKablovska prijemKablovska;
+	private Boolean SekundarniPrijem;
+	private Boolean NoveMogucnosti;
 	private Internet internet;
 	
 	private Tuner tuner;
@@ -136,6 +145,24 @@ public class Televizor {
 
 	public void setNacinPrijema(NacinPrijema nacinPrijema) {
 		this.nacinPrijema = nacinPrijema;
+	}
+	public NacinPrijemaKablovska getPrijemKablovska() {
+		return prijemKablovska;
+	}
+	public void setPrijemKablovska(NacinPrijemaKablovska prijemKablovska) {
+		this.prijemKablovska = prijemKablovska;
+	}
+	public Boolean getSekundarniPrijem() {
+		return SekundarniPrijem;
+	}
+	public void setSekundarniPrijem(Boolean sekundarniPrijem) {
+		SekundarniPrijem = sekundarniPrijem;
+	}
+	public Boolean getNoveMogucnosti() {
+		return NoveMogucnosti;
+	}
+	public void setNoveMogucnosti(Boolean noveMogucnosti) {
+		NoveMogucnosti = noveMogucnosti;
 	}
 
 }
