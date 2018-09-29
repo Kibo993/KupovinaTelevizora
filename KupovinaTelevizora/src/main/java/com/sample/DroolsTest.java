@@ -29,6 +29,8 @@ public class DroolsTest {
 	// Ako gleda programe susednih zemalja, potreban mu je tv sa jakim tjunerom dakle skuplji
 	// Da li postoje u prodaji èisto analogni televizori, da li ponuditi polovne, da li korigovati cene u prvom pitanju???
 	// Za odabir cene i razdaljine staviti slider!!!
+	// Kako je bolje, da budu enumi ili stringovi jer ako su stringovi, onda je dovoljna jedna metoda za odgovore???
+	// Kad je bolje popuniti objekat televizor, da li redom posle svakog pitanja ili na kraju???
 	// 
 	//pitanja:
 	//

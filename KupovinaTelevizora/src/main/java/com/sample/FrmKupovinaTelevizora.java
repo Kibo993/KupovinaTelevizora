@@ -9,25 +9,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.Hashtable;
 
 import javax.swing.JSlider;
 import javax.swing.JLabel;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JRadioButton;
 
 public class FrmKupovinaTelevizora extends JFrame{
@@ -36,7 +30,6 @@ public class FrmKupovinaTelevizora extends JFrame{
 	private static Televizor tv;
 	private JPanel questionsPanel;
 	private String primarniPrijemPrograma;
-	private String nacinPrijemaKablovske;
 	
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String PRIMARNIPRIJEM = "Primarni prijem programa";
