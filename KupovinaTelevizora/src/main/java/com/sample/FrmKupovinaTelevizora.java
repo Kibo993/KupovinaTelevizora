@@ -39,6 +39,7 @@ public class FrmKupovinaTelevizora extends JFrame{
     final static String SEKUNDARNIPRIJEM = "Sekundarni prijem programa";
     final static String DODATNEMOGUCNOSTI = "Dodatne moguænosti";
     final static String INTERNET = "Internet";
+    final static String POZICIJATV = "Pozicija tv-a u prostoriji";
     
     private int maxCena = 100000;
     
@@ -60,6 +61,10 @@ public class FrmKupovinaTelevizora extends JFrame{
     private JRadioButton rdbtnDaSaWifijem;
     private JRadioButton rdbtnDaBezWifija;
     private JRadioButton rdbtnInternetNe;
+    
+    private JRadioButton rdbtnNaspramProzora;
+    private JRadioButton rdbtnIspredProzora;
+    private JRadioButton rdbtnProzorSaStrane;
 
 	/**
 	 * Launch the application.
@@ -134,6 +139,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel internetTV = new JPanel();
         internetTV.setLayout(null);
         questionsPanel.add(internetTV, INTERNET);
+        
+        JPanel pozicijaTV = new JPanel();
+        pozicijaTV.setLayout(null);
+        questionsPanel.add(pozicijaTV, POZICIJATV);
         
         JLabel lblIspisCene = new JLabel("100000");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -389,16 +398,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setInternet(internetSelected());
         		if(tv.getInternet()!=null){
-        				//cl.show(questionsPanel, );
+        				cl.show(questionsPanel, POZICIJATV);
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
-        		/*System.out.println(tv.getCena());
-        		System.out.println(tv.getNacinPrijema());
-        		System.out.println(tv.getPrijemKablovska());
-        		System.out.println(tv.getSekundarniPrijem());
-        		System.out.println(tv.getNoveMogucnosti());
-        		System.out.println(tv.getInternet());*/
         	}
         });
         btnDalje_5.setBounds(273, 150, 89, 23);
@@ -416,6 +419,61 @@ public class FrmKupovinaTelevizora extends JFrame{
         });
         btnNazad_4.setBounds(36, 150, 89, 23);
         internetTV.add(btnNazad_4);
+        
+        JLabel lblKakoJePozicioniran = new JLabel("Kako je pozicioniran televizor u prostoriji?");
+        lblKakoJePozicioniran.setBounds(67, 11, 311, 14);
+        pozicijaTV.add(lblKakoJePozicioniran);
+        
+        rdbtnNaspramProzora = new JRadioButton("Naspram prozora");
+        rdbtnNaspramProzora.setBounds(77, 32, 200, 23);
+        pozicijaTV.add(rdbtnNaspramProzora);
+        
+        rdbtnIspredProzora = new JRadioButton("Ispred prozora");
+        rdbtnIspredProzora.setBounds(77, 60, 200, 23);
+        pozicijaTV.add(rdbtnIspredProzora);
+        
+        rdbtnProzorSaStrane = new JRadioButton("Prozor je sa strane");
+        rdbtnProzorSaStrane.setBounds(77, 86, 200, 23);
+        pozicijaTV.add(rdbtnProzorSaStrane);
+        
+        ButtonGroup pozicija = new ButtonGroup();
+        pozicija.add(rdbtnNaspramProzora);
+        pozicija.add(rdbtnIspredProzora);
+        pozicija.add(rdbtnProzorSaStrane);
+        
+        JButton btnDalje_6 = new JButton("Dalje");
+        btnDalje_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setPozicija(pozicijaSelected());
+        		if(tv.getPozicija()!=null){
+        				//cl.show(questionsPanel, );
+        		}else{
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
+        		}
+        		/*System.out.println(tv.getCena());
+        		System.out.println(tv.getNacinPrijema());
+        		System.out.println(tv.getPrijemKablovska());
+        		System.out.println(tv.getSekundarniPrijem());
+        		System.out.println(tv.getNoveMogucnosti());
+        		System.out.println(tv.getInternet());
+        		System.out.println(tv.getPozicija());*/
+        	}
+        });
+        btnDalje_6.setBounds(273, 150, 89, 23);
+        pozicijaTV.add(btnDalje_6);
+        
+        JButton btnNazad_5 = new JButton("Nazad");
+        btnNazad_5.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		if(true){
+    				cl.show(questionsPanel, INTERNET);
+    			}/*else{
+    				cl.show(questionsPanel, SEKUNDARNIPRIJEM);
+    			}*/
+        	}
+        });
+        btnNazad_5.setBounds(36, 150, 89, 23);
+        pozicijaTV.add(btnNazad_5);
 		
     }
 	
@@ -483,6 +541,19 @@ public class FrmKupovinaTelevizora extends JFrame{
 		}
 		if(rdbtnInternetNe.isSelected()){
 			return Internet.NE;
+		}
+		return null;
+	}
+	
+	private Pozicija pozicijaSelected(){
+		if(rdbtnNaspramProzora.isSelected()){
+			return Pozicija.NASPRAM;
+		}
+		if(rdbtnIspredProzora.isSelected()){
+			return Pozicija.ISPRED;
+		}
+		if(rdbtnProzorSaStrane.isSelected()){
+			return Pozicija.PORED;
 		}
 		return null;
 	}

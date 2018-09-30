@@ -13,6 +13,12 @@ enum NacinPrijemaKablovska{
 	CAMMODUL
 };
 
+enum Pozicija{
+	NASPRAM,
+	ISPRED,
+	PORED
+};
+
 enum Tuner{
 	DVB_C,
 	DVB_T2,
@@ -40,6 +46,7 @@ public class Televizor {
 	private Boolean SekundarniPrijem;
 	private Boolean NoveMogucnosti;
 	private Internet internet;
+	private Pozicija pozicija;
 	
 	private Tuner tuner;
 	private Double dijagonala;
@@ -163,6 +170,12 @@ public class Televizor {
 	}
 	public void setNoveMogucnosti(Boolean noveMogucnosti) {
 		NoveMogucnosti = noveMogucnosti;
+	}
+	public Pozicija getPozicija() {
+		return pozicija;
+	}
+	public void setPozicija(Pozicija pozicija) {
+		this.pozicija = pozicija;
 	}
 
 }
