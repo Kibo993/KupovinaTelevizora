@@ -8,6 +8,7 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class DroolsTest {
+	//SREDITI DUGMIÆE NAZAD I DALJE NA FORMI!!!!!!!!
 	//PREPRAVITI TELEVIZOR, DODAVATI POLJA KAKO DODAJEŠ NOVA PITANJA!!!!!!!!!! VEÆ IMA CENA, NAÈIN PRIJEMA, INTERNET!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri

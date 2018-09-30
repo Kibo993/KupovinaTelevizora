@@ -40,8 +40,10 @@ public class FrmKupovinaTelevizora extends JFrame{
     final static String DODATNEMOGUCNOSTI = "Dodatne moguænosti";
     final static String INTERNET = "Internet";
     final static String POZICIJATV = "Pozicija tv-a u prostoriji";
+    final static String UDALJENOSTTV = "Udaljenost od ekrana";
     
     private int maxCena = 100000;
+    private int udaljenostOdEkrana = 300;
     
     private JRadioButton rdbtnKablovska;
     private JRadioButton rdbtnSatelitska;
@@ -104,7 +106,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 		
 		//ArrayList<String> comboBoxItems = new ArrayList<>();
 		//comboBoxItems.add(CENATELEVIZORA);
-		String comboBoxItems[] = { CENATELEVIZORA, PRIMARNIPRIJEM };
+		String comboBoxItems[] = { CENATELEVIZORA, PRIMARNIPRIJEM, UDALJENOSTTV };
 		CardLayout cl = (CardLayout)(questionsPanel.getLayout());
 		JComboBox comboBox = new JComboBox(comboBoxItems);
 		comboBox.setBounds(141, 7, 161, 20);
@@ -143,6 +145,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel pozicijaTV = new JPanel();
         pozicijaTV.setLayout(null);
         questionsPanel.add(pozicijaTV, POZICIJATV);
+        
+        JPanel udaljenostTV = new JPanel();
+        udaljenostTV.setLayout(null);
+        questionsPanel.add(udaljenostTV, UDALJENOSTTV);
         
         JLabel lblIspisCene = new JLabel("100000");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -315,7 +321,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         				cl.show(questionsPanel, INTERNET);
         			}
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -355,7 +361,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(dodMogucnostiSelected){
         				cl.show(questionsPanel, INTERNET);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -400,7 +406,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getInternet()!=null){
         				cl.show(questionsPanel, POZICIJATV);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -448,7 +454,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getPozicija()!=null){
         				//cl.show(questionsPanel, );
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
         		/*System.out.println(tv.getCena());
         		System.out.println(tv.getNacinPrijema());
@@ -474,6 +480,66 @@ public class FrmKupovinaTelevizora extends JFrame{
         });
         btnNazad_5.setBounds(36, 150, 89, 23);
         pozicijaTV.add(btnNazad_5);
+        
+        JLabel lblispisUdaljenosti = new JLabel("3");
+        lblispisUdaljenosti.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblispisUdaljenosti.setBounds(173, 93, 46, 14);
+        udaljenostTV.add(lblispisUdaljenosti);
+        JSlider udaljenost = new JSlider(50, 500, 300);
+        udaljenost.setPaintTicks(true);
+        udaljenost.setMinorTickSpacing(25);
+        udaljenost.setMajorTickSpacing(100);
+        udaljenost.setBounds(58, 37, 307, 45);
+        udaljenostTV.add(udaljenost);
+        
+        Hashtable<Integer, JLabel> ispisUdaljenosti = new Hashtable<Integer, JLabel>();
+        ispisUdaljenosti.put(new Integer( 50 ),new JLabel("0.5m") );
+        ispisUdaljenosti.put(new Integer( 100 ),new JLabel("1m") );
+        ispisUdaljenosti.put(new Integer( 150 ),new JLabel("1.5m") );
+        ispisUdaljenosti.put(new Integer( 200 ),new JLabel("2m") );
+        ispisUdaljenosti.put(new Integer( 250 ),new JLabel("2.5m") );
+        ispisUdaljenosti.put(new Integer( 300 ),new JLabel("3m") );
+        ispisUdaljenosti.put(new Integer( 350 ),new JLabel("3.5m") );
+        ispisUdaljenosti.put(new Integer( 400 ),new JLabel("4m") );
+        ispisUdaljenosti.put(new Integer( 450 ),new JLabel("4.5m") );
+        ispisUdaljenosti.put(new Integer( 500 ),new JLabel("5m") );
+        udaljenost.setLabelTable(ispisUdaljenosti);
+        udaljenost.setPaintLabels(true);
+        udaljenost.setSnapToTicks(true);
+        
+        udaljenost.addChangeListener(new ChangeListener() {
+        	public void stateChanged(ChangeEvent arg0) {
+        		String udaljenostOdTV = "";
+        		if(String.valueOf(udaljenost.getValue()).length()==3){
+        			udaljenostOdTV = String.valueOf(udaljenost.getValue()).substring(0,1) + "." + String.valueOf(udaljenost.getValue()).substring(1, 3) + "m";
+        			}else{
+        			udaljenostOdTV = "0." + String.valueOf(udaljenost.getValue()) + "m";
+        			}
+        		lblispisUdaljenosti.setText(udaljenostOdTV);
+        		udaljenostOdEkrana = udaljenost.getValue();
+        		//System.out.println(udaljenostOdEkrana);
+        	}
+        });
+        
+        JLabel lblKolikoJeTelevizor = new JLabel("Koliko je televizor udaljen od vas?");
+        lblKolikoJeTelevizor.setBounds(58, 11, 330, 14);
+        udaljenostTV.add(lblKolikoJeTelevizor);
+        
+        JButton btnDalje_7 = new JButton("Dalje");
+        btnDalje_7.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnDalje_7.setBounds(299, 149, 89, 23);
+        udaljenostTV.add(btnDalje_7);
+        
+        JButton btnNazad_6 = new JButton("Nazad");
+        btnNazad_6.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
+        btnNazad_6.setBounds(36, 149, 89, 23);
+        udaljenostTV.add(btnNazad_6);
 		
     }
 	
