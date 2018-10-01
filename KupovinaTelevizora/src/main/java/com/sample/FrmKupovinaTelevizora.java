@@ -3,6 +3,7 @@ package com.sample;
 import java.awt.EventQueue;
 
 import com.sample.Televizor;
+import com.sample.Enums.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -41,9 +43,11 @@ public class FrmKupovinaTelevizora extends JFrame{
     final static String INTERNET = "Internet";
     final static String POZICIJATV = "Pozicija tv-a u prostoriji";
     final static String UDALJENOSTTV = "Udaljenost od ekrana";
+    final static String UREDJAJI = "Dodatni ureðaji";
     
     private int maxCena = 100000;
     private int udaljenostOdEkrana = 300;
+    private String dodatniUredjaji = "";
     
     private JRadioButton rdbtnKablovska;
     private JRadioButton rdbtnSatelitska;
@@ -67,6 +71,11 @@ public class FrmKupovinaTelevizora extends JFrame{
     private JRadioButton rdbtnNaspramProzora;
     private JRadioButton rdbtnIspredProzora;
     private JRadioButton rdbtnProzorSaStrane;
+    
+    private JCheckBox chckbxRacunar;
+    private JCheckBox chckbxDvd;
+    private JCheckBox chckbxSmartTvBox;
+    private JCheckBox chckbxKameraZaVideo;
 
 	/**
 	 * Launch the application.
@@ -149,6 +158,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel udaljenostTV = new JPanel();
         udaljenostTV.setLayout(null);
         questionsPanel.add(udaljenostTV, UDALJENOSTTV);
+        
+        JPanel uredjajiTV = new JPanel();
+        uredjajiTV.setLayout(null);
+        questionsPanel.add(uredjajiTV, UREDJAJI);
         
         JLabel lblIspisCene = new JLabel("100000");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -452,17 +465,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setPozicija(pozicijaSelected());
         		if(tv.getPozicija()!=null){
-        				//cl.show(questionsPanel, );
+        				cl.show(questionsPanel, UDALJENOSTTV);
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
-        		/*System.out.println(tv.getCena());
-        		System.out.println(tv.getNacinPrijema());
-        		System.out.println(tv.getPrijemKablovska());
-        		System.out.println(tv.getSekundarniPrijem());
-        		System.out.println(tv.getNoveMogucnosti());
-        		System.out.println(tv.getInternet());
-        		System.out.println(tv.getPozicija());*/
         	}
         });
         btnDalje_6.setBounds(273, 150, 89, 23);
@@ -474,14 +480,14 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(true){
     				cl.show(questionsPanel, INTERNET);
     			}/*else{
-    				cl.show(questionsPanel, SEKUNDARNIPRIJEM);
+    				cl.show(questionsPanel, );
     			}*/
         	}
         });
         btnNazad_5.setBounds(36, 150, 89, 23);
         pozicijaTV.add(btnNazad_5);
         
-        JLabel lblispisUdaljenosti = new JLabel("3");
+        JLabel lblispisUdaljenosti = new JLabel("3.00m");
         lblispisUdaljenosti.setHorizontalAlignment(SwingConstants.RIGHT);
         lblispisUdaljenosti.setBounds(173, 93, 46, 14);
         udaljenostTV.add(lblispisUdaljenosti);
@@ -528,6 +534,8 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnDalje_7 = new JButton("Dalje");
         btnDalje_7.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		tv.setUdaljenostOdTV(((double) udaljenostOdEkrana)/100);
+        		cl.show(questionsPanel, UREDJAJI);
         	}
         });
         btnDalje_7.setBounds(299, 149, 89, 23);
@@ -536,11 +544,62 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnNazad_6 = new JButton("Nazad");
         btnNazad_6.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		tv.setUdaljenostOdTV(null);
+        		cl.show(questionsPanel, POZICIJATV);
         	}
         });
         btnNazad_6.setBounds(36, 149, 89, 23);
         udaljenostTV.add(btnNazad_6);
-		
+        
+        JLabel lblKojiUreajiSu = new JLabel("Koji ure\u0111aji su povezani na televizor?");
+        lblKojiUreajiSu.setBounds(67, 11, 311, 14);
+        uredjajiTV.add(lblKojiUreajiSu);
+        
+        chckbxRacunar = new JCheckBox("Ra\u010Dunar");
+        chckbxRacunar.setBounds(77, 34, 97, 23);
+        uredjajiTV.add(chckbxRacunar);
+        
+        chckbxDvd = new JCheckBox("DVD");
+        chckbxDvd.setBounds(77, 60, 97, 23);
+        uredjajiTV.add(chckbxDvd);
+        
+        chckbxSmartTvBox = new JCheckBox("Smart TV Box");
+        chckbxSmartTvBox.setBounds(77, 86, 149, 23);
+        uredjajiTV.add(chckbxSmartTvBox);
+        
+        chckbxKameraZaVideo = new JCheckBox("Kamera i DVR za video nadzor");
+        chckbxKameraZaVideo.setBounds(77, 112, 263, 23);
+        uredjajiTV.add(chckbxKameraZaVideo);
+        
+        JButton btnKraj = new JButton("Prika\u017Ei odgovor");
+        btnKraj.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setDodatniUredjaji(uredjajiSelected());
+        		dispose();
+        		/*System.out.println(tv.getCena());
+        		System.out.println(tv.getNacinPrijema());
+        		System.out.println(tv.getPrijemKablovska());
+        		System.out.println(tv.getSekundarniPrijem());
+        		System.out.println(tv.getNoveMogucnosti());
+        		System.out.println(tv.getInternet());
+        		System.out.println(tv.getPozicija());
+        		System.out.println(tv.getUdaljenostOdTV());
+        		System.out.println(tv.getDodatniUredjaji());*/
+        	}
+        });
+        btnKraj.setBounds(264, 150, 114, 23);
+        uredjajiTV.add(btnKraj);
+        
+        JButton btnNazadKraj = new JButton("Nazad");
+        btnNazadKraj.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setDodatniUredjaji(null);
+        		dodatniUredjaji = " ";
+        		cl.show(questionsPanel, UDALJENOSTTV);
+        	}
+        });
+        btnNazadKraj.setBounds(36, 150, 89, 23);
+        uredjajiTV.add(btnNazadKraj);
     }
 	
 	private NacinPrijema nacinPrijemaSelected(){
@@ -622,6 +681,22 @@ public class FrmKupovinaTelevizora extends JFrame{
 			return Pozicija.PORED;
 		}
 		return null;
+	}
+	
+	private String uredjajiSelected(){
+		if(chckbxRacunar.isSelected()){
+			dodatniUredjaji+= " Raèunar ";
+		}
+		if(chckbxDvd.isSelected()){
+			dodatniUredjaji+= " DVD ";
+		}
+		if(chckbxSmartTvBox.isSelected()){
+			dodatniUredjaji+= " SmartTVBox ";
+		}
+		if(chckbxKameraZaVideo.isSelected()){
+			dodatniUredjaji+= " VideoNadzor ";
+		}
+		return dodatniUredjaji;
 	}
 	/*
 	public String getSelectedButtonText(ButtonGroup buttonGroup) {

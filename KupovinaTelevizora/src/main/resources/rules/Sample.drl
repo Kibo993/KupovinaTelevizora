@@ -1,20 +1,33 @@
 package com.sample
  
 import com.sample.DroolsTest.Message;
+import com.sample.Televizor;
+import com.sample.Enums.*;
  
-rule "Hello World"
+rule "Cena za smart televizor"
+no-loop
     when
-        m : Message( status == Message.HELLO, myMessage : message )
+        tv : Televizor( cena>20000, mojaCena : cena )
     then
-        System.out.println( myMessage );
-        m.setMessage( "Goodbye cruel world" );
-        m.setStatus( Message.GOODBYE );
-        update( m );
+        System.out.println( mojaCena );
+        tv.setSmart(true);
+        //tv.setStatus( Message.GOODBYE );
+        update( tv );
 end
 
 rule "GoodBye"
+no-loop 
     when
-        Message( status == Message.GOODBYE, myMessage : message )
+        tv : Televizor( nacinPrijema  == NacinPrijema.KABLOVSKA, mySmart : smart )
     then
-        System.out.println( myMessage );
+        System.out.println(tv.getCena());
+    	System.out.println(tv.getNacinPrijema());
+    	System.out.println(tv.getPrijemKablovska());
+    	System.out.println(tv.getSekundarniPrijem());
+    	System.out.println(tv.getNoveMogucnosti());
+    	System.out.println(tv.getInternet());
+    	System.out.println(tv.getPozicija());
+    	System.out.println(tv.getUdaljenostOdTV());
+    	System.out.println(tv.getDodatniUredjaji());
+    	System.out.println(mySmart);
 end

@@ -60,11 +60,23 @@ public class DroolsTest {
         	
         	FrmKupovinaTelevizora form = new FrmKupovinaTelevizora(tv);
         	form.setVisible(true);
+        	
+        	/*System.out.println(tv.getCena());
+    		System.out.println(tv.getNacinPrijema());
+    		System.out.println(tv.getPrijemKablovska());
+    		System.out.println(tv.getSekundarniPrijem());
+    		System.out.println(tv.getNoveMogucnosti());
+    		System.out.println(tv.getInternet());
+    		System.out.println(tv.getPozicija());
+    		System.out.println(tv.getUdaljenostOdTV());
+    		System.out.println(tv.getDodatniUredjaji());*/
             // go !
-            Message message = new Message();
-            message.setMessage("Hello World");
-            message.setStatus(Message.HELLO);
-            kSession.insert(message);
+            //Message message = new Message();
+            //message.setMessage("Hello World");
+            //message.setStatus(Message.HELLO);
+        	while(form.isVisible()){
+        	}
+            kSession.insert(tv);
             kSession.fireAllRules();
         } catch (Throwable t) {
             t.printStackTrace();

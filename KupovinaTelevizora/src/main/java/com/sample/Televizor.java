@@ -1,6 +1,8 @@
 package com.sample;
 
-enum NacinPrijema{
+import com.sample.Enums.*;
+
+/*enum NacinPrijema{
 	KABLOVSKA,
 	SATELITSKA,
 	ZEMALJSKA,
@@ -36,7 +38,7 @@ enum Internet{
 	BEZWIFIJA,
 	NE
 };
-
+*/
 public class Televizor {
 	
 	
@@ -47,13 +49,14 @@ public class Televizor {
 	private Boolean NoveMogucnosti;
 	private Internet internet;
 	private Pozicija pozicija;
+	private Double udaljenostOdTV;
 	
 	private Tuner tuner;
 	private Double dijagonala;
 	private TipEkrana tipEkrana;
-	private Boolean smart;
+	private Boolean smart = false;
 	private int brojPortova;
-	private String dodatneFunkcionalnosti;
+	private String dodatniUredjaji;
 	
 	public Televizor() {
 		super();
@@ -61,7 +64,7 @@ public class Televizor {
 	//NAMESTI KONSTRUKTOR DA IMA SVA POLJA
 	public Televizor(Tuner tuner, Double dijagonala, TipEkrana tipEkrana,
 			int cena, Boolean smart, Internet internet, int brojPortova,
-			String dodatneFunkcionalnosti) {
+			String dodatniUredjaji) {
 		super();
 		this.tuner = tuner;
 		this.dijagonala = dijagonala;
@@ -70,7 +73,7 @@ public class Televizor {
 		this.smart = smart;
 		this.internet = internet;
 		this.brojPortova = brojPortova;
-		this.dodatneFunkcionalnosti = dodatneFunkcionalnosti;
+		this.dodatniUredjaji = dodatniUredjaji;
 	}
 
 	public Tuner getTuner() {
@@ -129,12 +132,12 @@ public class Televizor {
 		this.brojPortova = brojPortova;
 	}
 
-	public String getDodatneFunkcionalnosti() {
-		return dodatneFunkcionalnosti;
+	public String getDodatniUredjaji() {
+		return dodatniUredjaji;
 	}
 
-	public void setDodatneFunkcionalnosti(String dodatneFunkcionalnosti) {
-		this.dodatneFunkcionalnosti = dodatneFunkcionalnosti;
+	public void setDodatniUredjaji(String dodatniUredjaji) {
+		this.dodatniUredjaji = dodatniUredjaji;
 	}
 
 	@Override
@@ -143,7 +146,7 @@ public class Televizor {
 				+ ", tipEkrana=" + tipEkrana + ", cena=" + cena + ", smart="
 				+ smart + ", internet=" + internet + ", brojPortova="
 				+ brojPortova + ", dodatneFunkcionalnosti="
-				+ dodatneFunkcionalnosti + "]";
+				+ dodatniUredjaji + "]";
 	}
 
 	public NacinPrijema getNacinPrijema() {
@@ -176,6 +179,12 @@ public class Televizor {
 	}
 	public void setPozicija(Pozicija pozicija) {
 		this.pozicija = pozicija;
+	}
+	public Double getUdaljenostOdTV() {
+		return udaljenostOdTV;
+	}
+	public void setUdaljenostOdTV(Double udaljenostOdTV) {
+		this.udaljenostOdTV = udaljenostOdTV;
 	}
 
 }
