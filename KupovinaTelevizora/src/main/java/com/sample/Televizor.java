@@ -2,49 +2,13 @@ package com.sample;
 
 import com.sample.Enums.*;
 
-/*enum NacinPrijema{
-	KABLOVSKA,
-	SATELITSKA,
-	ZEMALJSKA,
-	NEPRATIKLASICAN
-};
-
-enum NacinPrijemaKablovska{
-	ANALOGNA,
-	SETTOPBOX,
-	CAMMODUL
-};
-
-enum Pozicija{
-	NASPRAM,
-	ISPRED,
-	PORED
-};
-
-enum Tuner{
-	DVB_C,
-	DVB_T2,
-	DVB_S2
-};
-
-enum TipEkrana{
-	LED,
-	OLED,
-	QLED
-};
-
-enum Internet{
-	WIFI,
-	BEZWIFIJA,
-	NE
-};
-*/
 public class Televizor {
 	
 	
 	private int cena;
 	private NacinPrijema nacinPrijema;
 	private NacinPrijemaKablovska prijemKablovska;
+	private NacinPrijemaSatelitska prijemSatelitska;
 	private Boolean SekundarniPrijem;
 	private Boolean NoveMogucnosti;
 	private Internet internet;
@@ -185,6 +149,12 @@ public class Televizor {
 	}
 	public void setUdaljenostOdTV(Double udaljenostOdTV) {
 		this.udaljenostOdTV = udaljenostOdTV;
+	}
+	public NacinPrijemaSatelitska getPrijemSatelitska() {
+		return prijemSatelitska;
+	}
+	public void setPrijemSatelitska(NacinPrijemaSatelitska prijemSatelitska) {
+		this.prijemSatelitska = prijemSatelitska;
 	}
 
 }

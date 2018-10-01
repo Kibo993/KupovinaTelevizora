@@ -13,6 +13,11 @@ public class Enums {
 		SETTOPBOX,
 		CAMMODUL
 	};
+	
+	public enum NacinPrijemaSatelitska{
+		PROVAJDER,
+		SLOBODNO
+	};
 
 	public enum Pozicija{
 		NASPRAM,

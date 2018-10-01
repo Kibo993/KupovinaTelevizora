@@ -25,6 +25,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -38,6 +40,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String PRIMARNIPRIJEM = "Primarni prijem programa";
     final static String PRIJEMKABLOVSKA = "Naèin prijema kablovske";
+    final static String PRIJEMSATELITSKA = "Naèin prijema satelitske";
     final static String SEKUNDARNIPRIJEM = "Sekundarni prijem programa";
     final static String DODATNEMOGUCNOSTI = "Dodatne moguænosti";
     final static String INTERNET = "Internet";
@@ -57,6 +60,9 @@ public class FrmKupovinaTelevizora extends JFrame{
     private JRadioButton rdbtnAnalogna;
     private JRadioButton rdbtnSetTop;
     private JRadioButton rdbtnCAM;
+    
+    private JRadioButton rdbtnPrekoProvajdera;
+    private JRadioButton rdbtnSlobodno;
     
     private JRadioButton rdbtnSekPrijemDa;
     private JRadioButton rdbtnSekPrijemNe;
@@ -115,7 +121,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 		
 		//ArrayList<String> comboBoxItems = new ArrayList<>();
 		//comboBoxItems.add(CENATELEVIZORA);
-		String comboBoxItems[] = { CENATELEVIZORA, PRIMARNIPRIJEM, UDALJENOSTTV };
+		String comboBoxItems[] = { CENATELEVIZORA, PRIMARNIPRIJEM, UDALJENOSTTV , UREDJAJI};
 		CardLayout cl = (CardLayout)(questionsPanel.getLayout());
 		JComboBox comboBox = new JComboBox(comboBoxItems);
 		comboBox.setBounds(141, 7, 161, 20);
@@ -138,6 +144,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel prijemKablovskeTV = new JPanel();
         prijemKablovskeTV.setLayout(null);
         questionsPanel.add(prijemKablovskeTV, PRIJEMKABLOVSKA);
+        
+        JPanel prijemSatelitska = new JPanel();
+        prijemSatelitska.setLayout(null);
+        questionsPanel.add(prijemSatelitska, PRIJEMSATELITSKA);
         
         JPanel sekundarPrijemTV = new JPanel();
         sekundarPrijemTV.setLayout(null);
@@ -205,7 +215,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		cl.next(questionsPanel);
         	}
         });
-        btnDalje.setBounds(299, 149, 89, 23);
+        btnDalje.setBounds(273, 150, 89, 23);
         maxCenaTV.add(btnDalje);
         
         JLabel lblNacin = new JLabel("Na koji na\u010Din primarno primate televizijski program?");
@@ -345,7 +355,11 @@ public class FrmKupovinaTelevizora extends JFrame{
         btnNazad_2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setSekundarniPrijem(null);
-        		cl.show(questionsPanel, PRIJEMKABLOVSKA);
+        		if(tv.getNacinPrijema()==NacinPrijema.KABLOVSKA){
+    				cl.show(questionsPanel, PRIJEMKABLOVSKA);
+    			}else{
+    				cl.show(questionsPanel, PRIJEMSATELITSKA);
+    			}
         	}
         });
         btnNazad_2.setBounds(36, 150, 89, 23);
@@ -538,7 +552,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		cl.show(questionsPanel, UREDJAJI);
         	}
         });
-        btnDalje_7.setBounds(299, 149, 89, 23);
+        btnDalje_7.setBounds(273, 150, 89, 23);
         udaljenostTV.add(btnDalje_7);
         
         JButton btnNazad_6 = new JButton("Nazad");
@@ -548,7 +562,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		cl.show(questionsPanel, POZICIJATV);
         	}
         });
-        btnNazad_6.setBounds(36, 149, 89, 23);
+        btnNazad_6.setBounds(36, 150, 89, 23);
         udaljenostTV.add(btnNazad_6);
         
         JLabel lblKojiUreajiSu = new JLabel("Koji ure\u0111aji su povezani na televizor?");
@@ -576,18 +590,9 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setDodatniUredjaji(uredjajiSelected());
         		dispose();
-        		/*System.out.println(tv.getCena());
-        		System.out.println(tv.getNacinPrijema());
-        		System.out.println(tv.getPrijemKablovska());
-        		System.out.println(tv.getSekundarniPrijem());
-        		System.out.println(tv.getNoveMogucnosti());
-        		System.out.println(tv.getInternet());
-        		System.out.println(tv.getPozicija());
-        		System.out.println(tv.getUdaljenostOdTV());
-        		System.out.println(tv.getDodatniUredjaji());*/
         	}
         });
-        btnKraj.setBounds(264, 150, 114, 23);
+        btnKraj.setBounds(237, 150, 141, 23);
         uredjajiTV.add(btnKraj);
         
         JButton btnNazadKraj = new JButton("Nazad");
@@ -600,6 +605,46 @@ public class FrmKupovinaTelevizora extends JFrame{
         });
         btnNazadKraj.setBounds(36, 150, 89, 23);
         uredjajiTV.add(btnNazadKraj);
+        
+        JLabel lblDaLiProgram = new JLabel("Da li program pratite preko provajdera ili slobodno?");
+        lblDaLiProgram.setBounds(67, 11, 311, 14);
+        prijemSatelitska.add(lblDaLiProgram);
+        
+        rdbtnPrekoProvajdera = new JRadioButton("Preko provajdera");
+        rdbtnPrekoProvajdera.setBounds(77, 32, 200, 23);
+        prijemSatelitska.add(rdbtnPrekoProvajdera);
+        
+        rdbtnSlobodno = new JRadioButton("Slobodno");
+        rdbtnSlobodno.setBounds(77, 60, 200, 23);
+        prijemSatelitska.add(rdbtnSlobodno);
+        
+        ButtonGroup prijemSatelita = new ButtonGroup();
+        prijemSatelita.add(rdbtnPrekoProvajdera);
+        prijemSatelita.add(rdbtnSlobodno);
+        
+        JButton btnDalje_8 = new JButton("Dalje");
+        btnDalje_8.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setPrijemSatelitska(prijemSatelitskaSelected());
+        		if(tv.getPrijemSatelitska()!=null){
+        				cl.show(questionsPanel, SEKUNDARNIPRIJEM);
+        		}else{
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+        btnDalje_8.setBounds(273, 150, 89, 23);
+        prijemSatelitska.add(btnDalje_8);
+        
+        JButton btnNazad_7 = new JButton("Nazad");
+        btnNazad_7.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setPrijemSatelitska(null);
+        		cl.show(questionsPanel, PRIMARNIPRIJEM);
+        	}
+        });
+        btnNazad_7.setBounds(36, 150, 89, 23);
+        prijemSatelitska.add(btnNazad_7);
     }
 	
 	private NacinPrijema nacinPrijemaSelected(){
@@ -608,7 +653,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 			return NacinPrijema.KABLOVSKA;
 		}
 		if(rdbtnSatelitska.isSelected()){
-			primarniPrijemPrograma = null;
+			primarniPrijemPrograma = PRIJEMSATELITSKA;
 			return NacinPrijema.SATELITSKA;
 		}
 		if(rdbtnZemaljska.isSelected()){
@@ -629,6 +674,16 @@ public class FrmKupovinaTelevizora extends JFrame{
 		}
 		if(rdbtnCAM.isSelected()){
 			return NacinPrijemaKablovska.CAMMODUL;
+		}
+		return null;
+	}
+	
+	private NacinPrijemaSatelitska prijemSatelitskaSelected(){
+		if(rdbtnPrekoProvajdera.isSelected()){
+			return NacinPrijemaSatelitska.PROVAJDER;
+		}
+		if(rdbtnSlobodno.isSelected()){
+			return NacinPrijemaSatelitska.SLOBODNO;
 		}
 		return null;
 	}

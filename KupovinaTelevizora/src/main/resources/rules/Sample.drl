@@ -7,10 +7,21 @@ import com.sample.Enums.*;
 rule "Cena za smart televizor"
 no-loop
     when
-        tv : Televizor( cena>20000, mojaCena : cena )
+        tv : Televizor( cena>=20000, mojaCena : cena )
     then
         System.out.println( mojaCena );
         tv.setSmart(true);
+        
+        System.out.println(tv.getCena());
+    	System.out.println(tv.getNacinPrijema());
+    	System.out.println(tv.getPrijemKablovska());
+    	System.out.println(tv.getPrijemSatelitska());
+    	System.out.println(tv.getSekundarniPrijem());
+    	System.out.println(tv.getNoveMogucnosti());
+    	System.out.println(tv.getInternet());
+    	System.out.println(tv.getPozicija());
+    	System.out.println(tv.getUdaljenostOdTV());
+    	System.out.println(tv.getDodatniUredjaji());
         //tv.setStatus( Message.GOODBYE );
         update( tv );
 end
@@ -23,6 +34,7 @@ no-loop
         System.out.println(tv.getCena());
     	System.out.println(tv.getNacinPrijema());
     	System.out.println(tv.getPrijemKablovska());
+    	System.out.println(tv.getPrijemSatelitska());
     	System.out.println(tv.getSekundarniPrijem());
     	System.out.println(tv.getNoveMogucnosti());
     	System.out.println(tv.getInternet());
