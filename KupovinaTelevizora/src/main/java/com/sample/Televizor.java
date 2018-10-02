@@ -9,18 +9,21 @@ public class Televizor {
 	private NacinPrijema nacinPrijema;
 	private NacinPrijemaKablovska prijemKablovska;
 	private NacinPrijemaSatelitska prijemSatelitska;
+	private MestoStanovanja mestoStanovanja;
 	private Boolean SekundarniPrijem;
 	private Boolean NoveMogucnosti;
 	private Internet internet;
 	private Pozicija pozicija;
 	private Double udaljenostOdTV;
+	private String dodatniUredjaji;
+	private String neklasicanSadrzaj;
 	
 	private Tuner tuner;
 	private Double dijagonala;
 	private TipEkrana tipEkrana;
 	private Boolean smart = false;
 	private int brojPortova;
-	private String dodatniUredjaji;
+	
 	
 	public Televizor() {
 		super();
@@ -155,6 +158,18 @@ public class Televizor {
 	}
 	public void setPrijemSatelitska(NacinPrijemaSatelitska prijemSatelitska) {
 		this.prijemSatelitska = prijemSatelitska;
+	}
+	public MestoStanovanja getMestoStanovanja() {
+		return mestoStanovanja;
+	}
+	public void setMestoStanovanja(MestoStanovanja mestoStanovanja) {
+		this.mestoStanovanja = mestoStanovanja;
+	}
+	public String getNeklasicanSadrzaj() {
+		return neklasicanSadrzaj;
+	}
+	public void setNeklasicanSadrzaj(String neklasicanSadrzaj) {
+		this.neklasicanSadrzaj = neklasicanSadrzaj;
 	}
 
 }

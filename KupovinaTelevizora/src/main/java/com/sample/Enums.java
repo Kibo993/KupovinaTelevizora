@@ -1,43 +1,49 @@
 package com.sample;
 
 public class Enums {
-	public enum NacinPrijema{
+	protected enum NacinPrijema{
 		KABLOVSKA,
 		SATELITSKA,
 		ZEMALJSKA,
 		NEPRATIKLASICAN
 	};
 
-	public enum NacinPrijemaKablovska{
+	protected enum NacinPrijemaKablovska{
 		ANALOGNA,
 		SETTOPBOX,
 		CAMMODUL
 	};
 	
-	public enum NacinPrijemaSatelitska{
+	protected enum NacinPrijemaSatelitska{
 		PROVAJDER,
 		SLOBODNO
 	};
+	
+	protected enum MestoStanovanja{
+		GRADSKO,
+		PRIGRADSKO,
+		SEOSKO
+	};
 
-	public enum Pozicija{
+	protected enum Pozicija{
 		NASPRAM,
 		ISPRED,
 		PORED
 	};
 
-	public enum Tuner{
+	protected enum Tuner{
 		DVB_C,
 		DVB_T2,
 		DVB_S2
 	};
 
-	public enum TipEkrana{
+	protected enum TipEkrana{
 		LED,
 		OLED,
 		QLED
 	};
 
-	public enum Internet{
+	protected enum Internet{
 		WIFI,
 		BEZWIFIJA,
 		NE

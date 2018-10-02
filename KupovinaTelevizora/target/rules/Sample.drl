@@ -9,19 +9,21 @@ no-loop
     when
         tv : Televizor( cena>=20000, mojaCena : cena )
     then
-        System.out.println( mojaCena );
+        //System.out.println( mojaCena );
         tv.setSmart(true);
         
-        System.out.println(tv.getCena());
-    	System.out.println(tv.getNacinPrijema());
-    	System.out.println(tv.getPrijemKablovska());
-    	System.out.println(tv.getPrijemSatelitska());
-    	System.out.println(tv.getSekundarniPrijem());
-    	System.out.println(tv.getNoveMogucnosti());
-    	System.out.println(tv.getInternet());
-    	System.out.println(tv.getPozicija());
-    	System.out.println(tv.getUdaljenostOdTV());
-    	System.out.println(tv.getDodatniUredjaji());
+        System.out.println("Max cena: "+tv.getCena());
+    	System.out.println("Naèin prijema: "+tv.getNacinPrijema());
+    	System.out.println("Prijem kablovske: "+tv.getPrijemKablovska());
+    	System.out.println("Prijem satelitske: "+tv.getPrijemSatelitska());
+    	System.out.println("Sekundarni prijem: "+tv.getSekundarniPrijem());
+    	System.out.println("Nove moguænosti: "+tv.getNoveMogucnosti());
+    	System.out.println("Internet: "+tv.getInternet());
+    	System.out.println("Pozicija: "+tv.getPozicija());
+    	System.out.println("Udaljenost: "+tv.getUdaljenostOdTV());
+    	System.out.println("Dodatni ureðaji: "+tv.getDodatniUredjaji());
+    	System.out.println("Mesto stanovanja: "+tv.getMestoStanovanja());
+    	System.out.println("Za šta se koristi: "+tv.getNeklasicanSadrzaj());
         //tv.setStatus( Message.GOODBYE );
         update( tv );
 end

@@ -36,11 +36,14 @@ public class FrmKupovinaTelevizora extends JFrame{
 	private String primarniPrijemPrograma;
 	private boolean sekPrijemSelected = false;
 	private boolean dodMogucnostiSelected = false;
+	private String nazadSaInterneta;
 	
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String PRIMARNIPRIJEM = "Primarni prijem programa";
     final static String PRIJEMKABLOVSKA = "Naèin prijema kablovske";
     final static String PRIJEMSATELITSKA = "Naèin prijema satelitske";
+    final static String MESTOSTANOVANJA = "Mesto stanovanja";
+    final static String UPOTREBA = "Za šta se televizor koristi";
     final static String SEKUNDARNIPRIJEM = "Sekundarni prijem programa";
     final static String DODATNEMOGUCNOSTI = "Dodatne moguænosti";
     final static String INTERNET = "Internet";
@@ -51,6 +54,7 @@ public class FrmKupovinaTelevizora extends JFrame{
     private int maxCena = 100000;
     private int udaljenostOdEkrana = 300;
     private String dodatniUredjaji = "";
+    private String neklasican = "";
     
     private JRadioButton rdbtnKablovska;
     private JRadioButton rdbtnSatelitska;
@@ -63,6 +67,15 @@ public class FrmKupovinaTelevizora extends JFrame{
     
     private JRadioButton rdbtnPrekoProvajdera;
     private JRadioButton rdbtnSlobodno;
+    
+    private JRadioButton rdbtnGradsko;
+    private JRadioButton rdbtnPrigradsko;
+    private JRadioButton rdbtnSeosko;
+    
+    private JCheckBox chckbxGledanjeFilmova;
+    private JCheckBox chckbxCitanjeVesti;
+    private JCheckBox chckbxIgranjeIgrica;
+    private JCheckBox chckbxStrimovanjeZabavnogSadrzaja;
     
     private JRadioButton rdbtnSekPrijemDa;
     private JRadioButton rdbtnSekPrijemNe;
@@ -148,6 +161,14 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel prijemSatelitska = new JPanel();
         prijemSatelitska.setLayout(null);
         questionsPanel.add(prijemSatelitska, PRIJEMSATELITSKA);
+        
+        JPanel mestoZemaljska = new JPanel();
+        mestoZemaljska.setLayout(null);
+        questionsPanel.add(mestoZemaljska, MESTOSTANOVANJA);
+        
+        JPanel neKlasican = new JPanel();
+        neKlasican.setLayout(null);
+        questionsPanel.add(neKlasican, UPOTREBA);
         
         JPanel sekundarPrijemTV = new JPanel();
         sekundarPrijemTV.setLayout(null);
@@ -446,7 +467,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         			if(tv.getPrijemKablovska()==NacinPrijemaKablovska.ANALOGNA){
         				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
         			}else{
-        				cl.show(questionsPanel, SEKUNDARNIPRIJEM);
+        				cl.show(questionsPanel, nazadSaInterneta);
         			}
         	}
         });
@@ -599,7 +620,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         btnNazadKraj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setDodatniUredjaji(null);
-        		dodatniUredjaji = " ";
+        		dodatniUredjaji = "";
         		cl.show(questionsPanel, UDALJENOSTTV);
         	}
         });
@@ -645,21 +666,117 @@ public class FrmKupovinaTelevizora extends JFrame{
         });
         btnNazad_7.setBounds(36, 150, 89, 23);
         prijemSatelitska.add(btnNazad_7);
+        
+        JLabel lblNaKakvomPodruju = new JLabel("Na kakvom podru\u010Dju \u017Eivite?");
+        lblNaKakvomPodruju.setBounds(67, 11, 311, 14);
+        mestoZemaljska.add(lblNaKakvomPodruju);
+        
+        rdbtnGradsko = new JRadioButton("Gradsko");
+        rdbtnGradsko.setBounds(77, 32, 200, 23);
+        mestoZemaljska.add(rdbtnGradsko);
+        
+        rdbtnPrigradsko = new JRadioButton("Prigradsko");
+        rdbtnPrigradsko.setBounds(77, 60, 200, 23);
+        mestoZemaljska.add(rdbtnPrigradsko);
+        
+        rdbtnSeosko = new JRadioButton("Seosko");
+        rdbtnSeosko.setBounds(77, 86, 200, 23);
+        mestoZemaljska.add(rdbtnSeosko);
+        
+        ButtonGroup mestoStanovanja = new ButtonGroup();
+        mestoStanovanja.add(rdbtnGradsko);
+        mestoStanovanja.add(rdbtnPrigradsko);
+        mestoStanovanja.add(rdbtnSeosko);
+        
+        JButton btnDalje_9 = new JButton("Dalje");
+        btnDalje_9.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setMestoStanovanja(mestoStanovanjaSelected());
+        		if(tv.getMestoStanovanja()!=null){
+        				cl.show(questionsPanel, INTERNET);
+        		}else{
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+        btnDalje_9.setBounds(273, 150, 89, 23);
+        mestoZemaljska.add(btnDalje_9);
+        
+        JButton btnNazad_8 = new JButton("Nazad");
+        btnNazad_8.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		tv.setMestoStanovanja(null);
+        		cl.show(questionsPanel, PRIMARNIPRIJEM);
+        	}
+        });
+        btnNazad_8.setBounds(36, 150, 89, 23);
+        mestoZemaljska.add(btnNazad_8);
+               
+        JLabel lblZaKojiSadraj = new JLabel("Za koji sadr\u017Eaj naj\u010De\u0161\u0107e koristite televizor?");
+        lblZaKojiSadraj.setBounds(67, 11, 311, 14);
+        neKlasican.add(lblZaKojiSadraj);
+        
+        chckbxGledanjeFilmova = new JCheckBox("Gledanje filmova");
+        chckbxGledanjeFilmova.setBounds(77, 34, 169, 23);
+        neKlasican.add(chckbxGledanjeFilmova);
+        
+        chckbxCitanjeVesti = new JCheckBox("\u010Citanje vesti");
+        chckbxCitanjeVesti.setBounds(77, 60, 97, 23);
+        neKlasican.add(chckbxCitanjeVesti);
+        
+        chckbxIgranjeIgrica = new JCheckBox("Igranje igrica");
+        chckbxIgranjeIgrica.setBounds(77, 86, 149, 23);
+        neKlasican.add(chckbxIgranjeIgrica);
+        
+        chckbxStrimovanjeZabavnogSadrzaja = new JCheckBox("Strimovanje zabavnog sadr\u017Eaja");
+        chckbxStrimovanjeZabavnogSadrzaja.setBounds(77, 112, 263, 23);
+        neKlasican.add(chckbxStrimovanjeZabavnogSadrzaja);
+        
+        JButton btnDalje_10 = new JButton("Dalje");
+        btnDalje_10.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setNeklasicanSadrzaj(neklasicanSelected());
+        		if(tv.getNeklasicanSadrzaj()!=null){
+        				cl.show(questionsPanel, INTERNET);
+        		}else{
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+        btnDalje_10.setBounds(273, 150, 89, 23);
+        neKlasican.add(btnDalje_10);
+        
+        JButton btnNazad_9 = new JButton("Nazad");
+        btnNazad_9.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tv.setNeklasicanSadrzaj(null);
+        		neklasican = "";
+        		cl.show(questionsPanel, PRIMARNIPRIJEM);
+        	}
+        });
+        btnNazad_9.setBounds(36, 150, 89, 23);
+        neKlasican.add(btnNazad_9);
     }
 	
 	private NacinPrijema nacinPrijemaSelected(){
 		if(rdbtnKablovska.isSelected()){
 			primarniPrijemPrograma = PRIJEMKABLOVSKA;
+			nazadSaInterneta = SEKUNDARNIPRIJEM;
 			return NacinPrijema.KABLOVSKA;
 		}
 		if(rdbtnSatelitska.isSelected()){
 			primarniPrijemPrograma = PRIJEMSATELITSKA;
+			nazadSaInterneta = SEKUNDARNIPRIJEM;
 			return NacinPrijema.SATELITSKA;
 		}
 		if(rdbtnZemaljska.isSelected()){
+			primarniPrijemPrograma = MESTOSTANOVANJA;
+			nazadSaInterneta = MESTOSTANOVANJA;
 			return NacinPrijema.ZEMALJSKA;
 		}
 		if(rdbtnNeKlasican.isSelected()){
+			primarniPrijemPrograma = UPOTREBA;
+			nazadSaInterneta = UPOTREBA;
 			return NacinPrijema.NEPRATIKLASICAN;
 		}
 		return null;
@@ -684,6 +801,19 @@ public class FrmKupovinaTelevizora extends JFrame{
 		}
 		if(rdbtnSlobodno.isSelected()){
 			return NacinPrijemaSatelitska.SLOBODNO;
+		}
+		return null;
+	}
+	
+	private MestoStanovanja mestoStanovanjaSelected(){
+		if(rdbtnGradsko.isSelected()){
+			return MestoStanovanja.GRADSKO;
+		}
+		if(rdbtnPrigradsko.isSelected()){
+			return MestoStanovanja.PRIGRADSKO;
+		}
+		if(rdbtnSeosko.isSelected()){
+			return MestoStanovanja.SEOSKO;
 		}
 		return null;
 	}
@@ -752,6 +882,22 @@ public class FrmKupovinaTelevizora extends JFrame{
 			dodatniUredjaji+= " VideoNadzor ";
 		}
 		return dodatniUredjaji;
+	}
+	
+	private String neklasicanSelected(){
+		if(chckbxGledanjeFilmova.isSelected()){
+			neklasican+= " Film ";
+		}
+		if(chckbxCitanjeVesti.isSelected()){
+			neklasican+= " Vesti ";
+		}
+		if(chckbxIgranjeIgrica.isSelected()){
+			neklasican+= " Igrice ";
+		}
+		if(chckbxStrimovanjeZabavnogSadrzaja.isSelected()){
+			neklasican+= " Strim ";
+		}
+		return neklasican;
 	}
 	/*
 	public String getSelectedButtonText(ButtonGroup buttonGroup) {
