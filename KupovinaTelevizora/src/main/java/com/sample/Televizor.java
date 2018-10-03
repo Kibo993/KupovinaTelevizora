@@ -7,8 +7,8 @@ public class Televizor {
 	
 	private int cena;
 	private NacinPrijema nacinPrijema;
-	private NacinPrijemaKablovska prijemKablovska;
-	private NacinPrijemaSatelitska prijemSatelitska;
+	private PrijemKablovska prijemKablovska;
+	private PrijemSatelitska prijemSatelitska;
 	private MestoStanovanja mestoStanovanja;
 	private Boolean SekundarniPrijem;
 	private Boolean NoveMogucnosti;
@@ -21,7 +21,7 @@ public class Televizor {
 	private Tuner tuner;
 	private Double dijagonala;
 	private TipEkrana tipEkrana;
-	private Boolean smart = false;
+	private Boolean smart;
 	private int brojPortova;
 	
 	
@@ -123,10 +123,10 @@ public class Televizor {
 	public void setNacinPrijema(NacinPrijema nacinPrijema) {
 		this.nacinPrijema = nacinPrijema;
 	}
-	public NacinPrijemaKablovska getPrijemKablovska() {
+	public PrijemKablovska getPrijemKablovska() {
 		return prijemKablovska;
 	}
-	public void setPrijemKablovska(NacinPrijemaKablovska prijemKablovska) {
+	public void setPrijemKablovska(PrijemKablovska prijemKablovska) {
 		this.prijemKablovska = prijemKablovska;
 	}
 	public Boolean getSekundarniPrijem() {
@@ -153,10 +153,10 @@ public class Televizor {
 	public void setUdaljenostOdTV(Double udaljenostOdTV) {
 		this.udaljenostOdTV = udaljenostOdTV;
 	}
-	public NacinPrijemaSatelitska getPrijemSatelitska() {
+	public PrijemSatelitska getPrijemSatelitska() {
 		return prijemSatelitska;
 	}
-	public void setPrijemSatelitska(NacinPrijemaSatelitska prijemSatelitska) {
+	public void setPrijemSatelitska(PrijemSatelitska prijemSatelitska) {
 		this.prijemSatelitska = prijemSatelitska;
 	}
 	public MestoStanovanja getMestoStanovanja() {

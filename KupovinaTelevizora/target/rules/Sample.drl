@@ -1,47 +1,33 @@
 package com.sample
- 
-import com.sample.DroolsTest.Message;
+
 import com.sample.Televizor;
 import com.sample.Enums.*;
  
-rule "Cena za smart televizor"
+rule "Nema novca za smart televizor"
 no-loop
+salience 10
     when
-        tv : Televizor( cena>=20000, mojaCena : cena )
+        tv : Televizor(cena<20000)
     then
         //System.out.println( mojaCena );
-        tv.setSmart(true);
-        
-        System.out.println("Max cena: "+tv.getCena());
-    	System.out.println("Naèin prijema: "+tv.getNacinPrijema());
-    	System.out.println("Prijem kablovske: "+tv.getPrijemKablovska());
-    	System.out.println("Prijem satelitske: "+tv.getPrijemSatelitska());
-    	System.out.println("Sekundarni prijem: "+tv.getSekundarniPrijem());
-    	System.out.println("Nove moguænosti: "+tv.getNoveMogucnosti());
-    	System.out.println("Internet: "+tv.getInternet());
-    	System.out.println("Pozicija: "+tv.getPozicija());
-    	System.out.println("Udaljenost: "+tv.getUdaljenostOdTV());
-    	System.out.println("Dodatni ureðaji: "+tv.getDodatniUredjaji());
-    	System.out.println("Mesto stanovanja: "+tv.getMestoStanovanja());
-    	System.out.println("Za šta se koristi: "+tv.getNeklasicanSadrzaj());
-        //tv.setStatus( Message.GOODBYE );
+        tv.setSmart(false);
         update( tv );
 end
 
-rule "GoodBye"
+rule "test"
+no-loop 
+salience 1
+    when
+        tv : Televizor( nacinPrijema  == NacinPrijema.KABLOVSKA, smart !=false )
+    then
+    tv.setSmart(true);
+System.out.println("TEST: "+tv.getNeklasicanSadrzaj());
+end
+
+rule "Dovoljan je analogni tjuner za kablovsku"
 no-loop 
     when
-        tv : Televizor( nacinPrijema  == NacinPrijema.KABLOVSKA, mySmart : smart )
+        tv : Televizor(prijemKablovska == PrijemKablovska.SETTOPBOX || prijemKablovska == PrijemKablovska.ANALOGNA, sekundarniPrijem == false, noveMogucnosti == false )
     then
-        System.out.println(tv.getCena());
-    	System.out.println(tv.getNacinPrijema());
-    	System.out.println(tv.getPrijemKablovska());
-    	System.out.println(tv.getPrijemSatelitska());
-    	System.out.println(tv.getSekundarniPrijem());
-    	System.out.println(tv.getNoveMogucnosti());
-    	System.out.println(tv.getInternet());
-    	System.out.println(tv.getPozicija());
-    	System.out.println(tv.getUdaljenostOdTV());
-    	System.out.println(tv.getDodatniUredjaji());
-    	System.out.println(mySmart);
+		tv.setTuner(Tuner.ANALOGNI);
 end

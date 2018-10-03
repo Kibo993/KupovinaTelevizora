@@ -359,7 +359,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setSekundarniPrijem(sekundarniPrijemSelected());
         		if(sekPrijemSelected){
-        			if(tv.getPrijemKablovska()==NacinPrijemaKablovska.ANALOGNA){
+        			if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
         				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
         			}else{
         				cl.show(questionsPanel, INTERNET);
@@ -464,7 +464,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnNazad_4 = new JButton("Nazad");
         btnNazad_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        			if(tv.getPrijemKablovska()==NacinPrijemaKablovska.ANALOGNA){
+        			if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
         				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
         			}else{
         				cl.show(questionsPanel, nazadSaInterneta);
@@ -782,25 +782,25 @@ public class FrmKupovinaTelevizora extends JFrame{
 		return null;
 	}
 	
-	private NacinPrijemaKablovska prijemKablovskaSelected(){
+	private PrijemKablovska prijemKablovskaSelected(){
 		if(rdbtnAnalogna.isSelected()){
-			return NacinPrijemaKablovska.ANALOGNA;
+			return PrijemKablovska.ANALOGNA;
 		}
 		if(rdbtnSetTop.isSelected()){
-			return NacinPrijemaKablovska.SETTOPBOX;
+			return PrijemKablovska.SETTOPBOX;
 		}
 		if(rdbtnCAM.isSelected()){
-			return NacinPrijemaKablovska.CAMMODUL;
+			return PrijemKablovska.CAMMODUL;
 		}
 		return null;
 	}
 	
-	private NacinPrijemaSatelitska prijemSatelitskaSelected(){
+	private PrijemSatelitska prijemSatelitskaSelected(){
 		if(rdbtnPrekoProvajdera.isSelected()){
-			return NacinPrijemaSatelitska.PROVAJDER;
+			return PrijemSatelitska.PROVAJDER;
 		}
 		if(rdbtnSlobodno.isSelected()){
-			return NacinPrijemaSatelitska.SLOBODNO;
+			return PrijemSatelitska.SLOBODNO;
 		}
 		return null;
 	}

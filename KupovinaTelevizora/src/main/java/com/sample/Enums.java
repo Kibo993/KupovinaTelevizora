@@ -8,13 +8,13 @@ public class Enums {
 		NEPRATIKLASICAN
 	};
 
-	protected enum NacinPrijemaKablovska{
+	protected enum PrijemKablovska{
 		ANALOGNA,
 		SETTOPBOX,
 		CAMMODUL
 	};
 	
-	protected enum NacinPrijemaSatelitska{
+	protected enum PrijemSatelitska{
 		PROVAJDER,
 		SLOBODNO
 	};
@@ -34,7 +34,8 @@ public class Enums {
 	protected enum Tuner{
 		DVB_C,
 		DVB_T2,
-		DVB_S2
+		DVB_S2,
+		ANALOGNI
 	};
 
 	protected enum TipEkrana{

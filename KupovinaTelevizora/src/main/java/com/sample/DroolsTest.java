@@ -60,54 +60,28 @@ public class DroolsTest {
         	
         	FrmKupovinaTelevizora form = new FrmKupovinaTelevizora(tv);
         	form.setVisible(true);
-        	
-        	/*System.out.println(tv.getCena());
-    		System.out.println(tv.getNacinPrijema());
-    		System.out.println(tv.getPrijemKablovska());
-    		System.out.println(tv.getSekundarniPrijem());
-    		System.out.println(tv.getNoveMogucnosti());
-    		System.out.println(tv.getInternet());
-    		System.out.println(tv.getPozicija());
-    		System.out.println(tv.getUdaljenostOdTV());
-    		System.out.println(tv.getDodatniUredjaji());*/
-            // go !
-            //Message message = new Message();
-            //message.setMessage("Hello World");
-            //message.setStatus(Message.HELLO);
         	while(form.isVisible()){
         	}
             kSession.insert(tv);
             kSession.fireAllRules();
+            
+            System.out.println("Max cena: "+tv.getCena());
+        	System.out.println("Naèin prijema: "+tv.getNacinPrijema());
+        	System.out.println("Prijem kablovske: "+tv.getPrijemKablovska());
+        	System.out.println("Prijem satelitske: "+tv.getPrijemSatelitska());
+        	System.out.println("Sekundarni prijem: "+tv.getSekundarniPrijem());
+        	System.out.println("Nove moguænosti: "+tv.getNoveMogucnosti());
+        	System.out.println("Internet: "+tv.getInternet());
+        	System.out.println("Pozicija: "+tv.getPozicija());
+        	System.out.println("Udaljenost: "+tv.getUdaljenostOdTV());
+        	System.out.println("Dodatni ureðaji: "+tv.getDodatniUredjaji());
+        	System.out.println("Mesto stanovanja: "+tv.getMestoStanovanja());
+        	System.out.println("Za šta se koristi: "+tv.getNeklasicanSadrzaj());
+        	System.out.println("Smart: "+tv.getSmart());
+        	System.out.println("Tuner: "+tv.getTuner());
         } catch (Throwable t) {
             t.printStackTrace();
         }
-    }
-
-    public static class Message {
-
-        public static final int HELLO = 0;
-        public static final int GOODBYE = 1;
-
-        private String message;
-
-        private int status;
-
-        public String getMessage() {
-            return this.message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public int getStatus() {
-            return this.status;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
     }
 
 }
