@@ -2,32 +2,60 @@ package com.sample
 
 import com.sample.Televizor;
 import com.sample.Enums.*;
- 
+
 rule "Nema novca za smart televizor"
-no-loop
+lock-on-active true
 salience 10
     when
         tv : Televizor(cena<20000)
     then
-        //System.out.println( mojaCena );
-        tv.setSmart(false);
+        tv.setSmart(Smart.NO);
         update( tv );
 end
 
-rule "test"
+/*rule "test"
 no-loop 
 salience 1
     when
         tv : Televizor( nacinPrijema  == NacinPrijema.KABLOVSKA, smart !=false )
     then
     tv.setSmart(true);
+     update( tv );
 System.out.println("TEST: "+tv.getNeklasicanSadrzaj());
 end
-
+*/
 rule "Dovoljan je analogni tjuner za kablovsku"
-no-loop 
+lock-on-active true
     when
-        tv : Televizor(prijemKablovska == PrijemKablovska.SETTOPBOX || prijemKablovska == PrijemKablovska.ANALOGNA, sekundarniPrijem == false, noveMogucnosti == false )
+        tv : Televizor(nacinPrijema == NacinPrijema.KABLOVSKA && (prijemKablovska == PrijemKablovska.SETTOPBOX || prijemKablovska == PrijemKablovska.ANALOGNA))
     then
 		tv.setTuner(Tuner.ANALOGNI);
+		update( tv );
+end
+
+rule "Potreban je DVB C tjuner za kablovsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.KABLOVSKA && (prijemKablovska == PrijemKablovska.CAMMODUL || (prijemKablovska == PrijemKablovska.ANALOGNA && noveMogucnosti == true)))
+    then
+		tv.setTuner(Tuner.DVB_C);
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz DVB C tjuner za kablovsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.DVB_C && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2_C);
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz analogni tjuner za kablovsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.ANALOGNI && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		update( tv );
 end

@@ -21,7 +21,7 @@ public class Televizor {
 	private Tuner tuner;
 	private Double dijagonala;
 	private TipEkrana tipEkrana;
-	private Boolean smart;
+	private Smart smart;
 	private int brojPortova;
 	
 	
@@ -30,7 +30,7 @@ public class Televizor {
 	}
 	//NAMESTI KONSTRUKTOR DA IMA SVA POLJA
 	public Televizor(Tuner tuner, Double dijagonala, TipEkrana tipEkrana,
-			int cena, Boolean smart, Internet internet, int brojPortova,
+			int cena, Smart smart, Internet internet, int brojPortova,
 			String dodatniUredjaji) {
 		super();
 		this.tuner = tuner;
@@ -75,11 +75,11 @@ public class Televizor {
 		this.cena = cena;
 	}
 
-	public Boolean getSmart() {
+	public Smart getSmart() {
 		return smart;
 	}
 
-	public void setSmart(Boolean smart) {
+	public void setSmart(Smart smart) {
 		this.smart = smart;
 	}
 

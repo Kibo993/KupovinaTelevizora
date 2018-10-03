@@ -35,6 +35,8 @@ public class Enums {
 		DVB_C,
 		DVB_T2,
 		DVB_S2,
+		DVB_T2_S2,
+		DVB_T2_C,
 		ANALOGNI
 	};
 
@@ -48,5 +50,11 @@ public class Enums {
 		WIFI,
 		BEZWIFIJA,
 		NE
+	};
+	
+	protected enum Smart{
+		SMART,
+		SEMISMART,
+		NO
 	};
 }
