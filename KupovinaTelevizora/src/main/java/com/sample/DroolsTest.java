@@ -32,6 +32,7 @@ public class DroolsTest {
 	// Za odabir cene i razdaljine staviti slider!!!
 	// Kako je bolje, da budu enumi ili stringovi jer ako su stringovi, onda je dovoljna jedna metoda za odgovore???
 	// Kad je bolje popuniti objekat televizor, da li redom posle svakog pitanja ili na kraju???
+	// Smart TV nema analogni tjuner - vodi raèuna o tome!!!!
 	// 
 	//pitanja:
 	//
@@ -64,21 +65,8 @@ public class DroolsTest {
         	}
             kSession.insert(tv);
             kSession.fireAllRules();
-            
-            System.out.println("Max cena: "+tv.getCena());
-        	System.out.println("Naèin prijema: "+tv.getNacinPrijema());
-        	System.out.println("Prijem kablovske: "+tv.getPrijemKablovska());
-        	System.out.println("Prijem satelitske: "+tv.getPrijemSatelitska());
-        	System.out.println("Sekundarni prijem: "+tv.getSekundarniPrijem());
-        	System.out.println("Nove moguænosti: "+tv.getNoveMogucnosti());
-        	System.out.println("Internet: "+tv.getInternet());
-        	System.out.println("Pozicija: "+tv.getPozicija());
-        	System.out.println("Udaljenost: "+tv.getUdaljenostOdTV());
-        	System.out.println("Dodatni ureðaji: "+tv.getDodatniUredjaji());
-        	System.out.println("Mesto stanovanja: "+tv.getMestoStanovanja());
-        	System.out.println("Za šta se koristi: "+tv.getNeklasicanSadrzaj());
-        	System.out.println("Smart: "+tv.getSmart());
-        	System.out.println("Tuner: "+tv.getTuner());
+
+            System.out.println(tv);
         } catch (Throwable t) {
             t.printStackTrace();
         }

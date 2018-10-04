@@ -51,11 +51,98 @@ no-loop true
 		update( tv );
 end
 
-rule "Potreban je DVB T2 uz analogni tjuner za kablovsku"
+rule "Dovoljan je analogni tjuner za satelitsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.PROVAJDER)
+    then
+		tv.setTuner(Tuner.ANALOGNI);
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz analogni tjuner za kablovsku ili satelitsku"
 no-loop true
     when
         tv : Televizor(tuner != null && tuner == Tuner.ANALOGNI && sekundarniPrijem == true)
     then
 		tv.setTuner(Tuner.DVB_T2);
+		update( tv );
+end
+
+rule "Potreban je DVB S2 tjuner za satelitsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.SLOBODNO)
+    then
+		tv.setTuner(Tuner.DVB_S2);
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz DVB S2 tjuner za satelitsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.DVB_S2 && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2_S2);
+		update( tv );
+end
+/*
+rule "Potreban je DVB T2 za zemaljsku"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar(komentarTV + " ");
+		update( tv );
+end
+*/
+rule "Cena za Gradsko podruèje"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		update( tv );
+end
+
+rule "Cena za Prigradsko podruèje"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena>=30000)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		update( tv );
+end
+
+rule "Neodgovarajuæa cena za Prigradsko podruèje"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena<30000)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.");
+		update( tv );
+end
+
+rule "Cena za Seosko podruèje"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena>=55000)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		update( tv );
+end
+
+rule "Neodgovarajuæa cena za Seosko podruèje"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena<55000)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.");
 		update( tv );
 end

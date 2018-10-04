@@ -23,6 +23,7 @@ public class Televizor {
 	private TipEkrana tipEkrana;
 	private Smart smart;
 	private int brojPortova;
+	private String komentar;
 	
 	
 	public Televizor() {
@@ -107,15 +108,6 @@ public class Televizor {
 		this.dodatniUredjaji = dodatniUredjaji;
 	}
 
-	@Override
-	public String toString() {
-		return "Televizor [tuner=" + tuner + ", dijagonala=" + dijagonala
-				+ ", tipEkrana=" + tipEkrana + ", cena=" + cena + ", smart="
-				+ smart + ", internet=" + internet + ", brojPortova="
-				+ brojPortova + ", dodatneFunkcionalnosti="
-				+ dodatniUredjaji + "]";
-	}
-
 	public NacinPrijema getNacinPrijema() {
 		return nacinPrijema;
 	}
@@ -170,6 +162,27 @@ public class Televizor {
 	}
 	public void setNeklasicanSadrzaj(String neklasicanSadrzaj) {
 		this.neklasicanSadrzaj = neklasicanSadrzaj;
+	}
+	public String getKomentar() {
+		return komentar;
+	}
+	public void setKomentar(String komentar) {
+		this.komentar = komentar;
+	}
+	@Override
+	public String toString() {
+		return "Televizor\n [cena=" + cena + ",\n nacinPrijema=" + nacinPrijema
+				+ ",\n prijemKablovska=" + prijemKablovska
+				+ ",\n prijemSatelitska=" + prijemSatelitska
+				+ ",\n mestoStanovanja=" + mestoStanovanja
+				+ ",\n SekundarniPrijem=" + SekundarniPrijem
+				+ ",\n NoveMogucnosti=" + NoveMogucnosti + ",\n internet="
+				+ internet + ",\n pozicija=" + pozicija + ",\n udaljenostOdTV="
+				+ udaljenostOdTV + ",\n dodatniUredjaji=" + dodatniUredjaji
+				+ ",\n neklasicanSadrzaj=" + neklasicanSadrzaj + ",\n tuner="
+				+ tuner + ",\n dijagonala=" + dijagonala + ",\n tipEkrana="
+				+ tipEkrana + ",\n smart=" + smart + ",\n brojPortova="
+				+ brojPortova + ",\n komentar=" + komentar + "]";
 	}
 
 }
