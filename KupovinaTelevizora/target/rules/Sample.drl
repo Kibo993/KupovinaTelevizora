@@ -157,7 +157,7 @@ no-loop true
 end
 
 rule "Broj portova"
-no-loop true
+lock-on-active true
     when
         tv : Televizor(dodUr : dodatniUredjaji)
     then
@@ -166,18 +166,12 @@ no-loop true
 		update( tv );
 end
 
-//AKO IMA POVEZAN SETTOPBOX ONDA BROJ PORTOVA JOS ZA +1!!!!!!!!!!!!!!
-
-/*rule "Broj portova"
+rule "Broj portova sa settopboxom"
 no-loop true
     when
-        tv : Televizor(internet == Internet.NE)
+        tv : Televizor((nacinPrijema == NacinPrijema.KABLOVSKA && prijemKablovska == PrijemKablovska.SETTOPBOX)||(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.PROVAJDER), brPortova : brojPortova)
     then
-		tv.setSmart(Smart.NO);
+		tv.setBrojPortova(brPortova+1);
 		update( tv );
 end
 
-/*String[] uredj = tv.getDodatniUredjaji().split(" ");
-        		System.out.println(uredj.length/2);
-        		System.out.println(uredj[1]);
-        		System.out.println(tv.getDodatniUredjaji().contains("Raèunar"));*/

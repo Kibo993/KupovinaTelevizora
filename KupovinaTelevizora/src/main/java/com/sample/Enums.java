@@ -45,6 +45,12 @@ public class Enums {
 		OLED,
 		QLED
 	};
+	
+	protected enum Rezolucija{
+		HDREADY,
+		HD,
+		UHD
+	};
 
 	protected enum Internet{
 		WIFI,

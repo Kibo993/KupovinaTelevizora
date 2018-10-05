@@ -23,26 +23,44 @@ public class Televizor {
 	private TipEkrana tipEkrana;
 	private Smart smart;
 	private int brojPortova;
+	private Rezolucija rezolucija;
 	private String komentar;
 	
 	
 	public Televizor() {
 		super();
 	}
-	//NAMESTI KONSTRUKTOR DA IMA SVA POLJA
-	public Televizor(Tuner tuner, Double dijagonala, TipEkrana tipEkrana,
-			int cena, Smart smart, Internet internet, int brojPortova,
-			String dodatniUredjaji) {
+
+	public Televizor(int cena, NacinPrijema nacinPrijema,
+			PrijemKablovska prijemKablovska, PrijemSatelitska prijemSatelitska,
+			MestoStanovanja mestoStanovanja, Boolean sekundarniPrijem,
+			Boolean noveMogucnosti, Internet internet, Pozicija pozicija,
+			Double udaljenostOdTV, String dodatniUredjaji,
+			String neklasicanSadrzaj, Tuner tuner, Double dijagonala,
+			TipEkrana tipEkrana, Smart smart, int brojPortova,
+			Rezolucija rezolucija, String komentar) {
 		super();
+		this.cena = cena;
+		this.nacinPrijema = nacinPrijema;
+		this.prijemKablovska = prijemKablovska;
+		this.prijemSatelitska = prijemSatelitska;
+		this.mestoStanovanja = mestoStanovanja;
+		SekundarniPrijem = sekundarniPrijem;
+		NoveMogucnosti = noveMogucnosti;
+		this.internet = internet;
+		this.pozicija = pozicija;
+		this.udaljenostOdTV = udaljenostOdTV;
+		this.dodatniUredjaji = dodatniUredjaji;
+		this.neklasicanSadrzaj = neklasicanSadrzaj;
 		this.tuner = tuner;
 		this.dijagonala = dijagonala;
 		this.tipEkrana = tipEkrana;
-		this.cena = cena;
 		this.smart = smart;
-		this.internet = internet;
 		this.brojPortova = brojPortova;
-		this.dodatniUredjaji = dodatniUredjaji;
+		this.rezolucija = rezolucija;
+		this.komentar = komentar;
 	}
+
 
 	public Tuner getTuner() {
 		return tuner;
@@ -169,6 +187,12 @@ public class Televizor {
 	public void setKomentar(String komentar) {
 		this.komentar = komentar;
 	}
+	public Rezolucija getRezolucija() {
+		return rezolucija;
+	}
+	public void setRezolucija(Rezolucija rezolucija) {
+		this.rezolucija = rezolucija;
+	}
 	@Override
 	public String toString() {
 		return "Televizor\n [cena=" + cena + ",\n nacinPrijema=" + nacinPrijema
@@ -182,7 +206,9 @@ public class Televizor {
 				+ ",\n neklasicanSadrzaj=" + neklasicanSadrzaj + ",\n tuner="
 				+ tuner + ",\n dijagonala=" + dijagonala + ",\n tipEkrana="
 				+ tipEkrana + ",\n smart=" + smart + ",\n brojPortova="
-				+ brojPortova + ",\n komentar=" + komentar + "]";
+				+ brojPortova + ",\n rezolucija="
+				+ rezolucija + ",\n komentar=" + komentar + "]";
 	}
+
 
 }
