@@ -13,17 +13,26 @@ salience 10
         update( tv );
 end
 
-/*rule "test"
-no-loop 
-salience 1
+rule "Nema novca za smart televizor ali ima za semi smart"
+lock-on-active true
+salience 10
     when
-        tv : Televizor( nacinPrijema  == NacinPrijema.KABLOVSKA, smart !=false )
+        tv : Televizor(cena>=20000 && cena<30000)
     then
-    tv.setSmart(true);
-     update( tv );
-System.out.println("TEST: "+tv.getNeklasicanSadrzaj());
+        tv.setSmart(Smart.SEMISMART);
+        update( tv );
 end
-*/
+
+rule "Ima novca za smart televizor"
+lock-on-active true
+salience 10
+    when
+        tv : Televizor(cena>=30000)
+    then
+        tv.setSmart(Smart.SMART);
+        update( tv );
+end
+
 rule "Dovoljan je analogni tjuner za kablovsku"
 lock-on-active true
     when
@@ -146,3 +155,29 @@ no-loop true
 		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.");
 		update( tv );
 end
+
+rule "Broj portova"
+no-loop true
+    when
+        tv : Televizor(dodUr : dodatniUredjaji)
+    then
+		String[] uredj = dodUr.split(" ");
+		tv.setBrojPortova((uredj.length/2)+1);
+		update( tv );
+end
+
+//AKO IMA POVEZAN SETTOPBOX ONDA BROJ PORTOVA JOS ZA +1!!!!!!!!!!!!!!
+
+/*rule "Broj portova"
+no-loop true
+    when
+        tv : Televizor(internet == Internet.NE)
+    then
+		tv.setSmart(Smart.NO);
+		update( tv );
+end
+
+/*String[] uredj = tv.getDodatniUredjaji().split(" ");
+        		System.out.println(uredj.length/2);
+        		System.out.println(uredj[1]);
+        		System.out.println(tv.getDodatniUredjaji().contains("Raèunar"));*/
