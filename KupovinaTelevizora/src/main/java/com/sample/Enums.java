@@ -47,8 +47,8 @@ public class Enums {
 	};
 	
 	protected enum Rezolucija{
-		HDREADY,
 		HD,
+		FULLHD,
 		UHD
 	};
 
@@ -61,6 +61,6 @@ public class Enums {
 	protected enum Smart{
 		SMART,
 		SEMISMART,
-		NO
+		NE
 	};
 }

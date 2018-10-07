@@ -8,8 +8,7 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class DroolsTest {
-	//SREDITI DUGMIÆE NAZAD I DALJE NA FORMI!!!!!!!!
-	//PREPRAVITI TELEVIZOR, DODAVATI POLJA KAKO DODAJEŠ NOVA PITANJA!!!!!!!!!! VEÆ IMA CENA, NAÈIN PRIJEMA, INTERNET!!!
+// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
 //	-rezolucija

@@ -194,7 +194,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         uredjajiTV.setLayout(null);
         questionsPanel.add(uredjajiTV, UREDJAJI);
         
-        JLabel lblIspisCene = new JLabel("100000");
+        JLabel lblIspisCene = new JLabel("100000 RSD");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
         JSlider cena = new JSlider(10000,200000,100000);
         cena.setMajorTickSpacing(10000);
@@ -213,7 +213,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         
         cena.addChangeListener(new ChangeListener() {
         	public void stateChanged(ChangeEvent arg0) {
-        		lblIspisCene.setText(String.valueOf(cena.getValue()));
+        		lblIspisCene.setText(String.valueOf(cena.getValue()) + " RSD");
             	String value = String.valueOf(cena.getValue());
         		maxCena = Integer.parseInt(value);
         	}
@@ -226,7 +226,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         maxCenaTV.add(lblOdaberiteNajviuCenu);
         
         //JLabel lblIspisCene = new JLabel("New label");
-        lblIspisCene.setBounds(182, 93, 46, 14);
+        lblIspisCene.setBounds(167, 93, 79, 14);
         maxCenaTV.add(lblIspisCene);
         
         JButton btnDalje = new JButton("Dalje");
