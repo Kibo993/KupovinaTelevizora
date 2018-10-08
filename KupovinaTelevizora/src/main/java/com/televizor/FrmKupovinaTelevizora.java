@@ -1,9 +1,9 @@
-package com.sample;
+package com.televizor;
 
 import java.awt.EventQueue;
 
-import com.sample.Televizor;
-import com.sample.Enums.*;
+import com.televizor.Televizor;
+import com.televizor.Enums.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -25,7 +25,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+
 import java.awt.Component;
+
 import javax.swing.Box;
 
 public class FrmKupovinaTelevizora extends JFrame{

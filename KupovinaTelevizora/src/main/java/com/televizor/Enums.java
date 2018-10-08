@@ -1,4 +1,4 @@
-package com.sample;
+package com.televizor;
 
 public class Enums {
 	protected enum NacinPrijema{

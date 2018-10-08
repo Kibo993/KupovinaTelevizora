@@ -1,7 +1,7 @@
-package com.sample
+package com.televizor
 
-import com.sample.Televizor;
-import com.sample.Enums.*;
+import com.televizor.Televizor;
+import com.televizor.Enums.*;
 
 rule "Nema novca za smart televizor"
 lock-on-active true
@@ -137,57 +137,57 @@ no-loop true
 end
 */
 rule "Cena za Gradsko podruèje"
-no-loop true
+lock-on-active true
     when
-        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO)
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO, komentarTV : komentar)
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST13");
-		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
 		update( tv );
 end
 
 rule "Cena za Prigradsko podruèje"
-no-loop true
+lock-on-active true
     when
-        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena>=30000)
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena>=30000, komentarTV : komentar)
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST14");
-		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
 		update( tv );
 end
 
 rule "Neodgovarajuæa cena za Prigradsko podruèje"
-no-loop true
+lock-on-active true
     when
-        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena<30000)
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena<30000, komentarTV : komentar)
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST15");
-		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
 		update( tv );
 end
 
 rule "Cena za Seosko podruèje"
-no-loop true
+lock-on-active true
     when
-        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena>=55000)
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena>=55000, komentarTV : komentar)
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST16");
-		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
 		update( tv );
 end
 
 rule "Neodgovarajuæa cena za Seosko podruèje"
-no-loop true
+lock-on-active true
     when
-        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena<55000)
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena<55000, komentarTV : komentar)
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST17");
-		tv.setKomentar("Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
 		update( tv );
 end
 
@@ -225,7 +225,7 @@ end
 rule "Ekran naspram prozora, ima dovoljno novca"
 lock-on-active true
     when
-        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=170000, ekran : tipEkrana)
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=200000, ekran : tipEkrana)
     then
 		tv.setTipEkrana(TipEkrana.QLED);
 		System.out.println("TEST21");
@@ -265,11 +265,10 @@ end
 rule "Ne postoji televizor koji nije Smart sa QLED ili OLED ekranom"
 no-loop true
     when
-        tv : Televizor(smart != null && smart != Smart.SMART, ekran : tipEkrana)
+        tv : Televizor(smart != null && smart != Smart.SMART && tipEkrana != null && tipEkrana != TipEkrana.LED, ekran : tipEkrana)
     then
 		tv.setTipEkrana(TipEkrana.LED);
 		System.out.println("TEST25");
-		System.out.println(tv);
 		update( tv );
 end
 
@@ -281,3 +280,54 @@ lock-on-active true
 		tv.setTipEkrana(TipEkrana.QLED);
 		update( tv );
 end*/
+
+rule "Dijagonala ekrana u zavisnosti od udaljenosti"
+lock-on-active true
+    when
+        tv : Televizor(udaljenostOdTV != null, udaljenost : udaljenostOdTV)
+    then
+		tv.setDijagonala((int)(udaljenost*11.351));
+		System.out.println("TEST26");
+		update( tv );
+end
+
+rule "Ne postoji televizor sa dijagonalom manjom od 19 inèa"
+lock-on-active true
+    when
+        tv : Televizor(dijagonala<19)
+    then
+		tv.setDijagonala(19);
+		System.out.println("TEST27");
+		update( tv );
+end
+
+rule "Štetno je gledati televizor na udaljenosti manjoj od 1m"
+lock-on-active true
+    when
+        tv : Televizor(udaljenostOdTV < 1.0, kom : komentar)
+    then
+		tv.setDijagonala(0);
+		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je štetno gledati televiziju.\nZato preporuèujemo portabl televizor.\n");
+		System.out.println("TEST28");
+		update( tv );
+end
+
+rule "Za ekran manji od 32 inèa dovoljna je HD (HDReady) rezolucija"
+no-loop true
+    when
+        tv : Televizor(dijagonala<32)
+    then
+		tv.setRezolucija(Rezolucija.HD);
+		System.out.println("TEST29");
+		update( tv );
+end
+
+rule "Za ekran veæi od 32 inèa potrebna je FullHD rezolucija"
+no-loop true
+    when
+        tv : Televizor(dijagonala>=32)
+    then
+		tv.setRezolucija(Rezolucija.FULLHD);
+		System.out.println("TEST30");
+		update( tv );
+end

@@ -1,4 +1,4 @@
-package com.sample;
+package com.televizor;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
@@ -7,7 +7,7 @@ import org.kie.api.runtime.KieSession;
 /**
  * This is a sample class to launch a rule.
  */
-public class DroolsTest {
+public class TelevizorMain {
 // SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri

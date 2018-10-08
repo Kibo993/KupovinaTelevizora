@@ -1,6 +1,6 @@
-package com.sample;
+package com.televizor;
 
-import com.sample.Enums.*;
+import com.televizor.Enums.*;
 
 public class Televizor {
 	
@@ -19,12 +19,12 @@ public class Televizor {
 	private String neklasicanSadrzaj;
 	
 	private Tuner tuner;
-	private Double dijagonala;
+	private int dijagonala;
 	private TipEkrana tipEkrana;
 	private Smart smart;
 	private int brojPortova;
 	private Rezolucija rezolucija;
-	private String komentar;
+	private String komentar = "";
 	
 	
 	public Televizor() {
@@ -36,7 +36,7 @@ public class Televizor {
 			MestoStanovanja mestoStanovanja, Boolean sekundarniPrijem,
 			Boolean noveMogucnosti, Internet internet, Pozicija pozicija,
 			Double udaljenostOdTV, String dodatniUredjaji,
-			String neklasicanSadrzaj, Tuner tuner, Double dijagonala,
+			String neklasicanSadrzaj, Tuner tuner, int dijagonala,
 			TipEkrana tipEkrana, Smart smart, int brojPortova,
 			Rezolucija rezolucija, String komentar) {
 		super();
@@ -70,11 +70,11 @@ public class Televizor {
 		this.tuner = tuner;
 	}
 
-	public Double getDijagonala() {
+	public int getDijagonala() {
 		return dijagonala;
 	}
 
-	public void setDijagonala(Double dijagonala) {
+	public void setDijagonala(int dijagonala) {
 		this.dijagonala = dijagonala;
 	}
 
