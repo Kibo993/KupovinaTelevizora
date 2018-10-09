@@ -331,3 +331,13 @@ no-loop true
 		System.out.println("TEST30");
 		update( tv );
 end
+
+rule "Ima SmartTVBox, ne želi smart televizor"
+no-loop true
+    when
+        tv : Televizor(smart != null && smart != Smart.NE && dodatniUredjaji.contains("SmartTVBox") && noveMogucnosti == false)
+    then
+		tv.setSmart(Smart.NE);
+		System.out.println("TEST31");
+		update( tv );
+end

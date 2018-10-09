@@ -96,7 +96,7 @@ public class FrmKupovinaTelevizora extends JFrame{
     private JCheckBox chckbxRacunar;
     private JCheckBox chckbxDvd;
     private JCheckBox chckbxSmartTvBox;
-    private JCheckBox chckbxKameraZaVideo;
+    private JCheckBox chckbxKonzolaZaIgre;
 
 	/**
 	 * Launch the application.
@@ -605,9 +605,9 @@ public class FrmKupovinaTelevizora extends JFrame{
         chckbxSmartTvBox.setBounds(77, 86, 149, 23);
         uredjajiTV.add(chckbxSmartTvBox);
         
-        chckbxKameraZaVideo = new JCheckBox("Kamera i DVR za video nadzor");
-        chckbxKameraZaVideo.setBounds(77, 112, 263, 23);
-        uredjajiTV.add(chckbxKameraZaVideo);
+        chckbxKonzolaZaIgre = new JCheckBox("Konzola za video igrice");
+        chckbxKonzolaZaIgre.setBounds(77, 112, 263, 23);
+        uredjajiTV.add(chckbxKonzolaZaIgre);
         
         JButton btnDalje_4 = new JButton("Dalje");
         btnDalje_4.addActionListener(new ActionListener() {
@@ -882,8 +882,8 @@ public class FrmKupovinaTelevizora extends JFrame{
 		if(chckbxSmartTvBox.isSelected()){
 			dodatniUredjaji+= " SmartTVBox ";
 		}
-		if(chckbxKameraZaVideo.isSelected()){
-			dodatniUredjaji+= " VideoNadzor ";
+		if(chckbxKonzolaZaIgre.isSelected()){
+			dodatniUredjaji+= " VideoIgre ";
 		}
 		return dodatniUredjaji;
 	}
@@ -920,6 +920,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 	 * Create the frame.
 	 */
 	public FrmKupovinaTelevizora() {
+		setResizable(false);
 		new FrmKupovinaTelevizora(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
