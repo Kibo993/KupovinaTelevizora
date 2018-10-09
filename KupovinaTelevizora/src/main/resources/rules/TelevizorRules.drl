@@ -165,7 +165,7 @@ lock-on-active true
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST15");
-		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli je preporuèljivo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
 		update( tv );
 end
 
@@ -187,7 +187,7 @@ lock-on-active true
     then
 		tv.setTuner(Tuner.DVB_T2);
 		System.out.println("TEST17");
-		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli vam preporuèujemo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli je preporuèljivo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
 		update( tv );
 end
 
@@ -307,7 +307,7 @@ lock-on-active true
         tv : Televizor(udaljenostOdTV < 1.0, kom : komentar)
     then
 		tv.setDijagonala(0);
-		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je štetno gledati televiziju.\nZato preporuèujemo portabl televizor.\n");
+		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je štetno gledati televiziju.\nZato se preporuèuje portabl televizor.\n");
 		System.out.println("TEST28");
 		update( tv );
 end

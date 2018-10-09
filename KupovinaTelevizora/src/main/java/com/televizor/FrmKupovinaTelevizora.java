@@ -176,10 +176,6 @@ public class FrmKupovinaTelevizora extends JFrame{
         sekundarPrijemTV.setLayout(null);
         questionsPanel.add(sekundarPrijemTV, SEKUNDARNIPRIJEM);
         
-        JPanel dodMogucnostiTV = new JPanel();
-        dodMogucnostiTV.setLayout(null);
-        questionsPanel.add(dodMogucnostiTV, DODATNEMOGUCNOSTI);
-        
         JPanel internetTV = new JPanel();
         internetTV.setLayout(null);
         questionsPanel.add(internetTV, INTERNET);
@@ -195,6 +191,10 @@ public class FrmKupovinaTelevizora extends JFrame{
         JPanel uredjajiTV = new JPanel();
         uredjajiTV.setLayout(null);
         questionsPanel.add(uredjajiTV, UREDJAJI);
+        
+        JPanel dodMogucnostiTV = new JPanel();
+        dodMogucnostiTV.setLayout(null);
+        questionsPanel.add(dodMogucnostiTV, DODATNEMOGUCNOSTI);
         
         JLabel lblIspisCene = new JLabel("100000 RSD");
         lblIspisCene.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -361,11 +361,11 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setSekundarniPrijem(sekundarniPrijemSelected());
         		if(sekPrijemSelected){
-        			if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
+        			/*if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
         				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
-        			}else{
+        			}else{*/
         				cl.show(questionsPanel, INTERNET);
-        			}
+        			//}
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
@@ -388,8 +388,8 @@ public class FrmKupovinaTelevizora extends JFrame{
         btnNazad_2.setBounds(36, 150, 89, 23);
         sekundarPrijemTV.add(btnNazad_2);
         
-        JLabel lblDaLiBiste = new JLabel("Da li biste uzeli dodatne mogu\u0107nosti koje nudi provajder?");
-        lblDaLiBiste.setBounds(36, 11, 368, 14);
+        JLabel lblDaLiBiste = new JLabel("Da li \u017Eelite nove mogu\u0107nosti?");
+        lblDaLiBiste.setBounds(69, 11, 335, 14);
         dodMogucnostiTV.add(lblDaLiBiste);
         
         rdbtnDodMogDa = new JRadioButton("Da");
@@ -404,29 +404,30 @@ public class FrmKupovinaTelevizora extends JFrame{
         dodatneMogucnosti.add(rdbtnDodMogDa);
         dodatneMogucnosti.add(rdbtnDodMogNe);
         
-        JButton btnDalje_4 = new JButton("Dalje");
-        btnDalje_4.addActionListener(new ActionListener() {
+        JButton btnKraj = new JButton("Prika\u017Ei odgovor");
+        btnKraj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setNoveMogucnosti(noveMogucnostiSelected());
         		if(dodMogucnostiSelected){
-        				cl.show(questionsPanel, INTERNET);
+        				//cl.show(questionsPanel, INTERNET);
+        			dispose();
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
-        btnDalje_4.setBounds(273, 150, 89, 23);
-        dodMogucnostiTV.add(btnDalje_4);
+        btnKraj.setBounds(237, 150, 141, 23);
+        dodMogucnostiTV.add(btnKraj);
         
-        JButton btnNazad_3 = new JButton("Nazad");
-        btnNazad_3.addActionListener(new ActionListener() {
+        JButton btnNazadKraj = new JButton("Nazad");
+        btnNazadKraj.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
         		tv.setNoveMogucnosti(null);
-        		cl.show(questionsPanel, SEKUNDARNIPRIJEM);
+        		cl.show(questionsPanel, UREDJAJI);
         	}
         });
-        btnNazad_3.setBounds(36, 150, 89, 23);
-        dodMogucnostiTV.add(btnNazad_3);
+        btnNazadKraj.setBounds(36, 150, 89, 23);
+        dodMogucnostiTV.add(btnNazadKraj);
         
         JLabel lblDaLiImate_1 = new JLabel("Da li imate internet?");
         lblDaLiImate_1.setBounds(67, 11, 311, 14);
@@ -466,11 +467,11 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnNazad_4 = new JButton("Nazad");
         btnNazad_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        			if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
+        			/*if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
         				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
-        			}else{
+        			}else{*/
         				cl.show(questionsPanel, nazadSaInterneta);
-        			}
+        			//}
         	}
         });
         btnNazad_4.setBounds(36, 150, 89, 23);
@@ -608,26 +609,27 @@ public class FrmKupovinaTelevizora extends JFrame{
         chckbxKameraZaVideo.setBounds(77, 112, 263, 23);
         uredjajiTV.add(chckbxKameraZaVideo);
         
-        JButton btnKraj = new JButton("Prika\u017Ei odgovor");
-        btnKraj.addActionListener(new ActionListener() {
+        JButton btnDalje_4 = new JButton("Dalje");
+        btnDalje_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setDodatniUredjaji(uredjajiSelected());
-        		dispose();
+        		cl.show(questionsPanel, DODATNEMOGUCNOSTI);
+        		//dispose();
         	}
         });
-        btnKraj.setBounds(237, 150, 141, 23);
-        uredjajiTV.add(btnKraj);
+        btnDalje_4.setBounds(273, 150, 89, 23);
+        uredjajiTV.add(btnDalje_4);
         
-        JButton btnNazadKraj = new JButton("Nazad");
-        btnNazadKraj.addActionListener(new ActionListener() {
+        JButton btnNazad_3 = new JButton("Nazad");
+        btnNazad_3.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setDodatniUredjaji(null);
         		dodatniUredjaji = "";
         		cl.show(questionsPanel, UDALJENOSTTV);
         	}
         });
-        btnNazadKraj.setBounds(36, 150, 89, 23);
-        uredjajiTV.add(btnNazadKraj);
+        btnNazad_3.setBounds(36, 150, 89, 23);
+        uredjajiTV.add(btnNazad_3);
         
         JLabel lblDaLiProgram = new JLabel("Da li program pratite preko provajdera ili slobodno?");
         lblDaLiProgram.setBounds(67, 11, 311, 14);
