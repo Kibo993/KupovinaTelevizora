@@ -613,8 +613,8 @@ public class FrmKupovinaTelevizora extends JFrame{
         btnDalje_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setDodatniUredjaji(uredjajiSelected());
+        		dodatniUredjaji = "";
         		cl.show(questionsPanel, DODATNEMOGUCNOSTI);
-        		//dispose();
         	}
         });
         btnDalje_4.setBounds(273, 150, 89, 23);
@@ -740,11 +740,8 @@ public class FrmKupovinaTelevizora extends JFrame{
         btnDalje_10.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		tv.setNeklasicanSadrzaj(neklasicanSelected());
-        		if(tv.getNeklasicanSadrzaj()!=null){
         				cl.show(questionsPanel, INTERNET);
-        		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
-        		}
+        				neklasican = "";
         	}
         });
         btnDalje_10.setBounds(273, 150, 89, 23);
