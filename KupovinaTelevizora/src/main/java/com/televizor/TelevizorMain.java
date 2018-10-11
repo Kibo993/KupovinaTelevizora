@@ -8,6 +8,7 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class TelevizorMain {
+	// ZA POSLEDNJA PRAVILA STAVI AKO NIJE ODABRAO NIŠTA OD SADRŽAJA ALI IMA PARA I NET ILI NEMA NEŠTO OD TOGA, I STAVI AKO SAMO IGRA IGRICE!!!
 // SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
