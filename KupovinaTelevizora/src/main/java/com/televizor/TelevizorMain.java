@@ -8,9 +8,9 @@ import org.kie.api.runtime.KieSession;
  * This is a sample class to launch a rule.
  */
 public class TelevizorMain {
-	// ZA POSLEDNJA PRAVILA STAVI AKO NIJE ODABRAO NIŠTA OD SADRŽAJA ALI IMA PARA I NET ILI NEMA NEŠTO OD TOGA, I STAVI AKO SAMO IGRA IGRICE!!!
-	// TAKOÐE AKO NEMA NET A GLEDA FILMOVE I STRIMUJE STAVI KOMENTAR DA MOŽE SAMO FILMOVE I AKO NEMA NET A SAMO STRIMUJE I/ILI ÈITA VESTI STAVI KOMENTAR DA NE MOŽE!!!!
-// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
+	// U FORMI ZA ODGOVOR STAVI SAMO ONE ATRIBUTE KOJI SU BITNI ZA EKSPERTA I KOMENTAR STAVI POSEBNO DA SE PRIKAZUJE!!!
+	// U FORMI ZA ODGOVOR DODAJ DVA DUGMETA - JEDNO VRAÆA NA PRVU FORMU, DRUGO ZATVARA I ZAVRŠAVA SVE!!!
+	// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
 //	-rezolucija
@@ -67,7 +67,9 @@ public class TelevizorMain {
             kSession.insert(tv);
             kSession.fireAllRules();
 
-            System.out.println(tv);
+            //System.out.println(tv);
+            FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);
+            answerForm.setVisible(true);
         } catch (Throwable t) {
             t.printStackTrace();
         }

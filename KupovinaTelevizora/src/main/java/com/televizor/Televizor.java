@@ -195,7 +195,7 @@ public class Televizor {
 	}
 	@Override
 	public String toString() {
-		return "Televizor\n [cena=" + cena + ",\n nacinPrijema=" + nacinPrijema
+		return "Maksimalna cena: " + cena + ",\n nacinPrijema=" + nacinPrijema
 				+ ",\n prijemKablovska=" + prijemKablovska
 				+ ",\n prijemSatelitska=" + prijemSatelitska
 				+ ",\n mestoStanovanja=" + mestoStanovanja
@@ -208,6 +208,19 @@ public class Televizor {
 				+ tipEkrana + ",\n smart=" + smart + ",\n brojPortova="
 				+ brojPortova + ",\n rezolucija="
 				+ rezolucija + ",\n komentar=" + komentar + "]";
+	}
+	
+	public String ispisNaFormi() {
+		return "Maksimalna cena: " + cena + "\n Moguænost prijema interneta: "
+				+ internet.getValue() + "\n Tjuner: "
+				+ tuner.getValue() + "\n Dijagonala: " + dijagonala + "\"\n Tip Ekrana: "
+				+ tipEkrana + "\n Smart televizor: " + smart.getValue() + "\n Minimalni broj portova: "
+				+ brojPortova + "\n Rezolucija slike: "
+				+ rezolucija.getValue();
+	}
+	
+	public String ispisKomentara() {
+		return komentar;
 	}
 
 

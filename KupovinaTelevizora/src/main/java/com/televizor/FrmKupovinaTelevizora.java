@@ -116,8 +116,8 @@ public class FrmKupovinaTelevizora extends JFrame{
 	
 	public FrmKupovinaTelevizora(Televizor tv) {
         this.tv = tv;
-        //initComponents();
         this.setTitle("Kupovina televizora");
+        this.setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -917,7 +917,6 @@ public class FrmKupovinaTelevizora extends JFrame{
 	 * Create the frame.
 	 */
 	public FrmKupovinaTelevizora() {
-		setResizable(false);
 		new FrmKupovinaTelevizora(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
