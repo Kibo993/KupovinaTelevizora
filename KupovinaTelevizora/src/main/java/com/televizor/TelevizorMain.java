@@ -1,15 +1,19 @@
 package com.televizor;
 
-import org.kie.api.KieServices;
-import org.kie.api.runtime.KieContainer;
-import org.kie.api.runtime.KieSession;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-/**
- * This is a sample class to launch a rule.
- */
-public class TelevizorMain {
-	// U FORMI ZA ODGOVOR STAVI SAMO ONE ATRIBUTE KOJI SU BITNI ZA EKSPERTA I KOMENTAR STAVI POSEBNO DA SE PRIKAZUJE!!!
-	// U FORMI ZA ODGOVOR DODAJ DVA DUGMETA - JEDNO VRAÆA NA PRVU FORMU, DRUGO ZATVARA I ZAVRŠAVA SVE!!!
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+public class TelevizorMain extends JFrame {
+	//VIDI ZAŠTO DAJE ODGOVOR PRVA DVA PUTA, A TREÆI PUT NE -- PROBLEM SA THREAD-OM!!!!!!!!!!!!!!!!!!!
 	// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
@@ -50,29 +54,75 @@ public class TelevizorMain {
 	//- Kako je pozicioniran televizor u prostoriji: Naspram prozora, pored prozora, prozor je sa strane;
 	//- Sa koje razdaljine gledate televiziju: 1m, 2m, 3m, 4m;
 	//- (Možda i razlièita pitanja u zavisnosti od toga šta ima a šta nema)Da li želite nove moguænosti (uvoðenje interneta, kablovske,...): Da, Ne;
+	private JPanel contentPane;
+	
+	private static TelevizorThread tv;
+	private static TelevizorMain frame;
 
-    public static final void main(String[] args) {
-        try {
-            // load up the knowledge base
-	        KieServices ks = KieServices.Factory.get();
-    	    KieContainer kContainer = ks.getKieClasspathContainer();
-        	KieSession kSession = kContainer.newKieSession("ksession-rules");
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					frame = new TelevizorMain();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-        	Televizor tv = new Televizor();
-        	
-        	FrmKupovinaTelevizora form = new FrmKupovinaTelevizora(tv);
-        	form.setVisible(true);
-        	while(form.isVisible()){
-        	}
-            kSession.insert(tv);
-            kSession.fireAllRules();
-
-            //System.out.println(tv);
-            FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);
-            answerForm.setVisible(true);
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }
-
+	/**
+	 * Create the frame.
+	 */
+	public TelevizorMain() {
+		setTitle("Kupovina televizora");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 200);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnPokreni = new JButton("Po\u010Dni");
+		btnPokreni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pokreni();
+				frame.setVisible(false);
+			}
+		});
+		btnPokreni.setBounds(54, 112, 89, 23);
+		contentPane.add(btnPokreni);
+		
+		JButton btnKraj = new JButton("Kraj");
+		btnKraj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnKraj.setBounds(285, 112, 89, 23);
+		contentPane.add(btnKraj);
+		
+		JLabel lblDobrodoliUAplikaciju = new JLabel("<html>Dobrodo\u0161li u aplikaciju za pomo\u0107 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pri kupovini televizora</html>");
+		lblDobrodoliUAplikaciju.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDobrodoliUAplikaciju.setBounds(90, 28, 273, 42);
+		contentPane.add(lblDobrodoliUAplikaciju);
+	}
+	
+	 	public static void pokreni(){
+	    	tv = new TelevizorThread();
+	    	tv.pokreni();
+	    	tv.start();
+	    }
+	    
+	 	public static void zaustavi(){
+	    	tv.interrupt();
+	    }
+	 	
+	 	public static void showYourself(){
+	    	frame.setVisible(true);
+	    }
 }

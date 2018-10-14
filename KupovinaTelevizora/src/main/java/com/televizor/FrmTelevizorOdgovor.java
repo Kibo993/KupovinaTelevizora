@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrmTelevizorOdgovor extends JFrame {
 
@@ -44,16 +47,25 @@ public class FrmTelevizorOdgovor extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblOdgovor = new JLabel("New label");
-		lblOdgovor.setBounds(23, 11, 354, 397);
+		lblOdgovor.setBounds(23, 11, 354, 340);
 		contentPane.add(lblOdgovor);
 		//lblOdgovor.setText(tv.toString());
 		lblOdgovor.setText("<html>" + tv.ispisNaFormi().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
 		
 		JLabel lblKomentar = new JLabel("");
-		lblKomentar.setBounds(23, 435, 354, 112);
+		lblKomentar.setBounds(23, 386, 354, 112);
 		contentPane.add(lblKomentar);
 		lblKomentar.setText("<html>" + tv.ispisKomentara().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
 		System.out.println(tv);
+		JButton btnPocetak = new JButton("Nazad");
+		btnPocetak.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				TelevizorMain.showYourself();
+			}
+		});
+		btnPocetak.setBounds(364, 509, 89, 23);
+		contentPane.add(btnPocetak);
 	}
 	
 	public FrmTelevizorOdgovor() {
