@@ -322,10 +322,10 @@ lock-on-active true
 		update( tv );
 end
 
-rule "Za ekran manji od 32 inèa dovoljna je HD (HDReady) rezolucija"
+rule "Za ekran manji od 32 inèa dovoljna je HD (HDReady) rezolucija ili ako je veæi televizor sa analognim tjunerom"
 no-loop true
     when
-        tv : Televizor(dijagonala<32 && ((rezolucija != null && rezolucija != Rezolucija.HD)|| rezolucija == null))
+        tv : Televizor((dijagonala<32 && ((rezolucija != null && rezolucija != Rezolucija.HD)|| rezolucija == null)) || (tuner != null && tuner == Tuner.ANALOGNI))
     then
 		tv.setRezolucija(Rezolucija.HD);
 		System.out.println("TEST30");
@@ -335,7 +335,7 @@ end
 rule "Za ekran veæi od 32 inèa potrebna je FullHD rezolucija"
 no-loop true
     when
-        tv : Televizor(dijagonala>=32 && ((rezolucija != null && rezolucija != Rezolucija.UHD && rezolucija != Rezolucija.FULLHD)|| rezolucija == null))
+        tv : Televizor(dijagonala>=32 && tuner != null && tuner != Tuner.ANALOGNI && ((rezolucija != null && rezolucija != Rezolucija.UHD && rezolucija != Rezolucija.FULLHD)|| rezolucija == null))
     then
 		tv.setRezolucija(Rezolucija.FULLHD);
 		System.out.println("TEST31");
