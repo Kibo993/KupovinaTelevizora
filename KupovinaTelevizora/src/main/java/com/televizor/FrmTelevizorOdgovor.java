@@ -48,7 +48,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 				e.printStackTrace();
 			}
             try {
-				connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8", "bokidukic2fon", "BokiDukic-993");
+				connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8&&useSSL=false", "bokidukic2fon", "BokiDukic-993");
 				connection.setAutoCommit(false);
             } catch (SQLException e) {
             	System.out.println("Greška u povezivanju");
