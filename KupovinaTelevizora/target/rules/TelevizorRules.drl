@@ -1,0 +1,575 @@
+package com.televizor
+
+import com.televizor.Televizor;
+import com.televizor.Enums.*;
+
+rule "Nema novca za smart televizor"
+lock-on-active true
+salience 10
+    when
+        tv : Televizor(cena<20000)
+    then
+        tv.setSmart(Smart.NE);
+        System.out.println("TEST1");
+        update( tv );
+end
+
+rule "Nema novca za smart televizor ali ima za semi smart"
+lock-on-active true
+salience 10
+    when
+        tv : Televizor(cena>=20000 && cena<30000)
+    then
+        tv.setSmart(Smart.SEMISMART);
+        System.out.println("TEST2");
+        update( tv );
+end
+
+rule "Ima novca za smart televizor"
+lock-on-active true
+salience 10
+    when
+        tv : Televizor(cena>=30000)
+    then
+        tv.setSmart(Smart.SMART);
+        System.out.println("TEST3");
+        update( tv );
+end
+
+rule "Ako nema internet, ne treba mu Smart ili Semi-smart televizor"
+lock-on-active true
+    when
+        tv : Televizor(internet == Internet.NE)
+    then
+        tv.setSmart(Smart.NE);
+        System.out.println("TEST4");
+        update( tv );
+end
+
+rule "Dovoljan je analogni tjuner za kablovsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.KABLOVSKA && (prijemKablovska == PrijemKablovska.SETTOPBOX || prijemKablovska == PrijemKablovska.ANALOGNA))
+    then
+		tv.setTuner(Tuner.ANALOGNI);
+		System.out.println("TEST5");
+		update( tv );
+end
+
+rule "Potreban je DVB C tjuner za kablovsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.KABLOVSKA && (prijemKablovska == PrijemKablovska.CAMMODUL || (prijemKablovska == PrijemKablovska.ANALOGNA && noveMogucnosti == true)))
+    then
+		tv.setTuner(Tuner.DVB_C);
+		System.out.println("TEST6");
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz DVB C tjuner za kablovsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.DVB_C && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2_C);
+		System.out.println("TEST7");
+		update( tv );
+end
+
+rule "Dovoljan je analogni tjuner za satelitsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.PROVAJDER)
+    then
+		tv.setTuner(Tuner.ANALOGNI);
+		System.out.println("TEST8");
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz analogni tjuner za kablovsku ili satelitsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.ANALOGNI && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST9");
+		update( tv );
+end
+
+rule "Potreban je DVB S2 tjuner za satelitsku"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.SLOBODNO)
+    then
+		tv.setTuner(Tuner.DVB_S2);
+		System.out.println("TEST10");
+		update( tv );
+end
+
+rule "Potreban je DVB T2 uz DVB S2 tjuner za satelitsku"
+no-loop true
+    when
+        tv : Televizor(tuner != null && tuner == Tuner.DVB_S2 && sekundarniPrijem == true)
+    then
+		tv.setTuner(Tuner.DVB_T2_S2);
+		System.out.println("TEST11");
+		update( tv );
+end
+
+rule "Ako je televizor Smart, barem ima DVB-T2 tjuner"
+no-loop true
+    when
+        tv : Televizor(smart != null && ((tuner != null && tuner == Tuner.ANALOGNI) || tuner == null)&& smart != Smart.NE)
+    then
+        tv.setTuner(Tuner.DVB_T2);
+        System.out.println("TEST12");
+        update( tv );
+end
+
+rule "Dovoljan je analogni tjuner ako ne prati klasièan tv program, a televizor nije Smart"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.NEPRATIKLASICAN && smart != null && smart == Smart.NE && ((tuner != null && tuner != Tuner.ANALOGNI) || tuner == null))
+    then
+		tv.setTuner(Tuner.ANALOGNI);
+		System.out.println("TEST13");
+		update( tv );
+end
+/*
+rule "Potreban je DVB T2 za zemaljsku"
+no-loop true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		tv.setKomentar(komentarTV + " ");
+		update( tv );
+end
+*/
+rule "Cena za Gradsko podruèje"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.GRADSKO, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST14");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
+		update( tv );
+end
+
+rule "Cena za Prigradsko podruèje"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena>=30000, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST15");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
+		update( tv );
+end
+
+rule "Neodgovarajuæa cena za Prigradsko podruèje"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.PRIGRADSKO && cena<30000, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST16");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli je preporuèljivo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
+		update( tv );
+end
+
+rule "Cena za Seosko podruèje"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena>=55000, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST17");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\n");
+		update( tv );
+end
+
+rule "Neodgovarajuæa cena za Seosko podruèje"
+lock-on-active true
+    when
+        tv : Televizor(nacinPrijema == NacinPrijema.ZEMALJSKA && mestoStanovanja == MestoStanovanja.SEOSKO && cena<55000, komentarTV : komentar)
+    then
+		tv.setTuner(Tuner.DVB_T2);
+		System.out.println("TEST18");
+		tv.setKomentar(komentarTV + "Dovoljan je televizor sa DVB-T2 tjunerom.\nAli je preporuèljivo da odvojite više novca i kupite televizor sa kvalitetnijim tjunerom.\n");
+		update( tv );
+end
+
+rule "Broj portova"
+lock-on-active true
+    when
+        tv : Televizor(dodUr : dodatniUredjaji)
+    then
+		String[] uredj = dodUr.split(" ");
+		tv.setBrojPortova((uredj.length/2)+1);
+		System.out.println("TEST19");
+		update( tv );
+end
+
+rule "Broj portova sa settopboxom"
+lock-on-active true
+    when
+        tv : Televizor((nacinPrijema == NacinPrijema.KABLOVSKA && prijemKablovska == PrijemKablovska.SETTOPBOX)||(nacinPrijema == NacinPrijema.SATELITSKA && prijemSatelitska == PrijemSatelitska.PROVAJDER), brPortova : brojPortova)
+    then
+		tv.setBrojPortova(brPortova+1);
+		System.out.println("TEST20");
+		update( tv );
+end
+
+rule "Ekran naspram prozora, nema dovoljno novca"
+lock-on-active true
+    when
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena<200000)
+    then
+		tv.setTipEkrana(TipEkrana.LED);
+		System.out.println("TEST21");
+		update( tv );
+end
+
+rule "Ekran naspram prozora, ima dovoljno novca"
+lock-on-active true
+    when
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=200000)
+    then
+		tv.setTipEkrana(TipEkrana.QLED);
+		System.out.println("TEST22");
+		update( tv );
+end
+
+rule "Ekran ispred prozora ili sa strane, nema dovoljno novca"
+lock-on-active true
+    when
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena<170000)
+    then
+		tv.setTipEkrana(TipEkrana.LED);
+		System.out.println("TEST23");
+		update( tv );
+end
+
+rule "Ekran ispred prozora ili sa strane, ima nešto više novca"
+lock-on-active true
+    when
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && (cena>=170000 && cena<200000))
+    then
+		tv.setTipEkrana(TipEkrana.OLED);
+		System.out.println("TEST24");
+		update( tv );
+end
+
+rule "Ekran ispred prozora ili sa strane, ima dovoljno novca"
+lock-on-active true
+    when
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena==200000)
+    then
+		tv.setTipEkrana(TipEkrana.QLED);
+		System.out.println("TEST25");
+		update( tv );
+end
+
+rule "Ne postoji televizor koji nije Smart sa QLED ili OLED ekranom"
+no-loop true
+    when
+        tv : Televizor(smart != null && smart != Smart.SMART && tipEkrana != null && tipEkrana != TipEkrana.LED)
+    then
+		tv.setTipEkrana(TipEkrana.LED);
+		System.out.println("TEST26");
+		update( tv );
+end
+
+/*rule "Ekran ispred prozora ili sa strane, ima dovoljno novca"
+lock-on-active true
+    when
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena>=700000, ekran : tipEkrana)
+    then
+		tv.setTipEkrana(TipEkrana.QLED);
+		update( tv );
+end*/
+
+rule "Dijagonala ekrana u zavisnosti od udaljenosti"
+lock-on-active true
+    when
+        tv : Televizor(udaljenostOdTV != null, udaljenost : udaljenostOdTV)
+    then
+		tv.setDijagonala((int)(udaljenost*11.351));
+		System.out.println("TEST27");
+		update( tv );
+end
+
+rule "Ne postoji televizor sa dijagonalom manjom od 19 inèa"
+lock-on-active true
+    when
+        tv : Televizor(dijagonala<19)
+    then
+		tv.setDijagonala(19);
+		System.out.println("TEST28");
+		update( tv );
+end
+
+rule "Štetno je gledati televizor na udaljenosti manjoj od 1m"
+lock-on-active true
+    when
+        tv : Televizor(udaljenostOdTV < 1.0, kom : komentar)
+    then
+		tv.setDijagonala(0);
+		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je štetno gledati televiziju.\nZato se preporuèuje portabl televizor.\n");
+		System.out.println("TEST29");
+		update( tv );
+end
+
+rule "Za ekran manji od 32 inèa dovoljna je HD (HDReady) rezolucija"
+no-loop true
+    when
+        tv : Televizor(dijagonala<32 && ((rezolucija != null && rezolucija != Rezolucija.HD)|| rezolucija == null))
+    then
+		tv.setRezolucija(Rezolucija.HD);
+		System.out.println("TEST30");
+		update( tv );
+end
+
+rule "Za ekran veæi od 32 inèa potrebna je FullHD rezolucija"
+no-loop true
+    when
+        tv : Televizor(dijagonala>=32 && ((rezolucija != null && rezolucija != Rezolucija.UHD && rezolucija != Rezolucija.FULLHD)|| rezolucija == null))
+    then
+		tv.setRezolucija(Rezolucija.FULLHD);
+		System.out.println("TEST31");
+		update( tv );
+end
+
+rule "Ima SmartTVBox, ne želi smart televizor"
+no-loop true
+    when
+        tv : Televizor(smart != null && smart != Smart.NE && dodatniUredjaji.contains("SmartTVBox") && noveMogucnosti == false)
+    then
+		tv.setSmart(Smart.NE);
+		System.out.println("TEST32");
+		update( tv );
+end
+
+rule "Ima raèunar povezan sa televizorom, ne želi smart televizor"
+no-loop true
+    when
+        tv : Televizor(smart != null && smart != Smart.NE && dodatniUredjaji.contains("Raèunar") && noveMogucnosti == false)
+    then
+		tv.setSmart(Smart.NE);
+		System.out.println("TEST33");
+		update( tv );
+end
+
+/*rule "Ne prati klasièan TV sadržaj, ima DVD, gleda filmove, ne želi nove moguænosti"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && dodatniUredjaji.contains("DVD") && smart != null && smart == Smart.NE && noveMogucnosti == false)
+    then
+		//tv.setTuner(Tuner.ANALOGNI);
+		System.out.println("TEST32----");
+		update( tv );
+end
+*/
+rule "Ne prati klasièan TV sadržaj, gleda filmove, želi nove moguænosti, nema internet"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && smart != null && smart != Smart.SEMISMART && (neklasicanSadrzaj == " Film " || neklasicanSadrzaj == " Film Igrice ") && noveMogucnosti == true && internet == Internet.NE && cena>=20000)
+    then
+		tv.setSmart(Smart.SEMISMART);
+		System.out.println("TEST34");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, ne želi nove moguænosti, nema internet, a nema sa èega da pusti film"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && noveMogucnosti == false && smart != null && smart == Smart.NE && (dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") == false) && internet == Internet.NE && cena>=20000)
+    then
+		tv.setSmart(Smart.SEMISMART);
+		System.out.println("TEST35");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, želi nove moguænosti, nema novca ni za semi smart ali ima DVD"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (dodatniUredjaji ==" DVD " || dodatniUredjaji ==" DVD  VideoIgre ") && noveMogucnosti == true && cena<20000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Iako ne možete da priuštite Smart ili Semi-Smart televizor,\n možete da gledate filmove preko DVD-ja.\n");
+		System.out.println("TEST36");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, želi nove moguænosti, nema novca ni za semi smart ali ima raèunar povezan sa televizorom"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (dodatniUredjaji ==" Raèunar " || dodatniUredjaji ==" Raèunar  VideoIgre ") && noveMogucnosti == true && cena<20000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Iako ne možete da priuštite Smart ili Semi-Smart televizor,\n možete da puštate filmove sa raèunara.\n");
+		System.out.println("TEST37");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, želi nove moguænosti, nema novca ni za semi smart ali ima SmartTVBox povezan sa televizorom"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (dodatniUredjaji ==" SmartTVBox " || dodatniUredjaji ==" SmartTVBox  VideoIgre ")  && noveMogucnosti == true && cena<20000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Iako ne možete da priuštite Smart ili Semi-Smart televizor,\n možete da puštate filmove preko Smart TV Boxa.\n");
+		System.out.println("TEST38");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, želi nove moguænosti, nema novca ni za semi smart ali ima nekoliko uredjaja povezanih sa televizorom"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (dodatniUredjaji.contains("Raèunar") || dodatniUredjaji.contains("SmartTVBox") || dodatniUredjaji.contains("DVD")) && ((dodatniUredjaji.contains("VideoIgre") && (dodatniUredjaji.length() - dodatniUredjaji.replace(" ", "").length())>=6) || (dodatniUredjaji.contains("VideoIgre") == false && (dodatniUredjaji.length() - dodatniUredjaji.replace(" ", "").length())>=4)) && noveMogucnosti == true && cena<20000, kom : komentar, dodatniUredjaji : dodatniUredjaji)
+    then
+		tv.setKomentar(kom + "Iako ne možete da priuštite Smart ili Semi-Smart televizor,\n možete da puštate filmove preko nekog od uredjaja povezanih sa televizorom.\n");
+		System.out.println("TEST39");
+		update( tv );
+end
+
+rule "Ako gleda filmove, ne prati klasièan tv, na velikom televizoru može da ih gleda u UltraHD rezoluciji"
+no-loop true
+    when
+        tv : Televizor(dijagonala>=45 && neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && smart != null && smart != Smart.NE)
+    then
+		tv.setRezolucija(Rezolucija.UHD);
+		System.out.println("TEST40");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, gleda filmove, nema sa èega da pusti film, nema ni novca za semi-smart"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && smart != null && smart == Smart.NE && (dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") == false) && cena<20000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Saèekajte dok ne prikupite nešto više novca\n ili kupite DVD ili polovan Semi-smart ili Smart televizor.\n");
+		System.out.println("TEST41");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, samo gleda filmove, ima sa èega da pusti film, ne želi nove moguænosti"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && smart != null && smart != Smart.NE && noveMogucnosti == false && neklasicanSadrzaj.contains("Film") && neklasicanSadrzaj.contains("Vesti") == false && neklasicanSadrzaj.contains("Igrice") == false && neklasicanSadrzaj.contains("Strim") == false  && (dodatniUredjaji.contains("Raèunar") || dodatniUredjaji.contains("SmartTVBox") || dodatniUredjaji.contains("DVD")))
+    then
+		tv.setSmart(Smart.NE);
+		System.out.println("TEST42");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, èita vesti ili strimuje, želi nove moguænosti, ima sa èega da gleda sadržaj, nema ni novca za Smart"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && (dodatniUredjaji.contains("Raèunar") || dodatniUredjaji.contains("SmartTVBox")) && noveMogucnosti == true && cena<30000 && internet != Internet.NE, kom : komentar)
+    then
+		tv.setKomentar(kom + "Iako ne možete da priuštite Smart ili Semi-Smart televizor,\n možete da pratite željeni sadržaj preko nekog od uredjaja povezanih sa televizorom.\n");
+		System.out.println("TEST43");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, ima internet, èita vesti ili strimuje, nema sa èega da gleda sadržaj"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && smart != null && smart != Smart.SMART && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && noveMogucnosti == false && internet != Internet.NE && cena>=30000)
+    then
+		tv.setSmart(Smart.SMART);
+		System.out.println("TEST44");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, èita vesti ili strimuje, ne gleda filmove, nema sa èega da gleda sadržaj, nema novca za Smart"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") == false && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && cena<30000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Saèekajte dok ne prikupite nešto više novca\n ili kupite Smart TV Box ili polovan Smart televizor.\n");
+		System.out.println("TEST45");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, èita vesti ili strimuje, gleda filmove, nema sa èega da gleda sadržaj, nema novca za Smart, ali ima za semi-smart za filmove"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && (dodatniUredjaji.contains("DVD") == false || (dodatniUredjaji.contains("DVD") && noveMogucnosti == true)) && cena>=20000 && cena<30000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Saèekajte dok ne prikupite nešto više novca\n ili kupite Smart TV Box ili polovan Smart televizor.\nA do tada možete gledati filmove na semi-smart televizoru.\n");
+		System.out.println("TEST46");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, èita vesti ili strimuje, gleda filmove, ima DVD, ima novca za semi-smart ali neæe nove moguænosti"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") && noveMogucnosti == false && cena>=20000 && cena<30000, kom : komentar)
+    then
+    	tv.setSmart(Smart.NE);
+		tv.setKomentar(kom + "Saèekajte dok ne prikupite nešto više novca\n ili kupite Smart TV Box ili polovan Smart televizor.\nA do tada možete gledati filmove preko DVD-ja.\n");
+		System.out.println("TEST47");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, èita vesti ili strimuje, gleda filmove, nema sa èega da gleda sadržaj, nema novca ni za semi-smart za filmove"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && dodatniUredjaji.contains("Raèunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") == false && cena<20000, kom : komentar)
+    then
+		tv.setKomentar(kom + "Saèekajte dok ne prikupite nešto više novca\n ili kupite Smart TV Box ili polovan Smart televizor.\n");
+		System.out.println("TEST48");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, samo igra igrice sa konzole"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj == " Igrice " && dodatniUredjaji ==" VideoIgre ")
+    then
+    	tv.setSmart(Smart.NE);
+		System.out.println("TEST49");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, strimuje video ili èita vesti, a nema internet, a ima para za Smart i želi nove moguænosti"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && (noveMogucnosti == true || dodatniUredjaji.contains("SmartTVBox") == false && noveMogucnosti == false && dodatniUredjaji.contains("Raèunar") == false) && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && internet == Internet.NE && cena>=30000 && smart != null && smart != Smart.SMART, kom : komentar)
+    then
+    	tv.setSmart(Smart.SMART);
+    	tv.setKomentar(kom + "Ne možete da koristite navedene opcije dok ne uvedete internet.\n");
+		System.out.println("TEST50");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, strimuje video ili èita vesti, a nema internet, a ima para za Smart i ne želi nove moguænosti"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && (dodatniUredjaji.contains("SmartTVBox") || dodatniUredjaji.contains("Raèunar")) && noveMogucnosti == false && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && internet == Internet.NE && cena>=30000, kom : komentar)
+    then
+    	tv.setKomentar(kom + "Ne možete da koristite navedene opcije dok ne uvedete internet.\n");
+		System.out.println("TEST51");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, strimuje video ili èita vesti, a nema internet, a nema para za Smart"
+no-loop true
+    when
+        tv : Televizor(neklasicanSadrzaj != null && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && internet == Internet.NE && cena<30000, kom : komentar)
+    then
+    	tv.setKomentar(kom + "Ne možete da koristite navedene opcije dok ne uvedete internet.\nTakoðe morate da prikupite nešto više novca za Smart televizor.\n");
+		System.out.println("TEST52");
+		update( tv );
+end
+
+rule "Ne prati klasièan TV sadržaj, nije izabrao ništa od opcija"
+lock-on-active true
+    when
+        tv : Televizor(neklasicanSadrzaj == "" && nacinPrijema == NacinPrijema.NEPRATIKLASICAN, kom : komentar)
+    then
+    	tv.setKomentar(kom + "Sistem ne može da ponudi rešenje jer\nniste naveli za kakav sadržaj koristite televizor.\n");
+		System.out.println("TEST53");
+		update( tv );
+end

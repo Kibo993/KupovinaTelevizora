@@ -8,14 +8,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class FrmTelevizorOdgovor extends JFrame {
 
 	private JPanel contentPane;
 
 	private static Televizor tv;
+	private Connection connection;
 	/**
 	 * Launch the application.
 	 */
@@ -32,6 +39,50 @@ public class FrmTelevizorOdgovor extends JFrame {
 		});
 	}
 
+	private void baza(){
+
+            try {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e) {
+				System.out.println("Greška nije pronaðen drajver");
+				e.printStackTrace();
+			}
+            try {
+				connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8", "bokidukic2fon", "BokiDukic-993");
+				connection.setAutoCommit(false);
+            } catch (SQLException e) {
+            	System.out.println("Greška u povezivanju");
+				e.printStackTrace();
+			}
+            
+            String sql = "SELECT * FROM Televizor";
+            System.out.println(sql);
+            Statement sqlStatement = null;
+			try {
+				sqlStatement = connection.createStatement();
+			} catch (SQLException e) {
+				System.out.println("Greška u kreiranju stejtmenta");
+				e.printStackTrace();
+			}
+            ResultSet rs = null;
+			try {
+				rs = sqlStatement.executeQuery(sql);
+			} catch (SQLException e) {
+				System.out.println("Greška u izvršenju");
+				e.printStackTrace();
+			}
+            String test = "";
+			try {
+				rs.next();
+				test = rs.getString("model");
+			} catch (SQLException e) {
+				System.out.println("Greška u upisivanju");
+				e.printStackTrace();
+			}
+            System.out.println(test);
+
+
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -66,6 +117,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 		});
 		btnPocetak.setBounds(364, 509, 89, 23);
 		contentPane.add(btnPocetak);
+		baza();
 	}
 	
 	public FrmTelevizorOdgovor() {
