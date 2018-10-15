@@ -10,7 +10,7 @@ public class TelevizorThread  extends Thread{
 	
 @Override
 	public void run() {
-		while(pokrenuta){
+		if(pokrenuta){
 			try {
 				pokrenuta = false;
 				// load up the knowledge base
@@ -19,14 +19,13 @@ public class TelevizorThread  extends Thread{
 				KieSession kSession = kContainer.newKieSession("ksession-rules");
 
 				Televizor tv = new Televizor();
-    	
 				FrmKupovinaTelevizora form = new FrmKupovinaTelevizora(tv);
 				form.setVisible(true);
 				while(form.isVisible()){
+					System.out.print("");
 				}
 				kSession.insert(tv);
 				kSession.fireAllRules();
-
 				FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);
 				answerForm.setVisible(true);
 				//pokrenuta = false;

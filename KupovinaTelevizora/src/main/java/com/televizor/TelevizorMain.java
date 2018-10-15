@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
-	//VIDI ZAŠTO DAJE ODGOVOR PRVA DVA PUTA, A TREÆI PUT NE -- PROBLEM SA THREAD-OM!!!!!!!!!!!!!!!!!!!
+	// VIDI KAKO DA JDBC DRIVER MOŽE I DA SE POZOVE KAD SE SKINE SA GIT HUBA
 	// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
