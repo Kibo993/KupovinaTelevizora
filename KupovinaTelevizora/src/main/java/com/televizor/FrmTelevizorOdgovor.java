@@ -60,7 +60,7 @@ televizor = new Televizor();
 				e.printStackTrace();
 			}
             
-            String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' ";
+            String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
             System.out.println(sql);
             Statement sqlStatement = null;
 			try {
