@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
+	//Sadašnji server sa bazom nepouzdan!!!!
 	// VIDI KAKO DA JDBC DRIVER MOŽE I DA SE POZOVE KAD SE SKINE SA GIT HUBA
 	// SLAJDER ZA PITANJE CENE DA LI DA IDE DO 1 000 000 RSD I DA LI STAVITI 2 SLAJDERA GDE BI DRUGI BIRAO OPSEG CENA!!!
 //televizori specifikacije:

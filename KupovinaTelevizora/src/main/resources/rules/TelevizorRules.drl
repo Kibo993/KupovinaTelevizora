@@ -526,7 +526,7 @@ end
 rule "Ne prati klasièan TV sadržaj, samo igra igrice sa konzole"
 no-loop true
     when
-        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj == " Igrice " && dodatniUredjaji ==" VideoIgre ")
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj == " Igrice " && dodatniUredjaji ==" VideoIgre " && smart != null && smart != Smart.NE)
     then
     	tv.setSmart(Smart.NE);
 		System.out.println("TEST49");
