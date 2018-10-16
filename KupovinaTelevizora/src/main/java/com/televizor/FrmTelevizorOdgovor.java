@@ -109,13 +109,13 @@ televizor = new Televizor();
 		contentPane.setLayout(null);
 		
 		JLabel lblOdgovor = new JLabel("New label");
-		lblOdgovor.setBounds(23, 11, 354, 340);
+		lblOdgovor.setBounds(23, 11, 354, 268);
 		contentPane.add(lblOdgovor);
 		//lblOdgovor.setText(tv.toString());
 		lblOdgovor.setText("<html>" + tv.ispisNaFormi().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
 		
 		JLabel lblKomentar = new JLabel("");
-		lblKomentar.setBounds(23, 386, 354, 112);
+		lblKomentar.setBounds(23, 290, 354, 208);
 		contentPane.add(lblKomentar);
 		lblKomentar.setText("<html>" + tv.ispisKomentara().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
 		System.out.println(tv);

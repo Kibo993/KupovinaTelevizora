@@ -555,7 +555,7 @@ lock-on-active true
 end
 
 rule "Ne prati klasièan TV sadržaj, strimuje video ili èita vesti, a nema internet, a nema para za Smart"
-no-loop true
+lock-on-active true
     when
         tv : Televizor(neklasicanSadrzaj != null && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && internet == Internet.NE && cena<30000, kom : komentar)
     then
