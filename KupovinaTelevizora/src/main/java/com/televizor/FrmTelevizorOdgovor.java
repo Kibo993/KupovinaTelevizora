@@ -2,19 +2,26 @@ package com.televizor;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import com.sun.glass.events.WindowEvent;
 import com.televizor.Enums.Smart;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,6 +31,7 @@ import java.sql.Statement;
 public class FrmTelevizorOdgovor extends JFrame {
 
 	private JPanel contentPane;
+	private JLabel lblImage;
 
 	private static Televizor tv;
 	private static Televizor televizor;
@@ -61,6 +69,7 @@ televizor = new Televizor();
 			}
             
             String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
+            //String sql = "SELECT * FROM `TelevizorExpert`";
             System.out.println(sql);
             Statement sqlStatement = null;
 			try {
@@ -85,13 +94,25 @@ televizor = new Televizor();
 					televizor.setSmart(Smart.valueOf(rs.getString("smart")));
 					System.out.println(televizor);
 				test = rs.getString("model");
+	            byte image[];
+				image = rs.getBytes("slika");
+				ImageIcon icon = new ImageIcon(image);
+				Image im = icon.getImage();
+				Image imm = im.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+				ImageIcon myImg = new ImageIcon(imm);
+				lblImage.setIcon(myImg);
 				}
 			} catch (SQLException e) {
 				System.out.println("Greška u upisivanju");
 				e.printStackTrace();
 			}
             System.out.println(test);
-
+            try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println("Greška u zatvaranju");
+				e.printStackTrace();
+			}
 
 	}
 	/**
@@ -128,6 +149,10 @@ televizor = new Televizor();
 		});
 		btnPocetak.setBounds(364, 509, 89, 23);
 		contentPane.add(btnPocetak);
+		
+		lblImage = new JLabel("New label");
+		lblImage.setBounds(485, 24, 264, 230);
+		contentPane.add(lblImage);
 		baza();
 		addWindowListener(new WindowAdapter() {
 			@Override
