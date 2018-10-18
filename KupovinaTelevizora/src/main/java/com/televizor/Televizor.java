@@ -18,6 +18,7 @@ public class Televizor {
 	private String dodatniUredjaji;
 	private String neklasicanSadrzaj;
 	
+	private String ime;
 	private Tuner tuner;
 	private int dijagonala;
 	private TipEkrana tipEkrana;
@@ -61,6 +62,14 @@ public class Televizor {
 		this.komentar = komentar;
 	}
 
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
 
 	public Tuner getTuner() {
 		return tuner;
@@ -211,16 +220,25 @@ public class Televizor {
 	}
 	
 	public String ispisNaFormi() {
-		return "Maksimalna cena: " + cena + "\n Moguænost prijema interneta: "
-				+ internet.getValue() + "\n Tjuner: "
-				+ tuner.getValue() + "\n Dijagonala: " + dijagonala + "\"\n Tip Ekrana: "
-				+ tipEkrana + "\n Smart televizor: " + smart.getValue() + "\n Minimalni broj portova: "
-				+ brojPortova + "\n Rezolucija slike: "
+		return "Maksimalna cena: " + cena + "\nMoguænost prijema interneta: "
+				+ internet.getValue() + "\nTjuner: "
+				+ tuner.getValue() + "\nDijagonala: " + dijagonala + "\"\nTip Ekrana: "
+				+ tipEkrana + "\nSmart televizor: " + smart.getValue() + "\nMinimalni broj portova: "
+				+ brojPortova + "\nRezolucija slike: "
 				+ rezolucija.getValue();
 	}
 	
 	public String ispisKomentara() {
 		return komentar;
+	}
+	
+	public String ispisOdabranogTelevizora() {
+		return "Model televizora: "+ ime +"\nCena: " + cena + "\nMoguænost prijema interneta: "
+				+ internet.getValue() + "\nTjuner: "
+				+ tuner.getValue() + "\nDijagonala: " + dijagonala + "\"\nTip Ekrana: "
+				+ tipEkrana + "\nSmart televizor: " + smart.getValue() + "\nBroj portova: "
+				+ brojPortova + "\nRezolucija slike: "
+				+ rezolucija.getValue();
 	}
 
 

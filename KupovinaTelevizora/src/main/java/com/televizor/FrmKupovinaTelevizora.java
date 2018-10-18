@@ -131,22 +131,8 @@ public class FrmKupovinaTelevizora extends JFrame{
 		questionsPanel.setBounds(10, 38, 414, 198);
 		contentPane.add(questionsPanel);
 		questionsPanel.setLayout(new CardLayout(0, 0));
-		
-		//Container pane = new Container(frame.getContentPane());
-		
-		//ArrayList<String> comboBoxItems = new ArrayList<>();
-		//comboBoxItems.add(CENATELEVIZORA);
-		String comboBoxItems[] = { CENATELEVIZORA, PRIMARNIPRIJEM, UDALJENOSTTV , UREDJAJI};
+
 		CardLayout cl = (CardLayout)(questionsPanel.getLayout());
-		JComboBox comboBox = new JComboBox(comboBoxItems);
-		comboBox.setBounds(141, 7, 161, 20);
-		comboBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//CardLayout cl = (CardLayout)(questionsPanel.getLayout());
-		        cl.show(questionsPanel, (String)comboBox.getSelectedItem());
-			}
-		});
-		contentPane.add(comboBox);
 		
 		JPanel maxCenaTV = new JPanel();
 		maxCenaTV.setLayout(null);
@@ -226,8 +212,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         JLabel lblOdaberiteNajviuCenu = new JLabel("Odaberite najvi\u0161u cenu koju ste spremni da platite:");
         lblOdaberiteNajviuCenu.setBounds(58, 11, 330, 14);
         maxCenaTV.add(lblOdaberiteNajviuCenu);
-        
-        //JLabel lblIspisCene = new JLabel("New label");
+
         lblIspisCene.setBounds(167, 93, 79, 14);
         maxCenaTV.add(lblIspisCene);
         
@@ -361,11 +346,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setSekundarniPrijem(sekundarniPrijemSelected());
         		if(sekPrijemSelected){
-        			/*if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
-        				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
-        			}else{*/
         				cl.show(questionsPanel, INTERNET);
-        			//}
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
         		}
@@ -409,7 +390,6 @@ public class FrmKupovinaTelevizora extends JFrame{
         	public void actionPerformed(ActionEvent e) {
         		tv.setNoveMogucnosti(noveMogucnostiSelected());
         		if(dodMogucnostiSelected){
-        				//cl.show(questionsPanel, INTERNET);
         			dispose();
         		}else{
         			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
@@ -467,11 +447,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         JButton btnNazad_4 = new JButton("Nazad");
         btnNazad_4.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        			/*if(tv.getPrijemKablovska()==PrijemKablovska.ANALOGNA){
-        				cl.show(questionsPanel, DODATNEMOGUCNOSTI);
-        			}else{*/
         				cl.show(questionsPanel, nazadSaInterneta);
-        			//}
         	}
         });
         btnNazad_4.setBounds(36, 150, 89, 23);
@@ -561,7 +537,6 @@ public class FrmKupovinaTelevizora extends JFrame{
         			}
         		lblispisUdaljenosti.setText(udaljenostOdTV);
         		udaljenostOdEkrana = udaljenost.getValue();
-        		//System.out.println(udaljenostOdEkrana);
         	}
         });
         

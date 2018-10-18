@@ -12,30 +12,34 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 
-import com.televizor.Enums.Smart;
+import com.televizor.Enums.*;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class FrmTelevizorOdgovor extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblImage;
+	private JLabel lblOdgovor;
+	private JLabel lblIzabrani;
 
 	private static Televizor tv;
 	private static Televizor televizor;
 	private Connection connection;
+	private ResultSet rs = null;
+	private JLabel lblNeophodneKarakteristikeZa;
+	private JLabel lblPreporueniTelevizor;
+	JButton btnPrethodni;	
+	JButton btnSledeci;
 	/**
 	 * Launch the application.
 	 */
@@ -68,8 +72,9 @@ televizor = new Televizor();
 				e.printStackTrace();
 			}
             
-            String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
-            //String sql = "SELECT * FROM `TelevizorExpert`";
+            //String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
+            String sql = "SELECT * FROM `Televizor` WHERE `dijagonala` = 55";
+            //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` = 12749";
             System.out.println(sql);
             Statement sqlStatement = null;
 			try {
@@ -78,22 +83,24 @@ televizor = new Televizor();
 				System.out.println("Greška u kreiranju stejtmenta");
 				e.printStackTrace();
 			}
-            ResultSet rs = null;
 			try {
 				rs = sqlStatement.executeQuery(sql);
 			} catch (SQLException e) {
 				System.out.println("Greška u izvršenju");
 				e.printStackTrace();
 			}
-            String test = "";
 			try {
-				//rs.next();
 				if(rs.next()){
-					System.out.println(rs.getString("smart"));
-					//televizor.setSmart(Smart.valueOf("SMART"));
+					televizor.setIme(rs.getString("model"));
+					televizor.setCena(rs.getInt("maxCena"));
+					televizor.setInternet(Internet.valueOf(rs.getString("internet")));
+					televizor.setTuner(tv.getTuner());
+					televizor.setDijagonala(rs.getInt("dijagonala"));
+					televizor.setTipEkrana(TipEkrana.valueOf(rs.getString("tipEkrana")));
 					televizor.setSmart(Smart.valueOf(rs.getString("smart")));
+					televizor.setBrojPortova(rs.getInt("brojPortova"));
+					televizor.setRezolucija(Rezolucija.valueOf(rs.getString("rezolucija")));
 					System.out.println(televizor);
-				test = rs.getString("model");
 	            byte image[];
 				image = rs.getBytes("slika");
 				ImageIcon icon = new ImageIcon(image);
@@ -101,18 +108,23 @@ televizor = new Televizor();
 				Image imm = im.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
 				ImageIcon myImg = new ImageIcon(imm);
 				lblImage.setIcon(myImg);
+				lblIzabrani.setText("<html>" + televizor.ispisOdabranogTelevizora().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+				}
+				if(!rs.next()){
+					btnSledeci.setEnabled(false);
+				}else{
+					rs.previous();
 				}
 			} catch (SQLException e) {
 				System.out.println("Greška u upisivanju");
 				e.printStackTrace();
 			}
-            System.out.println(test);
-            try {
+            /*try {
 				connection.close();
 			} catch (SQLException e) {
 				System.out.println("Greška u zatvaranju");
 				e.printStackTrace();
-			}
+			}*/
 
 	}
 	/**
@@ -129,7 +141,7 @@ televizor = new Televizor();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblOdgovor = new JLabel("New label");
+		lblOdgovor = new JLabel("New label");
 		lblOdgovor.setBounds(23, 11, 354, 268);
 		contentPane.add(lblOdgovor);
 		//lblOdgovor.setText(tv.toString());
@@ -153,6 +165,58 @@ televizor = new Televizor();
 		lblImage = new JLabel("New label");
 		lblImage.setBounds(485, 24, 264, 230);
 		contentPane.add(lblImage);
+		
+		lblIzabrani = new JLabel("New label");
+		lblIzabrani.setBounds(485, 265, 349, 230);
+		contentPane.add(lblIzabrani);
+		
+		btnPrethodni = new JButton("<html><h1>&#x21E6;</h1></html>");
+		btnPrethodni.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if(rs.previous()){
+						btnSledeci.setEnabled(true);
+					}
+				} catch (SQLException e1) {
+					System.out.println("Greška kod odabira prethodnog");
+					e1.printStackTrace();
+				}
+				promena();
+			}
+		});
+		btnPrethodni.setBounds(558, 503, 49, 29);
+		contentPane.add(btnPrethodni);
+		btnPrethodni.setEnabled(false);
+		
+		btnSledeci = new JButton("<html><h1>&#x21E8;</h1></html>");
+		btnSledeci.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(rs.next()){
+						btnPrethodni.setEnabled(true);
+					}
+				} catch (SQLException e1) {
+					System.out.println("Greška kod odabira sledeæeg");
+					e1.printStackTrace();
+				}
+				promena();
+			}
+		});
+		btnSledeci.setBounds(629, 503, 49, 29);
+		contentPane.add(btnSledeci);
+		
+		lblNeophodneKarakteristikeZa = new JLabel("Neophodne karakteristike za va\u0161 televizor:");
+		lblNeophodneKarakteristikeZa.setBounds(23, 11, 354, 14);
+		contentPane.add(lblNeophodneKarakteristikeZa);
+		
+		lblPreporueniTelevizor = new JLabel("Preporu\u010Deni televizor:");
+		lblPreporueniTelevizor.setBounds(482, 11, 322, 14);
+		contentPane.add(lblPreporueniTelevizor);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(410, 11, 11, 487);
+		contentPane.add(separator);
 		baza();
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -161,6 +225,44 @@ televizor = new Televizor();
 				TelevizorMain.showYourself();
 			}
 		});
+	}
+	
+	private void promena(){
+		try {
+		televizor.setIme(rs.getString("model"));
+		televizor.setCena(rs.getInt("maxCena"));
+		televizor.setInternet(Internet.valueOf(rs.getString("internet")));
+		televizor.setTuner(tv.getTuner());
+		televizor.setDijagonala(rs.getInt("dijagonala"));
+		televizor.setTipEkrana(TipEkrana.valueOf(rs.getString("tipEkrana")));
+		televizor.setSmart(Smart.valueOf(rs.getString("smart")));
+		televizor.setBrojPortova(rs.getInt("brojPortova"));
+		televizor.setRezolucija(Rezolucija.valueOf(rs.getString("rezolucija")));
+    byte image[];
+	image = rs.getBytes("slika");
+	ImageIcon icon = new ImageIcon(image);
+	Image im = icon.getImage();
+	Image imm = im.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+	ImageIcon myImg = new ImageIcon(imm);
+	lblImage.setIcon(myImg);
+	lblIzabrani.setText("<html>" + televizor.ispisOdabranogTelevizora().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
+	if(!rs.next()){
+		rs.previous();
+		btnSledeci.setEnabled(false);
+	}else{
+		rs.previous();
+	}
+	if(!rs.previous()){
+		rs.next();
+		btnPrethodni.setEnabled(false);
+	}else{
+		rs.next();
+	}
+		} catch (SQLException e) {
+			System.out.println("Greška kod prikazivanja odabranog");
+			e.printStackTrace();
+		}
+
 	}
 
 	

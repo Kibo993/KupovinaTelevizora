@@ -37,6 +37,7 @@ public class Enums {
 		DVB_S2("DVB S2"),
 		DVB_T2_S2("DVB T2/S2"),
 		DVB_T2_C("DVB T2/C"),
+		DVB_T2_C_S2("DVB T2/C/S2"),
 		ANALOGNI("Analogni");
 		private final String tuner;
 
