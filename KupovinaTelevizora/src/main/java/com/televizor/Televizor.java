@@ -224,7 +224,7 @@ public class Televizor {
 				+ internet.getValue() + "\nTjuner: "
 				+ tuner.getValue() + "\nDijagonala: " + dijagonala + "\"\nTip Ekrana: "
 				+ tipEkrana + "\nSmart televizor: " + smart.getValue() + "\nMinimalni broj portova: "
-				+ brojPortova + "\nRezolucija slike: "
+				+ brojPortova + "\nPreporuèena rezolucija slike: "
 				+ rezolucija.getValue();
 	}
 	

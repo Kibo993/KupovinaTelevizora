@@ -4,6 +4,8 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import com.televizor.Enums.*;
+
 public class TelevizorThread  extends Thread{
 	
 	Boolean pokrenuta=false;
@@ -23,7 +25,7 @@ public class TelevizorThread  extends Thread{
 				form.setVisible(true);
 				while(form.isVisible()){
 					System.out.print("");
-				}
+				}		        
 				kSession.insert(tv);
 				kSession.fireAllRules();
 				FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);

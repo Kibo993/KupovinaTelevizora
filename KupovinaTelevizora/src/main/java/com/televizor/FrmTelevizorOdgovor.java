@@ -73,7 +73,59 @@ televizor = new Televizor();
 				e.printStackTrace();
 			}
             
-            String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
+            String uslovInternet;
+            String uslovTipEkrana;
+            //String uslovSmart;
+            String uslovRezolucija;
+            
+            switch (tv.getInternet()) {
+			case WIFI:
+				uslovInternet = "`internet` = 'WIFI'";
+				break;
+			case BEZWIFIJA:
+				uslovInternet = "(`internet` = 'WIFI' OR `internet` = 'BEZWIFIJA')";
+				break;
+			case NE:
+				uslovInternet = "`internet` = 'NE'";
+				break;
+			default:
+				uslovInternet = " ";
+				break;
+			}
+            
+            switch (tv.getTipEkrana()) {
+			case LED:
+				uslovTipEkrana = "`tipEkrana` = 'LED'";
+				break;
+			case OLED:
+				uslovTipEkrana = "(`tipEkrana` = 'OLED' OR `tipEkrana` = 'QLED' OR `tipEkrana` = 'LED')";
+				break;
+			case QLED:
+				uslovTipEkrana = "(`tipEkrana` = 'QLED' OR `tipEkrana` = 'LED')";
+				break;
+			default:
+				uslovTipEkrana = " ";
+				break;
+			}
+            
+            switch (tv.getRezolucija()) {
+			case HD:
+				uslovRezolucija = "`rezolucija` = 'HD'";
+				break;
+			case FULLHD:
+				uslovRezolucija = "(`rezolucija` = 'FULLHD' OR `rezolucija` = 'UHD')";
+				break;
+			case UHD:
+				uslovRezolucija = "(`rezolucija` = 'FULLHD' OR `rezolucija` = 'UHD')";
+				break;
+			default:
+				uslovRezolucija = " ";
+				break;
+			}
+            
+            String sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `dijagonala` BETWEEN "+(tv.getDijagonala()-3)+" AND "+(tv.getDijagonala()+3)+" AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
+            
+            //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND `internet` LIKE '%"+tv.getInternet()+"%' AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `dijagonala` BETWEEN "+(tv.getDijagonala()-2)+" AND "+(tv.getDijagonala()+2)+" AND `tipEkrana` = '"+tv.getTipEkrana()+"' AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND `rezolucija` = '"+tv.getRezolucija()+"'";
             //String sql = "SELECT * FROM `Televizor` WHERE `dijagonala` = 55";
             //String sql = "SELECT * FROM `Televizor`";
             //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` = 12749";
@@ -99,7 +151,7 @@ televizor = new Televizor();
 					televizor.setCena(rs.getInt("maxCena"));
 					televizor.setInternet(Internet.valueOf(rs.getString("internet")));
 					if(rs.getString("tuner").contains("DVB_T2_S2")){
-						if(rs.getString("tuner").contains("DVB_T2_S2")){
+						if(rs.getString("tuner").contains("DVB_T2_C")){
 							televizor.setTuner(Tuner.DVB_T2_C_S2);
 						}
 					}else{
@@ -245,6 +297,8 @@ televizor = new Televizor();
 	
 	private void promena(){
 		try {
+		String tuners[] = rs.getString("tuner").split(" ");
+		tuner = tuners[0];
 		televizor.setIme(rs.getString("model"));
 		televizor.setCena(rs.getInt("maxCena"));
 		televizor.setInternet(Internet.valueOf(rs.getString("internet")));
