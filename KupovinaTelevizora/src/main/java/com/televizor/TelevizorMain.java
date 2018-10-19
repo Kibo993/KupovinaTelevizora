@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
 	// VIDI KAKO DA JDBC DRIVER MOŽE I DA SE POZOVE KAD SE SKINE SA GIT HUBA!!!!
-	//PODESI SQL UPIT PRAVILNO
+	//U BAZI STAVI ANALOGNI KOD SVIH NAKON ŠTO STAVIŠ 45 KARAKTERA VARCHARA
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
 //	-rezolucija

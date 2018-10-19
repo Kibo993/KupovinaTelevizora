@@ -223,9 +223,9 @@ lock-on-active true
 end
 
 rule "Ekran naspram prozora, nema dovoljno novca"
-lock-on-active true
+no-loop true
     when
-        tv : Televizor(pozicija == Pozicija.NASPRAM && cena<123900)
+        tv : Televizor(pozicija == Pozicija.NASPRAM && (cena<123900 || cena >=123900 && dijagonala<49) && dijagonala != 0)
     then
 		tv.setTipEkrana(TipEkrana.LED);
 		System.out.println("TEST21");
@@ -233,9 +233,9 @@ lock-on-active true
 end
 
 rule "Ekran naspram prozora, ima dovoljno novca"
-lock-on-active true
+no-loop true
     when
-        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=123900)
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=123900 && dijagonala>=49 && dijagonala != 0)
     then
 		tv.setTipEkrana(TipEkrana.QLED);
 		System.out.println("TEST22");
@@ -243,9 +243,9 @@ lock-on-active true
 end
 
 rule "Ekran ispred prozora ili sa strane, nema dovoljno novca"
-lock-on-active true
+no-loop true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena<123900)
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && (cena<123900 || cena >=123900 && dijagonala<49) && dijagonala != 0)
     then
 		tv.setTipEkrana(TipEkrana.LED);
 		System.out.println("TEST23");
@@ -253,9 +253,9 @@ lock-on-active true
 end
 
 rule "Ekran ispred prozora ili sa strane, ima nešto više novca"
-lock-on-active true
+no-loop true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && (cena>=123900 && cena<129900))
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && ((cena>=123900 && cena<129900) || cena >=123900 && dijagonala>=49 && dijagonala <55) && dijagonala != 0)
     then
 		tv.setTipEkrana(TipEkrana.QLED);
 		System.out.println("TEST24");
@@ -263,9 +263,9 @@ lock-on-active true
 end
 
 rule "Ekran ispred prozora ili sa strane, ima dovoljno novca"
-lock-on-active true
+no-loop true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena>=129900)
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena>=129900 && dijagonala>=55 && dijagonala != 0)
     then
 		tv.setTipEkrana(TipEkrana.OLED);
 		System.out.println("TEST25");
@@ -316,26 +316,26 @@ lock-on-active true
     when
         tv : Televizor(udaljenostOdTV < 1.0, kom : komentar)
     then
-		tv.setDijagonala(0);
+		tv.setDijagonala(19);
 		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je štetno gledati televiziju.\nZato se preporuèuje portabl televizor.\n");
 		System.out.println("TEST29");
 		update( tv );
 end
 
-rule "Za ekran manji od 32 inèa dovoljna je HD (HDReady) rezolucija ili ako je veæi televizor sa analognim tjunerom"
+rule "Za ekran manji od 34 inèa dovoljna je HD (HDReady) rezolucija ili ako je veæi televizor sa analognim tjunerom"
 no-loop true
     when
-        tv : Televizor((dijagonala<32 && ((rezolucija != null && rezolucija != Rezolucija.HD)|| rezolucija == null)) || (tuner != null && tuner == Tuner.ANALOGNI))
+        tv : Televizor((dijagonala<34 && ((rezolucija != null && rezolucija != Rezolucija.HD)|| rezolucija == null)) || (tuner != null && tuner == Tuner.ANALOGNI && rezolucija != null && rezolucija != Rezolucija.HD))
     then
 		tv.setRezolucija(Rezolucija.HD);
 		System.out.println("TEST30");
 		update( tv );
 end
 
-rule "Za ekran veæi od 32 inèa potrebna je FullHD rezolucija"
+rule "Za ekran veæi od 34 inèa potrebna je FullHD rezolucija"
 no-loop true
     when
-        tv : Televizor(dijagonala>=32 && tuner != null && tuner != Tuner.ANALOGNI && ((rezolucija != null && rezolucija != Rezolucija.UHD && rezolucija != Rezolucija.FULLHD)|| rezolucija == null))
+        tv : Televizor(dijagonala>=34 && tuner != null && tuner != Tuner.ANALOGNI && ((rezolucija != null && rezolucija != Rezolucija.UHD && rezolucija != Rezolucija.FULLHD)|| rezolucija == null))
     then
 		tv.setRezolucija(Rezolucija.FULLHD);
 		System.out.println("TEST31");
@@ -435,7 +435,7 @@ end
 rule "Ako gleda filmove, ne prati klasièan tv, na velikom televizoru može da ih gleda u UltraHD rezoluciji"
 no-loop true
     when
-        tv : Televizor(dijagonala>=45 && neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && smart != null && smart != Smart.NE)
+        tv : Televizor(dijagonala>=45 && neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && smart != null && smart != Smart.NE && rezolucija != null && rezolucija != Rezolucija.UHD)
     then
 		tv.setRezolucija(Rezolucija.UHD);
 		System.out.println("TEST40");
