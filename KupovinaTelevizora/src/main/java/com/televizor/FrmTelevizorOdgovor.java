@@ -36,6 +36,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	private static Televizor televizor;
 	private Connection connection;
 	private ResultSet rs = null;
+	private String tuner;
 	private JLabel lblNeophodneKarakteristikeZa;
 	private JLabel lblPreporueniTelevizor;
 	JButton btnPrethodni;	
@@ -72,8 +73,9 @@ televizor = new Televizor();
 				e.printStackTrace();
 			}
             
-            //String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
-            String sql = "SELECT * FROM `Televizor` WHERE `dijagonala` = 55";
+            String sql = "SELECT * FROM `Televizor` WHERE `internet` = '"+tv.getInternet()+"' AND `tuner` LIKE '%"+tv.getTuner()+"%'";
+            //String sql = "SELECT * FROM `Televizor` WHERE `dijagonala` = 55";
+            //String sql = "SELECT * FROM `Televizor`";
             //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` = 12749";
             System.out.println(sql);
             Statement sqlStatement = null;
@@ -91,10 +93,18 @@ televizor = new Televizor();
 			}
 			try {
 				if(rs.next()){
+					String tuners[] = rs.getString("tuner").split(" ");
+					tuner = tuners[0];
 					televizor.setIme(rs.getString("model"));
 					televizor.setCena(rs.getInt("maxCena"));
 					televizor.setInternet(Internet.valueOf(rs.getString("internet")));
-					televizor.setTuner(tv.getTuner());
+					if(rs.getString("tuner").contains("DVB_T2_S2")){
+						if(rs.getString("tuner").contains("DVB_T2_S2")){
+							televizor.setTuner(Tuner.DVB_T2_C_S2);
+						}
+					}else{
+						televizor.setTuner(Tuner.valueOf(tuner));
+					}
 					televizor.setDijagonala(rs.getInt("dijagonala"));
 					televizor.setTipEkrana(TipEkrana.valueOf(rs.getString("tipEkrana")));
 					televizor.setSmart(Smart.valueOf(rs.getString("smart")));
@@ -119,12 +129,6 @@ televizor = new Televizor();
 				System.out.println("Greška u upisivanju");
 				e.printStackTrace();
 			}
-            /*try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println("Greška u zatvaranju");
-				e.printStackTrace();
-			}*/
 
 	}
 	/**
@@ -155,6 +159,12 @@ televizor = new Televizor();
 		JButton btnPocetak = new JButton("Nazad");
 		btnPocetak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					System.out.println("Greška u zatvaranju");
+					e.printStackTrace();
+				}
 				dispose();
 				TelevizorMain.showYourself();
 			}
@@ -221,6 +231,12 @@ televizor = new Televizor();
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e) {
+				try {
+					connection.close();
+				} catch (SQLException ex) {
+					System.out.println("Greška u zatvaranju");
+					ex.printStackTrace();
+				}
 				dispose();
 				TelevizorMain.showYourself();
 			}
@@ -232,7 +248,13 @@ televizor = new Televizor();
 		televizor.setIme(rs.getString("model"));
 		televizor.setCena(rs.getInt("maxCena"));
 		televizor.setInternet(Internet.valueOf(rs.getString("internet")));
-		televizor.setTuner(tv.getTuner());
+		if(rs.getString("tuner").contains("DVB_T2_S2")){
+			if(rs.getString("tuner").contains("DVB_T2_S2")){
+				televizor.setTuner(Tuner.DVB_T2_C_S2);
+			}
+		}else{
+			televizor.setTuner(Tuner.valueOf(tuner));
+		}
 		televizor.setDijagonala(rs.getInt("dijagonala"));
 		televizor.setTipEkrana(TipEkrana.valueOf(rs.getString("tipEkrana")));
 		televizor.setSmart(Smart.valueOf(rs.getString("smart")));

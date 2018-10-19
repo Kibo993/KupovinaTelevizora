@@ -13,9 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
-	//Sadašnji server sa bazom nepouzdan!!!!
 	// VIDI KAKO DA JDBC DRIVER MOŽE I DA SE POZOVE KAD SE SKINE SA GIT HUBA!!!!
-	//PODESI SQL UPIT PRAVILNO I POPUNU ZA TUNER ZA ODABRANI TELEVIZOR (DAKLE KAKAV TUNER STVARNO IMA)
+	//PODESI SQL UPIT PRAVILNO
 //televizori specifikacije:
 //	-DVB - T/C/S analogni tjuneri
 //	-rezolucija

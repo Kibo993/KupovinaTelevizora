@@ -220,7 +220,7 @@ public class Televizor {
 	}
 	
 	public String ispisNaFormi() {
-		return "Maksimalna cena: " + cena + "\nMoguænost prijema interneta: "
+		return "Maksimalna cena: " + cena + " RSD\nMoguænost prijema interneta: "
 				+ internet.getValue() + "\nTjuner: "
 				+ tuner.getValue() + "\nDijagonala: " + dijagonala + "\"\nTip Ekrana: "
 				+ tipEkrana + "\nSmart televizor: " + smart.getValue() + "\nMinimalni broj portova: "
@@ -233,7 +233,7 @@ public class Televizor {
 	}
 	
 	public String ispisOdabranogTelevizora() {
-		return "Model televizora: "+ ime +"\nCena: " + cena + "\nMoguænost prijema interneta: "
+		return "Model televizora: "+ ime +"\nCena: " + cena + " RSD\nMoguænost prijema interneta: "
 				+ internet.getValue() + "\nTjuner: "
 				+ tuner.getValue() + "\nDijagonala: " + dijagonala + "\"\nTip Ekrana: "
 				+ tipEkrana + "\nSmart televizor: " + smart.getValue() + "\nBroj portova: "

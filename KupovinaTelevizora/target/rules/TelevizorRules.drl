@@ -225,7 +225,7 @@ end
 rule "Ekran naspram prozora, nema dovoljno novca"
 lock-on-active true
     when
-        tv : Televizor(pozicija == Pozicija.NASPRAM && cena<200000)
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena<123900)
     then
 		tv.setTipEkrana(TipEkrana.LED);
 		System.out.println("TEST21");
@@ -235,7 +235,7 @@ end
 rule "Ekran naspram prozora, ima dovoljno novca"
 lock-on-active true
     when
-        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=200000)
+        tv : Televizor(pozicija == Pozicija.NASPRAM && cena>=123900)
     then
 		tv.setTipEkrana(TipEkrana.QLED);
 		System.out.println("TEST22");
@@ -245,7 +245,7 @@ end
 rule "Ekran ispred prozora ili sa strane, nema dovoljno novca"
 lock-on-active true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena<170000)
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena<123900)
     then
 		tv.setTipEkrana(TipEkrana.LED);
 		System.out.println("TEST23");
@@ -255,9 +255,9 @@ end
 rule "Ekran ispred prozora ili sa strane, ima nešto više novca"
 lock-on-active true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && (cena>=170000 && cena<200000))
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && (cena>=123900 && cena<129900))
     then
-		tv.setTipEkrana(TipEkrana.OLED);
+		tv.setTipEkrana(TipEkrana.QLED);
 		System.out.println("TEST24");
 		update( tv );
 end
@@ -265,9 +265,9 @@ end
 rule "Ekran ispred prozora ili sa strane, ima dovoljno novca"
 lock-on-active true
     when
-        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena==200000)
+        tv : Televizor((pozicija == Pozicija.ISPRED || pozicija == Pozicija.PORED) && cena>=129900)
     then
-		tv.setTipEkrana(TipEkrana.QLED);
+		tv.setTipEkrana(TipEkrana.OLED);
 		System.out.println("TEST25");
 		update( tv );
 end
