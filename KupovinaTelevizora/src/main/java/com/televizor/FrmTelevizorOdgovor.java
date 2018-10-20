@@ -58,24 +58,9 @@ public class FrmTelevizorOdgovor extends JFrame {
 	}
 
 	private void baza(){
-televizor = new Televizor();
-            try {
-				Class.forName("com.mysql.jdbc.Driver");
-			} catch (ClassNotFoundException e) {
-				System.out.println("Greška nije pronaðen drajver");
-				e.printStackTrace();
-			}
-            try {
-				connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8&useSSL=false", "bokidukic2fon", "BokiDukic-993");
-				connection.setAutoCommit(false);
-            } catch (SQLException e) {
-            	System.out.println("Greška u povezivanju");
-				e.printStackTrace();
-			}
-            
+
             String uslovInternet;
             String uslovTipEkrana;
-            //String uslovSmart;
             String uslovRezolucija;
             
             switch (tv.getInternet()) {
@@ -86,7 +71,7 @@ televizor = new Televizor();
 				uslovInternet = "(`internet` = 'WIFI' OR `internet` = 'BEZWIFIJA')";
 				break;
 			case NE:
-				uslovInternet = "`internet` = 'NE'";
+				uslovInternet = "(`internet` = 'WIFI' OR `internet` = 'BEZWIFIJA' OR `internet` = 'NE')";
 				break;
 			default:
 				uslovInternet = " ";
@@ -110,7 +95,7 @@ televizor = new Televizor();
             
             switch (tv.getRezolucija()) {
 			case HD:
-				uslovRezolucija = "`rezolucija` = 'HD'";
+				uslovRezolucija = "(`rezolucija` = 'HD' OR `rezolucija` = 'FULLHD')";
 				break;
 			case FULLHD:
 				uslovRezolucija = "(`rezolucija` = 'FULLHD' OR `rezolucija` = 'UHD')";
@@ -122,27 +107,38 @@ televizor = new Televizor();
 				uslovRezolucija = " ";
 				break;
 			}
-            
-            String sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `dijagonala` BETWEEN "+(tv.getDijagonala()-3)+" AND "+(tv.getDijagonala()+3)+" AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
-            
-            //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND `internet` LIKE '%"+tv.getInternet()+"%' AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `dijagonala` BETWEEN "+(tv.getDijagonala()-2)+" AND "+(tv.getDijagonala()+2)+" AND `tipEkrana` = '"+tv.getTipEkrana()+"' AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND `rezolucija` = '"+tv.getRezolucija()+"'";
-            //String sql = "SELECT * FROM `Televizor` WHERE `dijagonala` = 55";
-            //String sql = "SELECT * FROM `Televizor`";
-            //String sql = "SELECT * FROM `Televizor` WHERE `maxCena` = 12749";
-            System.out.println(sql);
-            Statement sqlStatement = null;
-			try {
-				sqlStatement = connection.createStatement();
-			} catch (SQLException e) {
-				System.out.println("Greška u kreiranju stejtmenta");
-				e.printStackTrace();
+
+		String sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `dijagonala` BETWEEN "+(tv.getDijagonala()-3)+" AND "+(tv.getDijagonala()+3)+" AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
+        popunaRS(sql);
+        try {
+			if(!rs.next()){
+				sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
+				popunaRS(sql);
+				if(!rs.next()){
+					sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
+					popunaRS(sql);
+					if(!rs.next()){
+						sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND "+uslovTipEkrana+" AND `brojPortova` >= "+tv.getBrojPortova();
+						popunaRS(sql);
+						if(!rs.next()){
+							sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovTipEkrana+" AND `brojPortova` >= "+tv.getBrojPortova();
+							popunaRS(sql);
+						}else{
+							rs.previous();
+						}
+					}else{
+						rs.previous();
+					}
+				}else{
+					rs.previous();
+				}
+			}else{
+				rs.previous();
 			}
-			try {
-				rs = sqlStatement.executeQuery(sql);
-			} catch (SQLException e) {
-				System.out.println("Greška u izvršenju");
-				e.printStackTrace();
-			}
+		} catch (SQLException e1) {
+			System.out.println("Greška u sql upitu");
+			e1.printStackTrace();
+		}
 			try {
 				if(rs.next()){
 					String tuners[] = rs.getString("tuner").split(" ");
@@ -182,6 +178,38 @@ televizor = new Televizor();
 				e.printStackTrace();
 			}
 
+	}
+	
+	private void popunaRS(String sql){
+		televizor = new Televizor();
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Greška nije pronaðen drajver");
+			e.printStackTrace();
+		}
+        try {
+			connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8&useSSL=false", "bokidukic2fon", "BokiDukic-993");
+			connection.setAutoCommit(false);
+        } catch (SQLException e) {
+        	System.out.println("Greška u povezivanju");
+			e.printStackTrace();
+		}
+
+        System.out.println(sql);
+        Statement sqlStatement = null;
+		try {
+			sqlStatement = connection.createStatement();
+		} catch (SQLException e) {
+			System.out.println("Greška u kreiranju stejtmenta");
+			e.printStackTrace();
+		}
+		try {
+			rs = sqlStatement.executeQuery(sql);
+		} catch (SQLException e) {
+			System.out.println("Greška u izvršenju");
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * Create the frame.
