@@ -1,9 +1,7 @@
 package com.televizor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
-import java.awt.Toolkit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -136,7 +134,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 				rs.previous();
 			}
 		} catch (SQLException e1) {
-			System.out.println("Greška u sql upitu");
+			System.out.println("Gre\u0161ka u sql upitu");
 			e1.printStackTrace();
 		}
 			try {
@@ -174,7 +172,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 					rs.previous();
 				}
 			} catch (SQLException e) {
-				System.out.println("Greška u upisivanju");
+				System.out.println("Gre\u0161ka u upisivanju");
 				e.printStackTrace();
 			}
 
@@ -185,14 +183,14 @@ public class FrmTelevizorOdgovor extends JFrame {
         try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			System.out.println("Greška nije pronaðen drajver");
+			System.out.println("Gre\u0161ka nije prona\u0111en drajver");
 			e.printStackTrace();
 		}
         try {
 			connection = DriverManager.getConnection("jdbc:mysql://www.db4free.net:3306/televizorexpert?useUnicode=true&characterEncoding=utf-8&useSSL=false", "bokidukic2fon", "BokiDukic-993");
 			connection.setAutoCommit(false);
         } catch (SQLException e) {
-        	System.out.println("Greška u povezivanju");
+        	System.out.println("Gre\u0161ka u povezivanju");
 			e.printStackTrace();
 		}
 
@@ -201,13 +199,13 @@ public class FrmTelevizorOdgovor extends JFrame {
 		try {
 			sqlStatement = connection.createStatement();
 		} catch (SQLException e) {
-			System.out.println("Greška u kreiranju stejtmenta");
+			System.out.println("Gre\u0161ka u kreiranju stejtmenta");
 			e.printStackTrace();
 		}
 		try {
 			rs = sqlStatement.executeQuery(sql);
 		} catch (SQLException e) {
-			System.out.println("Greška u izvršenju");
+			System.out.println("Gre\u0161ka u izvr\u0161enju");
 			e.printStackTrace();
 		}
 	}
@@ -216,7 +214,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	 */
 	public FrmTelevizorOdgovor(Televizor tv) {
         this.tv = tv;
-        this.setTitle("Kupovina televizora - ponuðeno rešenje");
+        this.setTitle("Kupovina televizora - ponu\u0111eno re\u0161enje");
         this.setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 850, 600);
@@ -242,7 +240,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 				try {
 					connection.close();
 				} catch (SQLException e) {
-					System.out.println("Greška u zatvaranju");
+					System.out.println("Gre\u0161ka u zatvaranju");
 					e.printStackTrace();
 				}
 				dispose();
@@ -268,7 +266,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 						btnSledeci.setEnabled(true);
 					}
 				} catch (SQLException e1) {
-					System.out.println("Greška kod odabira prethodnog");
+					System.out.println("Gre\u0161ka kod odabira prethodnog");
 					e1.printStackTrace();
 				}
 				promena();
@@ -286,7 +284,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 						btnPrethodni.setEnabled(true);
 					}
 				} catch (SQLException e1) {
-					System.out.println("Greška kod odabira sledeæeg");
+					System.out.println("Gre\u0161ka kod odabira slede\u0107eg");
 					e1.printStackTrace();
 				}
 				promena();
@@ -314,7 +312,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 				try {
 					connection.close();
 				} catch (SQLException ex) {
-					System.out.println("Greška u zatvaranju");
+					System.out.println("Gre\u0161ka u zatvaranju");
 					ex.printStackTrace();
 				}
 				dispose();
@@ -363,7 +361,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 		rs.next();
 	}
 		} catch (SQLException e) {
-			System.out.println("Greška kod prikazivanja odabranog");
+			System.out.println("Gre\u0161ka kod prikazivanja odabranog");
 			e.printStackTrace();
 		}
 

@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
@@ -42,16 +41,16 @@ public class FrmKupovinaTelevizora extends JFrame{
 	
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String PRIMARNIPRIJEM = "Primarni prijem programa";
-    final static String PRIJEMKABLOVSKA = "Naèin prijema kablovske";
-    final static String PRIJEMSATELITSKA = "Naèin prijema satelitske";
+    final static String PRIJEMKABLOVSKA = "Na\u010Din prijema kablovske";
+    final static String PRIJEMSATELITSKA = "Na\u010Din prijema satelitske";
     final static String MESTOSTANOVANJA = "Mesto stanovanja";
-    final static String UPOTREBA = "Za šta se televizor koristi";
+    final static String UPOTREBA = "Za \u0161ta se televizor koristi";
     final static String SEKUNDARNIPRIJEM = "Sekundarni prijem programa";
-    final static String DODATNEMOGUCNOSTI = "Dodatne moguænosti";
+    final static String DODATNEMOGUCNOSTI = "Dodatne mogu\u0107nosti";
     final static String INTERNET = "Internet";
     final static String POZICIJATV = "Pozicija tv-a u prostoriji";
     final static String UDALJENOSTTV = "Udaljenost od ekrana";
-    final static String UREDJAJI = "Dodatni ureðaji";
+    final static String UREDJAJI = "Dodatni ure\u0111aji";
     
     private int maxCena = 100000;
     private int udaljenostOdEkrana = 300;
@@ -261,7 +260,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getNacinPrijema()!=null){
         			cl.show(questionsPanel, primarniPrijemPrograma);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -308,7 +307,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getPrijemKablovska()!=null){
         			cl.show(questionsPanel, SEKUNDARNIPRIJEM);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -348,7 +347,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(sekPrijemSelected){
         				cl.show(questionsPanel, INTERNET);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -392,7 +391,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(dodMogucnostiSelected){
         			dispose();
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -437,7 +436,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getInternet()!=null){
         				cl.show(questionsPanel, POZICIJATV);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -481,7 +480,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getPozicija()!=null){
         				cl.show(questionsPanel, UDALJENOSTTV);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -629,7 +628,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getPrijemSatelitska()!=null){
         				cl.show(questionsPanel, SEKUNDARNIPRIJEM);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -674,7 +673,7 @@ public class FrmKupovinaTelevizora extends JFrame{
         		if(tv.getMestoStanovanja()!=null){
         				cl.show(questionsPanel, INTERNET);
         		}else{
-        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Greška", JOptionPane.ERROR_MESSAGE);
+        			JOptionPane.showMessageDialog(contentPane, "Morate odabrati opciju!", "Gre\u0161ka", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
@@ -846,7 +845,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 	
 	private String uredjajiSelected(){
 		if(chckbxRacunar.isSelected()){
-			dodatniUredjaji+= " Raèunar ";
+			dodatniUredjaji+= " Racunar ";
 		}
 		if(chckbxDvd.isSelected()){
 			dodatniUredjaji+= " DVD ";

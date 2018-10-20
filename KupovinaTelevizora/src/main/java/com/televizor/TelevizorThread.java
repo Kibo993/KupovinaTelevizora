@@ -4,7 +4,6 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-import com.televizor.Enums.*;
 
 public class TelevizorThread  extends Thread{
 	
