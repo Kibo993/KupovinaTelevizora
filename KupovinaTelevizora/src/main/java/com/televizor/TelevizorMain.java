@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
-	// VIDI KAKO DA JDBC DRIVER MOZE I DA SE POZOVE KAD SE SKINE SA GIT HUBA!!!!
+	
 private JPanel contentPane;
 	
 	private static TelevizorThread tv;
