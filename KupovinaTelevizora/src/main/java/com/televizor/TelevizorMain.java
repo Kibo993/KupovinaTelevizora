@@ -1,6 +1,5 @@
 package com.televizor;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +17,8 @@ private JPanel contentPane;
 	
 	private static TelevizorThread tv;
 	private static TelevizorMain frame;
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.

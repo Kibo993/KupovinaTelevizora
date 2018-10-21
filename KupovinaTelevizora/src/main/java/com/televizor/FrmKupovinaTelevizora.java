@@ -25,9 +25,8 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 
-import java.awt.Component;
-
-import javax.swing.Box;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -38,6 +37,9 @@ public class FrmKupovinaTelevizora extends JFrame{
 	private boolean sekPrijemSelected = false;
 	private boolean dodMogucnostiSelected = false;
 	private String nazadSaInterneta;
+	private boolean closed = false;
+
+	private static final long serialVersionUID = 1L;
 	
 	final static String CENATELEVIZORA = "Cena televizora";
     final static String PRIMARNIPRIJEM = "Primarni prijem programa";
@@ -113,13 +115,22 @@ public class FrmKupovinaTelevizora extends JFrame{
 		});
 	}
 	
+	@SuppressWarnings("static-access")
 	public FrmKupovinaTelevizora(Televizor tv) {
         this.tv = tv;
         this.setTitle("Kupovina televizora");
         this.setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				closed = true;
+				dispose();
+				TelevizorMain.zaustavi();
+				TelevizorMain.showYourself();
+			}
+		});
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -874,6 +885,10 @@ public class FrmKupovinaTelevizora extends JFrame{
 		}
 		return neklasican;
 	}
+	
+	public boolean isClosed(){
+		return closed;
+	}
 	/*
 	public String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<JRadioButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
@@ -891,7 +906,8 @@ public class FrmKupovinaTelevizora extends JFrame{
 	 * Create the frame.
 	 */
 	public FrmKupovinaTelevizora() {
+		
 		new FrmKupovinaTelevizora(tv).setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }

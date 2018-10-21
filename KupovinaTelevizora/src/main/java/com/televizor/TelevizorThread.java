@@ -24,12 +24,13 @@ public class TelevizorThread  extends Thread{
 				form.setVisible(true);
 				while(form.isVisible()){
 					System.out.print("");
-				}		        
-				kSession.insert(tv);
-				kSession.fireAllRules();
-				FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);
-				answerForm.setVisible(true);
-				//pokrenuta = false;
+				}
+				if(!form.isClosed()){
+					kSession.insert(tv);
+					kSession.fireAllRules();
+					FrmTelevizorOdgovor answerForm = new FrmTelevizorOdgovor(tv);
+					answerForm.setVisible(true);
+				}
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}

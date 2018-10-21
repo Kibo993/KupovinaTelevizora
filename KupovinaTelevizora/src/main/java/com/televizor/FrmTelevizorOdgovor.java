@@ -20,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -29,6 +30,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	private JLabel lblImage;
 	private JLabel lblOdgovor;
 	private JLabel lblIzabrani;
+	private static final long serialVersionUID = 1L;
 
 	private static Televizor tv;
 	private static Televizor televizor;
@@ -212,6 +214,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("static-access")
 	public FrmTelevizorOdgovor(Televizor tv) {
         this.tv = tv;
         this.setTitle("Kupovina televizora - ponu\u0111eno re\u0161enje");
@@ -250,11 +253,11 @@ public class FrmTelevizorOdgovor extends JFrame {
 		btnPocetak.setBounds(364, 509, 89, 23);
 		contentPane.add(btnPocetak);
 		
-		lblImage = new JLabel("New label");
+		lblImage = new JLabel("Nije pronađen odgovarajući televizor.");
 		lblImage.setBounds(485, 24, 264, 230);
 		contentPane.add(lblImage);
 		
-		lblIzabrani = new JLabel("New label");
+		lblIzabrani = new JLabel("");
 		lblIzabrani.setBounds(485, 265, 349, 230);
 		contentPane.add(lblIzabrani);
 		
