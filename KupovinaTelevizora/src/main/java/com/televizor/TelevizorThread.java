@@ -7,14 +7,13 @@ import org.kie.api.runtime.KieSession;
 
 public class TelevizorThread  extends Thread{
 	
-	Boolean pokrenuta=false;
+	boolean pokrenuta=false;
 	
 @Override
 	public void run() {
 		if(pokrenuta){
 			try {
 				pokrenuta = false;
-				// load up the knowledge base
 				KieServices ks = KieServices.Factory.get();
 				KieContainer kContainer = ks.getKieClasspathContainer();
 				KieSession kSession = kContainer.newKieSession("ksession-rules");

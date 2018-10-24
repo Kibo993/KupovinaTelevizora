@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
-	
+
 private JPanel contentPane;
 	
 	private static TelevizorThread tv;
