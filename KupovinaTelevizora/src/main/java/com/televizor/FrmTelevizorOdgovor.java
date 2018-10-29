@@ -15,8 +15,10 @@ import com.televizor.Enums.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
@@ -28,6 +30,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	private JLabel lblIzabrani;
 	private static final long serialVersionUID = 1L;
 
+	private boolean imaVezu = false;
 	private static Televizor tv;
 	private static Televizor televizor;
 	private TelevizorBaza tb;
@@ -116,7 +119,6 @@ public class FrmTelevizorOdgovor extends JFrame {
 		lblOdgovor = new JLabel("New label");
 		lblOdgovor.setBounds(23, 11, 354, 268);
 		contentPane.add(lblOdgovor);
-		//lblOdgovor.setText(tv.toString());
 		lblOdgovor.setText("<html>" + tv.ispisNaFormi().replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br/>") + "</html>");
 		
 		JLabel lblKomentar = new JLabel("");
@@ -127,7 +129,9 @@ public class FrmTelevizorOdgovor extends JFrame {
 		JButton btnPocetak = new JButton("Nazad");
 		btnPocetak.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				tb.zatvoriKonekciju();
+				if(imaVezu){
+					tb.zatvoriKonekciju();
+			    }
 				dispose();
 				TelevizorMain.showYourself();
 			}
@@ -190,11 +194,34 @@ public class FrmTelevizorOdgovor extends JFrame {
 		separator.setOrientation(SwingConstants.VERTICAL);
 		separator.setBounds(410, 11, 11, 487);
 		contentPane.add(separator);
-		odgovor();
+		
+		 Process p1 = null;
+		try {
+			p1 = java.lang.Runtime.getRuntime().exec("ping -n 1 www.db4free.net");
+		} catch (IOException e1) {
+			System.out.println("Gre\u0161ka kod veze sa internetom");
+			e1.printStackTrace();
+		}
+		    int returnVal = 0;
+			try {
+				returnVal = p1.waitFor();
+			} catch (InterruptedException e1) {
+				System.out.println("Gre\u0161ka kod ping-a");
+				e1.printStackTrace();
+			}
+		    imaVezu = (returnVal==0);
+		    if(imaVezu){
+		    	odgovor();
+		    }else{
+		    	btnSledeci.setEnabled(false);
+		    	lblImage.setText("Nema konekcije sa internetom!");
+		    }
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e) {
-				tb.zatvoriKonekciju();
+				if(imaVezu){
+					tb.zatvoriKonekciju();
+			    }
 				dispose();
 				TelevizorMain.showYourself();
 			}
@@ -246,7 +273,6 @@ public class FrmTelevizorOdgovor extends JFrame {
 		}
 
 	}
-
 	
 	public FrmTelevizorOdgovor() {
 

@@ -445,6 +445,7 @@ end
 
 rule "Ne prati klasican TV sadrzaj, cita vesti ili strimuje, zeli nove sadrzaje, ima sa cega da gleda sadrzaj, nema ni novca za Smart"
 lock-on-active true
+salience 8
     when
         tv : Televizor(neklasicanSadrzaj != null && (neklasicanSadrzaj.contains("Vesti") || neklasicanSadrzaj.contains("Strim")) && (dodatniUredjaji.contains("Racunar") || dodatniUredjaji.contains("SmartTVBox")) && noveMogucnosti == true && cena<30000 && internet != Internet.NE, kom : komentar)
     then
