@@ -236,7 +236,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 		televizor.setCena(rs.getInt("maxCena"));
 		televizor.setInternet(Internet.valueOf(rs.getString("internet")));
 		if(rs.getString("tuner").contains("DVB_T2_S2")){
-			if(rs.getString("tuner").contains("DVB_T2_S2")){
+			if(rs.getString("tuner").contains("DVB_T2_C")){
 				televizor.setTuner(Tuner.DVB_T2_C_S2);
 			}
 		}else{

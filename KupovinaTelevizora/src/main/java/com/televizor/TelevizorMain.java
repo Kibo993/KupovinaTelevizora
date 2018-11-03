@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class TelevizorMain extends JFrame {
-//VIDETI ŠTA KADA NEMA INTERNETA!!!
 private JPanel contentPane;
 	
 	private static TelevizorThread tv;
