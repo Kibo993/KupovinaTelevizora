@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class TelevizorMain extends JFrame {
 private JPanel contentPane;
@@ -39,6 +40,7 @@ private JPanel contentPane;
 	 * Create the frame.
 	 */
 	public TelevizorMain() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TelevizorMain.class.getResource("/image/iconfinder_television_286690.png")));
 		setTitle("Kupovina televizora");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 200);
@@ -72,8 +74,8 @@ private JPanel contentPane;
 		lblDobrodoliUAplikaciju.setBounds(90, 28, 273, 42);
 		contentPane.add(lblDobrodoliUAplikaciju);
 	}
-	
-	 	public static void pokreni(){
+
+		public static void pokreni(){
 	    	tv = new TelevizorThread();
 	    	tv.pokreni();
 	    	tv.start();

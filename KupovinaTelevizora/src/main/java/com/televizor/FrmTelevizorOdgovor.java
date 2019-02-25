@@ -21,6 +21,7 @@ import java.sql.SQLException;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 
 public class FrmTelevizorOdgovor extends JFrame {
 
@@ -275,6 +276,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	}
 	
 	public FrmTelevizorOdgovor() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmTelevizorOdgovor.class.getResource("/image/iconfinder_television_286690.png")));
 
 		new FrmTelevizorOdgovor(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

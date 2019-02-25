@@ -27,6 +27,7 @@ import javax.swing.JCheckBox;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
 
 public class FrmKupovinaTelevizora extends JFrame{
 
@@ -906,6 +907,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 	 * Create the frame.
 	 */
 	public FrmKupovinaTelevizora() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmKupovinaTelevizora.class.getResource("/image/iconfinder_television_286690.png")));
 		
 		new FrmKupovinaTelevizora(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
