@@ -108,6 +108,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	@SuppressWarnings("static-access")
 	public FrmTelevizorOdgovor(Televizor tv) {
         this.tv = tv;
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(FrmTelevizorOdgovor.class.getResource("/image/iconfinder_television_286690.png")));
         this.setTitle("Kupovina televizora - ponu\u0111eno re\u0161enje");
         this.setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -276,8 +277,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 	}
 	
 	public FrmTelevizorOdgovor() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmTelevizorOdgovor.class.getResource("/image/iconfinder_television_286690.png")));
-
+		
 		new FrmTelevizorOdgovor(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}

@@ -119,6 +119,7 @@ public class FrmKupovinaTelevizora extends JFrame{
 	@SuppressWarnings("static-access")
 	public FrmKupovinaTelevizora(Televizor tv) {
         this.tv = tv;
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(FrmKupovinaTelevizora.class.getResource("/image/iconfinder_television_286690.png")));
         this.setTitle("Kupovina televizora");
         this.setResizable(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -907,7 +908,6 @@ public class FrmKupovinaTelevizora extends JFrame{
 	 * Create the frame.
 	 */
 	public FrmKupovinaTelevizora() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(FrmKupovinaTelevizora.class.getResource("/image/iconfinder_television_286690.png")));
 		
 		new FrmKupovinaTelevizora(tv).setVisible(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
