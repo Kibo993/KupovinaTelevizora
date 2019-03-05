@@ -68,22 +68,16 @@ public class TelevizorBaza {
 		if(!rs.next()){
 			sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
 			rs = popunaRS(sql);
-			if(!rs.next()){
-				sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND "+uslovTipEkrana+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova()+" AND "+uslovRezolucija;
-				rs = popunaRS(sql);
 				if(!rs.next()){
-					sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND "+uslovTipEkrana+" AND `brojPortova` >= "+tv.getBrojPortova();
+					sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovInternet+" AND `tuner` LIKE '%"+tv.getTuner()+"%' AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova();
 					rs = popunaRS(sql);
 					if(!rs.next()){
-						sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND "+uslovTipEkrana+" AND `brojPortova` >= "+tv.getBrojPortova();
+						sql = "SELECT * FROM `Televizor` WHERE `maxCena` <= "+tv.getCena()+" AND `smart` = '"+tv.getSmart()+"' AND `brojPortova` >= "+tv.getBrojPortova();
 						rs = popunaRS(sql);
 					}else{
 						rs.previous();
 					}
 				}else{
-					rs.previous();
-				}
-			}else{
 				rs.previous();
 			}
 		}else{

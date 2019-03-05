@@ -141,7 +141,7 @@ public class FrmTelevizorOdgovor extends JFrame {
 		btnPocetak.setBounds(364, 509, 89, 23);
 		contentPane.add(btnPocetak);
 		
-		lblImage = new JLabel("Nije pronađen odgovarajući televizor.");
+		lblImage = new JLabel("Nije prona\u0111en odgovaraju\u0107i televizor.");
 		lblImage.setBounds(485, 24, 264, 230);
 		contentPane.add(lblImage);
 		
