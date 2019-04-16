@@ -426,7 +426,7 @@ end
 rule "Ne prati klasican TV sadrzaj, gleda filmove, nema sa cega da pusti film, nema ni novca za semi-smart"
 lock-on-active true
     when
-        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && smart != null && smart == Smart.NE && (dodatniUredjaji.contains("Racunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") == false) && cena<20000, kom : komentar)
+        tv : Televizor(neklasicanSadrzaj != null && neklasicanSadrzaj.contains("Film") && (dodatniUredjaji.contains("Racunar") == false && dodatniUredjaji.contains("SmartTVBox") == false && dodatniUredjaji.contains("DVD") == false) && cena<20000, kom : komentar)
     then
 		tv.setKomentar(kom + "Sa\u010Dekajte dok ne prikupite ne\u0161to vi\u0161e novca\n ili kupite DVD ili polovan Semi-smart ili Smart televizor.\n");
 		System.out.println("TEST42");
