@@ -307,7 +307,6 @@ lock-on-active true
     when
         tv : Televizor(udaljenostOdTV < 1.0, kom : komentar)
     then
-		tv.setDijagonala(19);
 		tv.setKomentar(kom + "Na ovako maloj udaljenosti od ekrana je \u0161tetno gledati televiziju.\nZato se preporu\u010Duje portabl televizor.\n");
 		System.out.println("TEST30");
 		update( tv );
